@@ -1,0 +1,40 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.HeaderNav {
+  border-right: 1px solid color(var(--colorMain) lightness(+10%));
+
+  &__item {
+    position: relative;
+    display: block;
+    height: calc(var(--baseline) * 5);
+    padding: 0 calc(var(--baseline) * 2);
+
+    font-size: var(--fontSize);
+    color: white;
+
+    border: none;
+    border-left: 1px solid color(var(--colorMain) lightness(+10%));
+
+    background: var(--colorMain);
+
+    transition: background 0.2s;
+
+    cursor: pointer;
+
+    &:hover {
+      background: color(var(--colorMain) lightness(+5%));
+    }
+
+    &:focus {
+      z-index: 1;
+    }
+  }
+    &__item_active {
+      background: color(var(--colorMain) lightness(+15%));
+
+      &:hover {
+        background: color(var(--colorMain) lightness(+15%));
+      }
+    }
+}

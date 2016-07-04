@@ -1,0 +1,19 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.Header {
+  position: absolute;
+  top: 0;
+  left: 0; right: 0;
+  padding: 0 calc(var(--baseline) * 2);
+
+  font-size: var(--fontSize);
+
+  color: white;
+
+  background: var(--colorMain);
+
+  &__title {
+    font-weight: 600;
+  }
+}

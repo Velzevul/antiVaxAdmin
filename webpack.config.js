@@ -5,7 +5,8 @@ const webpack = require('webpack')
 const pkg = require('./package.json')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const cssFont = require('postcss-font-magician')
-const autoprefixer = require('autoprefixer')
+const cssImport = require('postcss-import')
+const cssNext = require('postcss-cssnext')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const PATHS = {
@@ -19,7 +20,9 @@ const getPlugins = ({
   let plugins = []
 
   plugins.push(new webpack.DefinePlugin({
-    NODE_ENV: JSON.stringify(NODE_ENV)
+    NODE_ENV: JSON.stringify(NODE_ENV),
+    ANTIVAX_ADMIN_PREFIX: JSON.stringify(process.env.ANTIVAX_ADMIN_PREFIX),
+    ANTIVAX_ADMIN_SERVER_URL: JSON.stringify(process.env.ANTIVAX_ADMIN_SERVER_URL)
   }))
 
   plugins.push(new webpack.optimize.CommonsChunkPlugin({
@@ -49,7 +52,7 @@ const config = {
   output: {
     path: PATHS.app,
     filename: '[name].js',
-    publicPath: '/app/'
+    publicPath: `${process.env.ANTIVAX_ADMIN_PREFIX}/`
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -67,8 +70,8 @@ const config = {
         include: PATHS.src
       },
       {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css??sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass'),
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss'),
         include: PATHS.src
       }
     ]
@@ -77,7 +80,11 @@ const config = {
   devtool: NODE_ENV === 'production' ? 'source-map' : 'cheap-inline-module-source-map',
   watch: NODE_ENV === 'development',
   postcss: () => {
-    return [ cssFont(), autoprefixer ]
+    return [
+      cssImport({ addDependencyTo: webpack }),
+      cssNext(),
+      cssFont()
+    ]
   }
 }
 

@@ -1,0 +1,8 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.Body {
+  padding: calc(var(--baseline) * 6) calc(var(--baseline) * 3);
+  flex: 1;
+  overflow: scroll;
+}

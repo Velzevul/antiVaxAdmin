@@ -1,23 +1,58 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
-import styles from './App.scss'
-import img from './img.jpg'
-import RaisedButton from 'material-ui/RaisedButton';
+import Header from '../Header'
+import LoginPage from '../LoginPage'
+import FlashMessage from '../FlashMessage'
+import QuestionsPage from '../QuestionsPage'
 
-const App = () => {
-  return (
-    <div className={styles.App}>
-      App here
+const App = ({
+  user,
+  location
+}) => {
+  if (user) {
+    let content = (
+      <div>Main</div>
+    )
 
+    switch (location[0]) {
+      case 'Questions':
+        content = <QuestionsPage />
+        break
+      case 'Blog':
+        break
+      case 'Content':
+        break
+      case 'Users':
+        break
+      default:
+        break
+    }
+
+    return (
       <div>
-        <img src={img} />
+        <Header />
+
+        {content}
+
+        <FlashMessage />
       </div>
-      <RaisedButton label="Default" />
-      <RaisedButton label="Primary" primary />
-      <RaisedButton label="Secondary" secondary />
-      <RaisedButton label="Disabled" disabled />
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div>
+        <LoginPage />
+        <FlashMessage />
+      </div>
+    )
+  }
 }
 
-export default App
+export default connect(
+  state => {
+    return {
+      user: state.auth.user,
+      location: state.location
+    }
+  }
+)(App)

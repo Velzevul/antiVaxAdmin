@@ -5,7 +5,7 @@ import rootReducer from './rootReducer'
 
 const middleware = [thunkMiddleware]
 
-if (NODE_ENV === `development`) {
+if (NODE_ENV === 'development') {
   const logger = createLogger()
   middleware.push(logger)
 }
