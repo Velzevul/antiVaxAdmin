@@ -33,6 +33,9 @@ const Button = ({
       case 'primary':
         className.push(inverse ? styles.InverseButton_primary : styles.Button_primary)
         break
+      case 'secondary':
+        className.push(inverse ? styles.InverseButton_secondary : styles.Button_secondary)
+        break
       case 'default':
       default:
         className.push(inverse ? styles.InverseButton_default : styles.Button_default)

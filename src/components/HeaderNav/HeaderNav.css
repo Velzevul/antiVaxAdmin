@@ -2,39 +2,46 @@
 @import '../../styles/config.css';
 
 .HeaderNav {
-  border-right: 1px solid color(var(--colorMain) lightness(+10%));
 
   &__item {
-    position: relative;
     display: block;
-    height: calc(var(--baseline) * 5);
+    position: relative;
     padding: 0 calc(var(--baseline) * 2);
 
     font-size: var(--fontSize);
+    line-height: calc(var(--baseline) * 4);
     color: white;
+    text-decoration: none;
 
     border: none;
-    border-left: 1px solid color(var(--colorMain) lightness(+10%));
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
 
     background: var(--colorMain);
 
-    transition: background 0.2s;
+    transition: border-color 0.2s,
+                opacity 0.2s;
 
     cursor: pointer;
+    opacity: 0.5;
 
     &:hover {
-      background: color(var(--colorMain) lightness(+5%));
+      opacity: 0.75;
     }
 
     &:focus {
+      outline: none;
+      opacity: 0.75;
       z-index: 1;
     }
   }
     &__item_active {
-      background: color(var(--colorMain) lightness(+15%));
+      opacity: 1;
+      border-bottom: 5px solid var(--colorAccent);
 
+      &:focus,
       &:hover {
-        background: color(var(--colorMain) lightness(+15%));
+        opacity: 1;
       }
     }
 }

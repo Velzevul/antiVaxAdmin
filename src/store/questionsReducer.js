@@ -1,4 +1,4 @@
-import {REQUEST_QUESTIONS, RECEIVE_QUESTIONS} from './locationActions'
+import {REQUEST_QUESTIONS, RECEIVE_QUESTIONS} from './questionsActions'
 import initialState from './initialState'
 
 const questions = (

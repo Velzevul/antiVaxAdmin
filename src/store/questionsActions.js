@@ -27,17 +27,23 @@ export const fetchQuestions = () => {
       mode: 'cors',
       headers: new Headers({
         'Content-Type': 'application/json',
-        'x-access-token': getState.auth.token,
-        'x-access-app': 'antiVaxAdmin'
+        'x-access-token': getState.auth.token
       })
     })
+      .then(response => {
+        if (response.status === 401) {
+          dispatch(kickOut())
+          dispatch(flashMessage('Authorization failed. Please, log in again'))
+        } else {
+          return response
+        }
+      })
       .then(response => response.json())
       .then(json => {
         if (json.success) {
           dispatch(receiveQuestions(json.data.questions))
         } else {
-          dispatch(kickOut())
-          dispatch(flashMessage(json.message, 'error'))
+          dispatch(flashMessage(json.message))
         }
       })
   }

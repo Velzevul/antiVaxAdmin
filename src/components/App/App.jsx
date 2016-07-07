@@ -8,32 +8,14 @@ import QuestionsPage from '../QuestionsPage'
 
 const App = ({
   user,
-  location
+  children
 }) => {
   if (user) {
-    let content = (
-      <div>Main</div>
-    )
-
-    switch (location[0]) {
-      case 'Questions':
-        content = <QuestionsPage />
-        break
-      case 'Blog':
-        break
-      case 'Content':
-        break
-      case 'Users':
-        break
-      default:
-        break
-    }
-
     return (
       <div>
         <Header />
 
-        {content}
+        {children}
 
         <FlashMessage />
       </div>
@@ -51,8 +33,7 @@ const App = ({
 export default connect(
   state => {
     return {
-      user: state.auth.user,
-      location: state.location
+      user: state.auth.user
     }
   }
 )(App)

@@ -1,44 +1,33 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setLocation} from '../../store/locationActions'
+import {Link} from 'react-router'
 import {ListInline, ListInlineItem} from '../Layouts'
 import styles from './HeaderNav.css'
 
 class HeaderNav extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.menuLevel = 0
-    this.navigate = this.navigate.bind(this)
-  }
-
-  navigate (item, event) {
-    const {dispatch} = this.props
-
-    dispatch(setLocation(0, item))
-  }
-
   render () {
-    const {location} = this.props
-
     const navItems = [
-      'Questions',
-      'Blog',
-      'Content',
-      'Users'
-    ].map(i => {
-      let classNames = [styles.HeaderNav__item]
-
-      if (location[this.menuLevel] === i) {
-        classNames.push(styles.HeaderNav__item_active)
+      {
+        id: 'questions',
+        label: 'Questions'
+      },
+      {
+        id: 'blog',
+        label: 'Blog'
+      },
+      {
+        id: 'content',
+        label: 'Content'
+      },
+      {
+        id: 'users',
+        label: 'Users'
       }
-
-      return (
-        <ListInlineItem n={0} key={i}>
-          <button className={classNames.join(' ')} onClick={(e) => this.navigate(i, e)}>{i}</button>
-        </ListInlineItem>
-      )
-    })
+    ].map(i =>
+      <ListInlineItem n={0} key={i.id}>
+        <Link className={styles.HeaderNav__item} activeClassName={styles.HeaderNav__item_active} to={`${ANTIVAX_ADMIN_PREFIX}/${i.id}`}>{i.label}</Link>
+      </ListInlineItem>
+    )
 
     return (
       <div className={styles.HeaderNav}>
@@ -50,10 +39,4 @@ class HeaderNav extends React.Component {
   }
 }
 
-export default connect(
-  state => {
-    return {
-      location: state.location
-    }
-  }
-)(HeaderNav)
+export default HeaderNav

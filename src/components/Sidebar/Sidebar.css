@@ -2,15 +2,48 @@
 @import '../../styles/config.css';
 
 .Sidebar {
-  padding: calc(var(--baseline) * 6) calc(var(--baseline) * 3);
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 1;
+  padding:  calc(var(--baseline) * 10)
+            calc(var(--baseline) * 3)
+            0
+            calc(var(--baseline) * 2);
   flex: 0 0 auto;
-  width: 300px;
-  border-right: 1px solid red;
+  width: calc(var(--baseline) * 15);
+
+  font-size: var(--fontSize);
+
+  text-align: right;
+
+  /*border-right: 1px solid var(--colorMainLLL);*/
+
+  &__title {
+    font-size: inherit;
+    font-weight: 400;
+
+    text-transform: uppercase;
+    color: var(--colorMainLL);
+  }
 
   &__item {
+    display: block;
+    width: 100%;
 
+    text-decoration: none;
+    color: var(--colorMainL);
+
+    cursor: pointer;
+
+    border: none;
+    background: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
     &__item_active {
-
+      color: var(--colorAccent);
+      text-decoration: underline;
     }
 }

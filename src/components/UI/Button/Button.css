@@ -60,6 +60,27 @@
       border-color: color(var(--colorAccent) lightness(+25%));
     }
   }
+  .InverseButton_secondary {
+    color: var(--colorError);
+    border-color: var(--colorError);
+
+    &:hover {
+      background: var(--colorError);
+      border-color: transparent;
+      color: white;
+    }
+
+    &:active {
+      background: color(var(--colorError) lightness(+25%));
+      color: var(--colorError);
+    }
+
+    &:disabled {
+      color: color(var(--colorError) lightness(+25%));
+      background: white;
+      border-color: color(var(--colorError) lightness(+25%));
+    }
+  }
 
 .Button {
   display: inline-block;
@@ -118,6 +139,28 @@
     &:disabled {
       color: white;
       background: color(var(--colorAccent) lightness(+25%));
+      border-color: transparent;
+    }
+  }
+  .Button_secondary {
+    color: white;
+    background: var(--colorError);
+
+    &:hover {
+      background: white;
+      border-color: var(--colorError);
+      color: var(--colorError);
+    }
+
+    &:active {
+      background: color(var(--colorError) lightness(+25%));
+      border-color: transparent;
+      color: var(--colorAccent);
+    }
+
+    &:disabled {
+      color: white;
+      background: color(var(--colorError) lightness(+25%));
       border-color: transparent;
     }
   }

@@ -3,10 +3,13 @@ import React from 'react'
 import styles from './Page.css'
 
 const Page = ({
-  content
+  children,
+  sidebar = false
 }) => {
   return (
-    <div className={styles.Page}>{content}</div>
+    <div className={`${styles.Page} ${sidebar ? styles.Page_sidebar : ''}`}>
+      {children}
+    </div>
   )
 }
 

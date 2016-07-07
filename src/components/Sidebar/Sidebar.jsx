@@ -1,25 +1,31 @@
 import React from 'react'
+import {Link} from 'react-router'
 
 import styles from './Sidebar.css'
-import {List, ListItem} from '../Layouts'
+import {Block, List, ListItem} from '../Layouts'
 
-const QuestionsSidebar = ({
-  active,
-  items,
-  onClick
+const Sidebar = ({
+  title,
+  navItems
 }) => {
   return (
-    <div className={styles.Sidebar}>
+    <aside className={styles.Sidebar}>
       <List>
-        {items.map(item =>
-          <ListItem key={item.id}>
-            <button className={`${styles.Sidebar__item} ${item.id === active ? styles.Sidebar__item_active : ''}`}
-              onClick={() => onClick(item)}>{item.content}</button>
+        <Block n={1.5}>
+          <h1 className={styles.Sidebar__title}>{title}</h1>
+        </Block>
+
+        {navItems.map(item =>
+          <ListItem>
+            <Link to={item.url}
+              key={item.url}
+              className={styles.Sidebar__item}
+              activeClassName={styles.Sidebar__item_active}>{item.label}</Link>
           </ListItem>
         )}
       </List>
-    </div>
+    </aside>
   )
 }
 
-export default QuestionsSidebar
+export default Sidebar

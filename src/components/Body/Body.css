@@ -2,7 +2,8 @@
 @import '../../styles/config.css';
 
 .Body {
-  padding: calc(var(--baseline) * 6) calc(var(--baseline) * 3);
-  flex: 1;
-  overflow: scroll;
+  padding: calc(var(--baseline) * 2) calc(var(--baseline) * 3);
+
+  border-radius: calc(var(--baseline) / 2);
+  box-shadow: 0 0 3px var(--colorMainLL);
 }

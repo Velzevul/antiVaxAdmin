@@ -1,2 +1,2 @@
-export ANTIVAX_ADMIN_PREFIX="/app"
-export ANTIVAX_ADMIN_SERVER_URL="https://vdziubak.com/antiVaxServer/admin"
+export ANTIVAX_ADMIN_PREFIX=""
+export ANTIVAX_ADMIN_SERVER_URL="https://vdziubak.com/antiVaxServer"
