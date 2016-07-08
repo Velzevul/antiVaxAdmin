@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router'
 import QuestionsSection from './components/QuestionsSection'
 import InboxDirectory from './components/InboxDirectory'
+import TrashDirectory from './components/TrashDirectory'
 import Dummy from './components/Dummy'
 
 const store = configureStore()
@@ -22,6 +23,7 @@ ReactDOM.render((
           <IndexRedirect to={`${ANTIVAX_ADMIN_PREFIX}/questions/inbox`} />
 
           <Route path="inbox" component={InboxDirectory} />
+          <Route path="trash" component={TrashDirectory} />
           <Route path="frequent" component={Dummy} />
         </Route>
 

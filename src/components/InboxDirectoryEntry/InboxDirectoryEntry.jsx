@@ -5,7 +5,8 @@ import Time from 'react-time'
 import styles from './InboxDirectoryEntry.css'
 import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
 import {Button, Badge} from '../UI'
-import {updateQuestion, deleteQuestion} from '../../store/questionsActions'
+import {updateQuestion} from '../../store/questionsActions'
+import {flashMessage} from '../../store/flashActions'
 
 class InboxDirectoryEntry extends React.Component {
   constructor (props) {
@@ -31,6 +32,7 @@ class InboxDirectoryEntry extends React.Component {
     }
 
     dispatch(updateQuestion(entry.data.id, payload))
+    dispatch(flashMessage('question has been put into "trash"', 'log'))
   }
 
   render () {
