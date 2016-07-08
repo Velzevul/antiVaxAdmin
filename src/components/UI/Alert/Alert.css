@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
 
-  opacity: 0.75;
+  opacity: 0.9;
   transition: opacity 0.2s;
 
   cursor: pointer;
@@ -24,7 +24,7 @@
     border-radius: 3px;
   }
     &__message_default {
-      background: var(--colorMain);
+      background: var(--colorTextDark);
     }
     &__message_error {
       background: var(--colorError);

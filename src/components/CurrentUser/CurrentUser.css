@@ -2,8 +2,16 @@
 @import '../../styles/config.css';
 
 .CurrentUser {
+  padding-right: calc(var(--baseline) * 3);
+
+  &__title {
+    font-size: var(--fontSizeSmall);
+    font-weight: 400;
+    color: var(--colorTextLight);
+  }
 
   &__name {
-
+    font-size: var(--fontSize);
+    color: var(--colorTextMed);
   }
 }

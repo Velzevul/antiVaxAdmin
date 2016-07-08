@@ -1,6 +1,7 @@
 :root {
   --fontFamily: 'Open Sans', sans-serif;
-  --fontSize: 0.875rem;
+  --fontSize: 0.938rem;
+  --fontSizeSmall: 0.813rem;
 
   --baseline: 0.75rem;
 }

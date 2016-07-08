@@ -1,19 +1,50 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import Header from '../Header'
-import LoginPage from '../LoginPage'
+import styles from './App.css'
+import Login from '../Login'
 import FlashMessage from '../FlashMessage'
-import QuestionsPage from '../QuestionsPage'
+import Nav from '../Nav'
+import CurrentUser from '../CurrentUser'
+import {Block} from '../Layouts'
 
 const App = ({
   user,
   children
 }) => {
   if (user) {
+    const navItems = [
+      {
+        id: 'questions',
+        label: 'Questions'
+      },
+      {
+        id: 'blog',
+        label: 'Blog'
+      },
+      {
+        id: 'content',
+        label: 'Content'
+      },
+      {
+        id: 'users',
+        label: 'Users'
+      }
+    ]
+
     return (
-      <div>
-        <Header />
+      <div className={styles.App}>
+        <div className={styles.App__sidebar}>
+          <div>
+            <Block n={2}>
+              <h1 className={styles.App__title}>Antivax admin</h1>
+            </Block>
+
+            <Nav items={navItems} />
+          </div>
+
+          <CurrentUser />
+        </div>
 
         {children}
 
@@ -22,8 +53,9 @@ const App = ({
     )
   } else {
     return (
-      <div>
-        <LoginPage />
+      <div className={styles.App}>
+        <Login />
+
         <FlashMessage />
       </div>
     )

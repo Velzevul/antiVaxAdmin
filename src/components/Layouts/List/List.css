@@ -6,7 +6,6 @@
   list-style: none;
 
   & > .list__item {
-    display: flex;
     align-items: center;
   }
 }

@@ -1,9 +1,8 @@
-export const REQUEST_AUTH = 'REQUEST_AUTH'
-export const AUTH_SUCCESS = 'AUTH_SUCCESS'
-export const AUTH_FAIL = 'AUTH_FAIL'
-export const LOGOUT = 'LOGOUT'
+import 'whatwg-fetch'
 
-import {flashMessage} from './flashActions'
+export const REQUEST_AUTH = 'REQUEST_AUTH'
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
 
 const requestAuth = () => {
   return {
@@ -11,36 +10,20 @@ const requestAuth = () => {
   }
 }
 
-const authFail = (
-  message
-) => {
-  return dispatch => {
-    dispatch({ type: AUTH_FAIL })
-    dispatch(flashMessage(message, 'error'))
-  }
-}
-
-const authSuccess = (
-  user,
-  token
-) => {
-  return {
-    type: AUTH_SUCCESS,
-    user,
-    token
-  }
-}
-
-export const kickOut = () => {
+export const logOut = () => {
   return {
     type: LOGOUT
   }
 }
 
-export const logOut = () => {
-  return dispatch => {
-    dispatch({type: LOGOUT})
-    dispatch(flashMessage('You have been successfully logged out', 'log'))
+const logIn = (
+  user,
+  token
+) => {
+  return {
+    type: LOGIN,
+    user,
+    token
   }
 }
 
@@ -54,9 +37,9 @@ export const authenticate = (
     fetch(`${ANTIVAX_ADMIN_SERVER_URL}/auth/authenticate`, {
       method: 'POST',
       mode: 'cors',
-      headers: new Headers({
+      headers: {
         'Content-Type': 'application/json'
-      }),
+      },
       body: JSON.stringify({
         email,
         password
@@ -65,9 +48,9 @@ export const authenticate = (
       .then(response => response.json())
       .then(json => {
         if (json.success) {
-          dispatch(authSuccess(json.data.user, json.data.token))
+          dispatch(logIn(json.data.user, json.data.token))
         } else {
-          dispatch(authFail(json.message))
+          dispatch(logOut())
         }
       })
   }

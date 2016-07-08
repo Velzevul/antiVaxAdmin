@@ -1,0 +1,36 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.Entry {
+  position: relative;
+  padding: calc(var(--baseline) * 2) 0;
+
+  border-top: 1px solid var(--colorBorder);
+
+  &__badge {
+    position: absolute;
+    right: 100%;
+    top: calc(var(--baseline) * 2);
+  }
+
+  &__poster,
+  &__date {
+    font-size: var(--fontSizeSmall);
+    font-weight: 700;
+
+    color: var(--colorTextLight);
+  }
+
+  &__body {
+    font-size: var(--fontSize);
+
+    color: var(--colorTextMed);
+    text-align: justify;
+  }
+}
+  .Entry_new {
+    & .Entry__poster,
+    & .Entry__date {
+      color: var(--colorTextDark);
+    }
+  }

@@ -1,10 +1,11 @@
 :root {
-  --colorMain:    #2C3643;
-  --colorMainL:   #5B636D;
-  --colorMainLL:  #7C8795;
-  --colorMainLLL: #9FB3CB;
+  --colorTextDark:  #2C3643;
+  --colorTextMed:   #5B636D;
+  --colorTextLight: #ADB1B6;
 
-  --colorError:   #f17774;
-  --colorSuccess: #5cb85c;
-  --colorAccent:  #5aa2f9;
+  --colorBorder:    #D0D0D0;
+
+  --colorAccent1: #68A1E4;
+  --colorAccent2: #E4A868;
+  --colorError:   #E46868;
 }
