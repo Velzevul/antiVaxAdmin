@@ -2,13 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Time from 'react-time'
 
-import styles from './InboxDirectoryEntry.css'
+import styles from './QuestionsInboxDirectoryEntry.css'
 import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
-import {Button, Badge} from '../UI'
+import {Button} from '../UI'
 import {updateQuestion} from '../../store/questionsActions'
 import {flashMessage} from '../../store/flashActions'
 
-class InboxDirectoryEntry extends React.Component {
+class QuestionsInboxDirectoryEntry extends React.Component {
   constructor (props) {
     super(props)
 
@@ -42,36 +42,17 @@ class InboxDirectoryEntry extends React.Component {
       <div className={`${styles.Entry} ${entry.data.seen ? '' : styles.Entry_new}`}>
         {entry.data.seen
           ? null
-          : <div className={styles.Entry__badge}>
-            <Badge theme="accent2">New</Badge>
-          </div>
+          : <div className={styles.Entry__badge}>New</div>
         }
 
         <Block>
           <Flex justifyContent="space-between">
-            <ListInline n={2}>
-              <ListInlineItem n={2}>
-                <div className={styles.Entry__date}>
-                  <Time value={entry.data.postedAt}
-                    format="MMMM Do YYYY (h:mm a)" />
-                </div>
-              </ListInlineItem>
-
-              <ListInlineItem n={2}>
-                <div className={styles.Entry__poster}>{entry.data.posterName} ({entry.data.posterEmail})</div>
-              </ListInlineItem>
-            </ListInline>
+            <div className={styles.Entry__posted}>
+              <Time value={entry.data.postedAt} format="MMMM Do YYYY (h:mm a)" /> by {entry.data.posterName} ({entry.data.posterEmail})
+            </div>
 
             {entry.data.seen
               ? <ListInline>
-                <ListInlineItem>
-                  <Button small
-                    disabled={entry.isUpdating}
-                    inverse
-                    theme="accent1"
-                    href={`mailto:${entry.data.posterEmail}?subject=Reply to your questions on antivax&body=Reply to your question:\n ${entry.data.question}`}>respond via email</Button>
-                </ListInlineItem>
-
                 <ListInlineItem>
                   <Button small
                     disabled={entry.isUpdating}
@@ -122,4 +103,4 @@ class InboxDirectoryEntry extends React.Component {
   }
 }
 
-export default connect()(InboxDirectoryEntry)
+export default connect()(QuestionsInboxDirectoryEntry)

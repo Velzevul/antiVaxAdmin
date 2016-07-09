@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 
 import {fetchQuestions} from '../../store/questionsActions'
 import Directory from '../Directory'
-import TrashDirectoryEntry from '../TrashDirectoryEntry'
+import TrashQuestionsDirectoryEntry from '../TrashQuestionsDirectoryEntry'
 import Loading from '../Loading'
 
-class TrashDirectory extends React.Component {
+class TrashQuestionsDirectory extends React.Component {
   componentWillMount () {
     const {dispatch} = this.props
 
@@ -22,11 +22,11 @@ class TrashDirectory extends React.Component {
       const fileredItems = items.filter(i => i.data.isDeleted === true)
 
       const questions = fileredItems.map(i =>
-        <TrashDirectoryEntry key={i.data.id} entry={i} />
+        <TrashQuestionsDirectoryEntry key={i.data.id} entry={i} />
       )
 
       return (
-        <Directory title="Trash" items={questions} children={children} />
+        <Directory title="Questions" items={questions} children={children} />
       )
     }
   }
@@ -39,4 +39,4 @@ export default connect(
       items: state.questions.items
     }
   }
-)(TrashDirectory)
+)(TrashQuestionsDirectory)

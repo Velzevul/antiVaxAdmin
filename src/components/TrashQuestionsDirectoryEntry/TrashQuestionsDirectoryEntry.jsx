@@ -2,13 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Time from 'react-time'
 
-import styles from './TrasnDirectoryEntry.css'
-import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
-import {Button, Badge} from '../UI'
+import styles from './TrashQuestionsDirectoryEntry.css'
+import {Block, Flex} from '../Layouts'
+import {Button} from '../UI'
 import {updateQuestion} from '../../store/questionsActions'
 import {flashMessage} from '../../store/flashActions'
 
-class TrasnDirectoryEntry extends React.Component {
+class TrashQuestionsDirectoryEntry extends React.Component {
   constructor (props) {
     super(props)
 
@@ -32,25 +32,14 @@ class TrasnDirectoryEntry extends React.Component {
       <div className={`${styles.Entry} ${entry.data.seen ? '' : styles.Entry_new}`}>
         {entry.data.seen
           ? null
-          : <div className={styles.Entry__badge}>
-            <Badge theme="accent2">New</Badge>
-          </div>
+          : <div className={styles.Entry__badge}>New</div>
         }
 
         <Block>
           <Flex justifyContent="space-between">
-            <ListInline n={2}>
-              <ListInlineItem n={2}>
-                <div className={styles.Entry__date}>
-                  <Time value={entry.data.postedAt}
-                    format="MMMM Do YYYY (h:mm a)" />
-                </div>
-              </ListInlineItem>
-
-              <ListInlineItem n={2}>
-                <div className={styles.Entry__poster}>{entry.data.posterName} ({entry.data.posterEmail})</div>
-              </ListInlineItem>
-            </ListInline>
+            <div className={styles.Entry__posted}>
+              <Time value={entry.data.postedAt} format="MMMM Do YYYY (h:mm a)" /> by {entry.data.posterName} ({entry.data.posterEmail})
+            </div>
 
             <Button small
               disabled={entry.isUpdating}
@@ -66,4 +55,4 @@ class TrasnDirectoryEntry extends React.Component {
   }
 }
 
-export default connect()(TrasnDirectoryEntry)
+export default connect()(TrashQuestionsDirectoryEntry)

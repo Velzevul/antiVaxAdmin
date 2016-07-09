@@ -25,6 +25,7 @@ const Button = ({
   if (small) {
     style = {
       padding: `${baseline * 0.5}rem ${baseline * 1}rem`,
+      lineHeight: `${1.5 * baseline}rem`,
       fontSize: `${0.917 * baseline}rem`
     }
   }

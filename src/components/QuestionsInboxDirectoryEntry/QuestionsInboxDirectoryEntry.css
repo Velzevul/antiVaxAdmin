@@ -11,12 +11,21 @@
     position: absolute;
     right: 100%;
     top: calc(var(--baseline) * 2);
+    width: calc(var(--baseline) * 6);
+
+    font-size: 0.688rem;
+    font-weight: 600;
+    line-height: 1.813rem;
+
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--colorAccent2);
+    letter-spacing: 1px;
   }
 
-  &__poster,
-  &__date {
+  &__posted{
     font-size: var(--fontSizeSmall);
-    font-weight: 700;
+    font-weight: 300;
 
     color: var(--colorTextLight);
   }
@@ -29,8 +38,8 @@
   }
 }
   .Entry_new {
-    & .Entry__poster,
-    & .Entry__date {
+    & .Entry__posted{
       color: var(--colorTextDark);
+      font-weight: 700;
     }
   }

@@ -25,9 +25,13 @@ export default {
     isUpdating: true,
     data: {}
   },
-  faq: {
+  faqs: {
     isFetching: true,
     items: []
+  },
+  faq: {
+    isUpdating: true,
+    data: {}
   },
   blogposts: {
     isFetching: true,

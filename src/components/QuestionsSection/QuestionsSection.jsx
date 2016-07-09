@@ -11,10 +11,6 @@ const QuestionsSection = ({
       label: 'Inbox'
     },
     {
-      id: 'questions/trash',
-      label: 'Trash'
-    },
-    {
       id: 'questions/frequent',
       label: 'Frequent'
     }

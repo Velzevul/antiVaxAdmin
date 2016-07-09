@@ -1,33 +1,33 @@
 import 'whatwg-fetch'
 
-export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS'
-export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
-export const REQUEST_QUESTION_UPDATE = 'REQUEST_QUESTION_UPDATE'
-export const RECEIVE_QUESTION_UPDATE = 'RECEIVE_QUESTION_UPDATE'
+export const REQUEST_FAQS = 'REQUEST_FAQS'
+export const RECEIVE_FAQS = 'RECEIVE_FAQS'
+export const REQUEST_FAQ_UPDATE = 'REQUEST_FAQ_UPDATE'
+export const RECEIVE_FAQ_UPDATE = 'RECEIVE_FAQ_UPDATE'
 
 import {flashMessage} from './flashActions'
 import {logOut} from './authActions'
 
-const requestQuestions = () => {
+const requestFaqs = () => {
   return {
-    type: REQUEST_QUESTIONS
+    type: REQUEST_FAQS
   }
 }
 
-const receiveQuestions = (
+const receiveFaqs = (
   items
 ) => {
   return {
-    type: RECEIVE_QUESTIONS,
+    type: RECEIVE_FAQS,
     items
   }
 }
 
-export const fetchQuestions = () => {
+export const fetchFaqs = () => {
   return (dispatch, getState) => {
-    dispatch(requestQuestions())
+    dispatch(requestFaqs())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/questions/`, {
+    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/faqs/`, {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export const fetchQuestions = () => {
       .then(response => response.json())
       .then(json => {
         if (json.success) {
-          dispatch(receiveQuestions(json.data.questions))
+          dispatch(receiveFaqs(json.data.faqs))
         } else {
           dispatch(flashMessage(json.message))
         }
@@ -59,30 +59,30 @@ export const fetchQuestions = () => {
 
 const requestUpdate = (id) => {
   return {
-    type: REQUEST_QUESTION_UPDATE,
+    type: REQUEST_FAQ_UPDATE,
     id
   }
 }
 
 const receiveUpdate = (
   id,
-  updatedQuestion
+  updatedFaq
 ) => {
   return {
-    type: RECEIVE_QUESTION_UPDATE,
+    type: RECEIVE_FAQ_UPDATE,
     id,
-    updatedQuestion
+    updatedFaq
   }
 }
 
-export const updateQuestion = (
+export const updateFaq = (
   id,
   data
 ) => {
   return (dispatch, getState) => {
     dispatch(requestUpdate(id))
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/questions/${id}`, {
+    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/faqs/${id}`, {
       method: 'PUT',
       mode: 'cors',
       headers: {
@@ -90,7 +90,7 @@ export const updateQuestion = (
         'x-access-token': getState().auth.token
       },
       body: JSON.stringify({
-        question: data
+        faq: data
       })
     })
       .then(response => {
@@ -105,7 +105,7 @@ export const updateQuestion = (
       .then(response => response.json())
       .then(json => {
         if (json.success) {
-          dispatch(receiveUpdate(id, json.data.question))
+          dispatch(receiveUpdate(id, json.data.faq))
         } else {
           dispatch(flashMessage(json.message))
         }
