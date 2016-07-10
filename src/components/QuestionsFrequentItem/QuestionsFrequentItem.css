@@ -1,0 +1,25 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.ItemForm {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  &__header {
+    padding:  calc(var(--baseline) * 3)
+              calc(var(--baseline) * 6);
+  }
+
+  &__body {
+    padding:  0
+              calc(var(--baseline) * 6)
+              calc(var(--baseline) * 3)
+              calc(var(--baseline) * 6);
+    flex: 1;
+
+    overflow: scroll;
+  }
+}

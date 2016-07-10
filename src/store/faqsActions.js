@@ -4,6 +4,8 @@ export const REQUEST_FAQS = 'REQUEST_FAQS'
 export const RECEIVE_FAQS = 'RECEIVE_FAQS'
 export const REQUEST_FAQ_UPDATE = 'REQUEST_FAQ_UPDATE'
 export const RECEIVE_FAQ_UPDATE = 'RECEIVE_FAQ_UPDATE'
+export const RECEIVE_FAQ_ERRORS = 'RECEIVE_FAQ_ERRORS'
+export const MARK_FAQ_DIRTY = 'MARK_FAQ_DIRTY'
 
 import {flashMessage} from './flashActions'
 import {logOut} from './authActions'
@@ -57,7 +59,9 @@ export const fetchFaqs = () => {
   }
 }
 
-const requestUpdate = (id) => {
+const requestUpdate = (
+  id
+) => {
   return {
     type: REQUEST_FAQ_UPDATE,
     id
@@ -72,6 +76,17 @@ const receiveUpdate = (
     type: RECEIVE_FAQ_UPDATE,
     id,
     updatedFaq
+  }
+}
+
+const receiveErrors = (
+  id,
+  errors
+) => {
+  return {
+    type: RECEIVE_FAQ_ERRORS,
+    id,
+    errors
   }
 }
 
@@ -106,12 +121,23 @@ export const updateFaq = (
       .then(json => {
         if (json.success) {
           dispatch(receiveUpdate(id, json.data.faq))
+          dispatch(flashMessage('Question updated successfully', 'log'))
         } else {
-          dispatch(flashMessage(json.message))
+          dispatch(receiveErrors(id, json.data.errors))
+          dispatch(flashMessage('Could not update question due to errors', 'error'))
         }
       })
       .catch(err => {
         throw err
       })
+  }
+}
+
+export const markFaqDirty = (
+  id
+) => {
+  return {
+    type: MARK_FAQ_DIRTY,
+    id
   }
 }

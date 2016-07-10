@@ -1,0 +1,62 @@
+@import '../../../styles/colors.css';
+@import '../../../styles/config.css';
+
+.Input {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+
+  font-family: var(--fontFamily);
+  font-weight: 400;
+
+  &__input {
+    flex: 1;
+    padding: calc(var(--baseline) / 2) var(--baseline);
+
+    font-family: inherit;
+    font-size: var(--fontSize);
+    font-weight: inherit;
+    line-height: var(--baseline) * 1.5;
+
+    color: var(--colorTextMed);
+
+    border: none;
+    border-bottom: 1px solid var(--colorBorder);
+  }
+
+  &__label {
+    width: calc(var(--baseline) * 8);
+    padding-right: calc(var(--baseline) * 2);
+
+    font-size: var(--fontSizeSmall);
+
+    color: var(--colorTextLight);
+    text-align: right;
+  }
+
+  &__prefix {
+    padding-right: calc(var(--baseline) * 1);
+
+    font-size: var(--fontSizeSmall);
+
+    color: var(--colorTextLight);
+  }
+
+  &__error {
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    padding: 0 (var(--baseline) * 2);
+
+    font-size: var(--fontSizeSmall);
+
+    color: var(--colorError);
+    text-align: right;
+  }
+}
+  .Input_error {
+    & .Input__input {
+      border-color: var(--colorError);
+    }
+  }

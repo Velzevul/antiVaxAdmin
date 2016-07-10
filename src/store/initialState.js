@@ -30,8 +30,10 @@ export default {
     items: []
   },
   faq: {
+    isDirty: false,
     isUpdating: true,
-    data: {}
+    data: {},
+    errors: {}
   },
   blogposts: {
     isFetching: true,

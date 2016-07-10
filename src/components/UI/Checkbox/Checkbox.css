@@ -1,0 +1,26 @@
+@import '../../../styles/colors.css';
+@import '../../../styles/config.css';
+
+.Checkbox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+
+  font-family: var(--fontFamily);
+  font-weight: 400;
+
+  &__input {
+    /*flex: 1;*/
+  }
+
+  &__label {
+    width: calc(var(--baseline) * 8);
+    padding-right: calc(var(--baseline) * 2);
+
+    font-size: var(--fontSizeSmall);
+
+    color: var(--colorTextLight);
+    text-align: right;
+  }
+}

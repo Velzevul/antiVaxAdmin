@@ -10,6 +10,7 @@ import {Router, Route, IndexRedirect, hashHistory} from 'react-router'
 import QuestionsSection from './components/QuestionsSection'
 import QuestionsInboxDirectory from './components/QuestionsInboxDirectory'
 import QuestionsFrequentDirectory from './components/QuestionsFrequentDirectory'
+import QuestionsFrequentItem from './components/QuestionsFrequentItem'
 
 import TrashSection from './components/TrashSection'
 import TrashQuestionsDirectory from './components/TrashQuestionsDirectory'
@@ -29,7 +30,9 @@ ReactDOM.render((
           <IndexRedirect to={`${ANTIVAX_ADMIN_PREFIX}/questions/inbox`} />
 
           <Route path="inbox" component={QuestionsInboxDirectory} />
-          <Route path="frequent" component={QuestionsFrequentDirectory} />
+          <Route path="frequent" component={QuestionsFrequentDirectory}>
+            <Route path=":itemId" component={QuestionsFrequentItem} />
+          </Route>
         </Route>
 
         <Route path="blog" component={Dummy} />

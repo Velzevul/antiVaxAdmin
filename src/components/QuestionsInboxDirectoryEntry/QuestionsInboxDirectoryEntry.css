@@ -23,7 +23,7 @@
     letter-spacing: 1px;
   }
 
-  &__posted{
+  &__posted {
     font-size: var(--fontSizeSmall);
     font-weight: 300;
 
