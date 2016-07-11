@@ -10,7 +10,7 @@ import {Router, Route, IndexRedirect, hashHistory} from 'react-router'
 import QuestionsSection from './components/QuestionsSection'
 import QuestionsInboxDirectory from './components/QuestionsInboxDirectory'
 import QuestionsFrequentDirectory from './components/QuestionsFrequentDirectory'
-import QuestionsFrequentItem from './components/QuestionsFrequentItem'
+import QuestionsFrequentEdit from './components/QuestionsFrequentEdit'
 
 import TrashSection from './components/TrashSection'
 import TrashQuestionsDirectory from './components/TrashQuestionsDirectory'
@@ -31,7 +31,7 @@ ReactDOM.render((
 
           <Route path="inbox" component={QuestionsInboxDirectory} />
           <Route path="frequent" component={QuestionsFrequentDirectory}>
-            <Route path=":itemId" component={Dummy} />
+            <Route path=":itemId" component={QuestionsFrequentEdit} />
           </Route>
         </Route>
 

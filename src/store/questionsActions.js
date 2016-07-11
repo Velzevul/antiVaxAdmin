@@ -105,7 +105,9 @@ export const updateQuestion = (
       .then(json => {
         if (json.success) {
           dispatch(receiveUpdate(id, json.data.question))
-          dispatch(flashMessage(successMessage, 'log'))
+          if (successMessage) {
+            dispatch(flashMessage(successMessage, 'log'))
+          }
         } else {
           console.error(json.data)
           dispatch(flashMessage('Oops, something went wrong :()', 'error'))

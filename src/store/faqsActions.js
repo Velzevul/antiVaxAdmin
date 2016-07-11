@@ -120,14 +120,14 @@ export const updateFaq = (
       .then(json => {
         if (json.success) {
           dispatch(receiveUpdate(id, json.data.faq))
-          dispatch(flashMessage(successMessage, 'log'))
-        } else if (json.data.name === 'ValidationError') {
-          let payload = {
-            errors: {}
+          if (successMessage) {
+            dispatch(flashMessage(successMessage, 'log'))
           }
+        } else if (json.data.name === 'ValidationError') {
+          let payload = {}
 
           for (let prop in json.data.errors) {
-            payload.errors[prop] = json.data.errors[prop].message
+            payload[prop] = json.data.errors[prop].message
           }
 
           dispatch(receiveErrors(id, payload))

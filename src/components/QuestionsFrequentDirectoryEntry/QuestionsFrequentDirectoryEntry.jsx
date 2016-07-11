@@ -74,7 +74,7 @@ class QuestionsFrequentDirectoryEntry extends React.Component {
           </Flex>
         </Block>
 
-        <Link to={`questions/frequent/${entry.data.id}`} className={styles.Entry__title}>{entry.data.title}</Link>
+        <Link to={`questions/frequent/${entry.data._id}`} className={styles.Entry__title}>{entry.data.title}</Link>
       </div>
     )
   }

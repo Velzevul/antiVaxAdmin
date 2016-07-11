@@ -17,7 +17,7 @@ export default {
     timeoutId: null
   },
   questions: {
-    isFetching: false,
+    isFetching: true,
     items: []
   },
   question: {
@@ -25,7 +25,7 @@ export default {
     data: {}
   },
   faqs: {
-    isFetching: false,
+    isFetching: true,
     items: []
   },
   faq: {
@@ -35,15 +35,15 @@ export default {
     errors: {}
   },
   blogposts: {
-    isFetching: false,
+    isFetching: true,
     items: []
   },
   sections: {
-    isFetching: false,
+    isFetching: true,
     items: []
   },
   users: {
-    isFetching: false,
+    isFetching: true,
     items: []
   }
 }
