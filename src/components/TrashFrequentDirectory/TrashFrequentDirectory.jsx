@@ -22,7 +22,7 @@ class TrashFrequentDirectory extends React.Component {
       const filteredItems = items.filter(i => i.data.isDeleted === true)
 
       const faqs = filteredItems.map(i =>
-        <TrashFrequentDirectoryEntry key={i.data.id} entry={i} />
+        <TrashFrequentDirectoryEntry key={i.data._id} entry={i} />
       )
 
       return (

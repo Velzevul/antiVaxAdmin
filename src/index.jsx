@@ -31,7 +31,7 @@ ReactDOM.render((
 
           <Route path="inbox" component={QuestionsInboxDirectory} />
           <Route path="frequent" component={QuestionsFrequentDirectory}>
-            <Route path=":itemId" component={QuestionsFrequentItem} />
+            <Route path=":itemId" component={Dummy} />
           </Route>
         </Route>
 

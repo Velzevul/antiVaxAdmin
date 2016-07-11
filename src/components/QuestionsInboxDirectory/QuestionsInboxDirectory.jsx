@@ -22,7 +22,7 @@ class QuestionsInboxDirectory extends React.Component {
       const fileredItems = items.filter(i => i.data.isDeleted === false)
 
       const questions = fileredItems.map(i =>
-        <QuestionsInboxDirectoryEntry key={i.data.id} entry={i} />
+        <QuestionsInboxDirectoryEntry key={i.data._id} entry={i} />
       )
 
       return (

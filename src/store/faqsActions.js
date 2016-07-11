@@ -50,11 +50,9 @@ export const fetchFaqs = () => {
         if (json.success) {
           dispatch(receiveFaqs(json.data.faqs))
         } else {
-          dispatch(flashMessage(json.message))
+          console.error(json.data)
+          dispatch(flashMessage('Oops, something went wrong :()', 'error'))
         }
-      })
-      .catch(err => {
-        throw err
       })
   }
 }
@@ -92,7 +90,8 @@ const receiveErrors = (
 
 export const updateFaq = (
   id,
-  data
+  data,
+  successMessage
 ) => {
   return (dispatch, getState) => {
     dispatch(requestUpdate(id))
@@ -121,14 +120,22 @@ export const updateFaq = (
       .then(json => {
         if (json.success) {
           dispatch(receiveUpdate(id, json.data.faq))
-          dispatch(flashMessage('Question updated successfully', 'log'))
-        } else {
-          dispatch(receiveErrors(id, json.data.errors))
+          dispatch(flashMessage(successMessage, 'log'))
+        } else if (json.data.name === 'ValidationError') {
+          let payload = {
+            errors: {}
+          }
+
+          for (let prop in json.data.errors) {
+            payload.errors[prop] = json.data.errors[prop].message
+          }
+
+          dispatch(receiveErrors(id, payload))
           dispatch(flashMessage('Could not update question due to errors', 'error'))
+        } else {
+          console.error(json.data)
+          dispatch(flashMessage('Oops, something went wrong :()', 'error'))
         }
-      })
-      .catch(err => {
-        throw err
       })
   }
 }

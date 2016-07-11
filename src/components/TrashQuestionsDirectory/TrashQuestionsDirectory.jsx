@@ -22,7 +22,7 @@ class TrashQuestionsDirectory extends React.Component {
       const fileredItems = items.filter(i => i.data.isDeleted === true)
 
       const questions = fileredItems.map(i =>
-        <TrashQuestionsDirectoryEntry key={i.data.id} entry={i} />
+        <TrashQuestionsDirectoryEntry key={i.data._id} entry={i} />
       )
 
       return (

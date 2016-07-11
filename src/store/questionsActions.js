@@ -48,11 +48,9 @@ export const fetchQuestions = () => {
         if (json.success) {
           dispatch(receiveQuestions(json.data.questions))
         } else {
-          dispatch(flashMessage(json.message))
+          console.error(json.data)
+          dispatch(flashMessage('Oops, something went wrong :()', 'error'))
         }
-      })
-      .catch(err => {
-        throw err
       })
   }
 }
@@ -77,7 +75,8 @@ const receiveUpdate = (
 
 export const updateQuestion = (
   id,
-  data
+  data,
+  successMessage
 ) => {
   return (dispatch, getState) => {
     dispatch(requestUpdate(id))
@@ -106,8 +105,10 @@ export const updateQuestion = (
       .then(json => {
         if (json.success) {
           dispatch(receiveUpdate(id, json.data.question))
+          dispatch(flashMessage(successMessage, 'log'))
         } else {
-          dispatch(flashMessage(json.message))
+          console.error(json.data)
+          dispatch(flashMessage('Oops, something went wrong :()', 'error'))
         }
       })
       .catch(err => {

@@ -7,7 +7,6 @@ import styles from './QuestionsFrequentDirectoryEntry.css'
 import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
 import {Button} from '../UI'
 import {updateFaq} from '../../store/faqsActions'
-import {flashMessage} from '../../store/flashActions'
 
 class QuestionsFrequentDirectoryEntry extends React.Component {
   constructor (props) {
@@ -23,12 +22,7 @@ class QuestionsFrequentDirectoryEntry extends React.Component {
       isPublished: !entry.data.isPublished
     }
 
-    dispatch(updateFaq(entry.data.id, payload))
-    if (payload.isPublished) {
-      dispatch(flashMessage('article has been published', 'log'))
-    } else {
-      dispatch(flashMessage('article has been marked as a draft', 'log'))
-    }
+    dispatch(updateFaq(entry.data._id, payload))
   }
 
   delete () {
@@ -37,8 +31,7 @@ class QuestionsFrequentDirectoryEntry extends React.Component {
       isDeleted: true
     }
 
-    dispatch(updateFaq(entry.data.id, payload))
-    dispatch(flashMessage('article has been deleted', 'log'))
+    dispatch(updateFaq(entry.data._id, payload, 'moved to "trash"'))
   }
 
   render () {

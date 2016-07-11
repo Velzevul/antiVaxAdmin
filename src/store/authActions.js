@@ -1,5 +1,7 @@
 import 'whatwg-fetch'
 
+import {flashMessage} from './flashActions'
+
 export const REQUEST_AUTH = 'REQUEST_AUTH'
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
@@ -51,6 +53,7 @@ export const authenticate = (
           dispatch(logIn(json.data.user, json.data.token))
         } else {
           dispatch(logOut())
+          dispatch(flashMessage(json.data.error, 'error'))
         }
       })
   }

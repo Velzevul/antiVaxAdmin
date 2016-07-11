@@ -6,7 +6,6 @@ import styles from './TrashFrequentDirectoryEntry.css'
 import {Block, Flex} from '../Layouts'
 import {Button} from '../UI'
 import {updateFaq} from '../../store/faqsActions'
-import {flashMessage} from '../../store/flashActions'
 
 class TrashFrequentDirectoryEntry extends React.Component {
   constructor (props) {
@@ -21,8 +20,7 @@ class TrashFrequentDirectoryEntry extends React.Component {
       isDeleted: false
     }
 
-    dispatch(updateFaq(entry.data.id, payload))
-    dispatch(flashMessage('article has been put back to "Frequent"', 'log'))
+    dispatch(updateFaq(entry.data._id, payload, 'moved to "Frequent"'))
   }
 
   render () {

@@ -8,12 +8,11 @@ const question = (
 ) => {
   switch (action.type) {
     case RECEIVE_QUESTIONS:
-      return {
-        isUpdating: false,
-        data: state
-      }
+      return Object.assign({}, state, {
+        data: action.item
+      })
     case REQUEST_QUESTION_UPDATE:
-      if (state.data.id === action.id) {
+      if (state.data._id === action.id) {
         return Object.assign({}, state, {
           isUpdating: true
         })
@@ -21,7 +20,7 @@ const question = (
         return state
       }
     case RECEIVE_QUESTION_UPDATE:
-      if (state.data.id === action.id) {
+      if (state.data._id === action.id) {
         return Object.assign({}, state, {
           data: action.updatedQuestion,
           isUpdating: false
@@ -46,12 +45,12 @@ const questions = (
     case RECEIVE_QUESTIONS:
       return {
         isFetching: false,
-        items: action.items.map(i => question(i, action))
+        items: action.items.map(i => question(undefined, {
+          type: action.type,
+          item: i
+        }))
       }
     case REQUEST_QUESTION_UPDATE:
-      return Object.assign({}, state, {
-        items: state.items.map(i => question(i, action))
-      })
     case RECEIVE_QUESTION_UPDATE:
       return Object.assign({}, state, {
         items: state.items.map(i => question(i, action))

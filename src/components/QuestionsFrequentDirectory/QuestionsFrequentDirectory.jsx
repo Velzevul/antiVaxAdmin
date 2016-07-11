@@ -22,7 +22,7 @@ class QuestionsFrequentDirectory extends React.Component {
       const filteredItems = items.filter(i => i.data.isDeleted === false)
 
       const faqs = filteredItems.map(i =>
-        <QuestionsFrequentDirectoryEntry key={i.data.id} entry={i} />
+        <QuestionsFrequentDirectoryEntry key={i.data._id} entry={i} />
       )
 
       return (

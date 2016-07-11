@@ -6,7 +6,6 @@ import styles from './TrashQuestionsDirectoryEntry.css'
 import {Block, Flex} from '../Layouts'
 import {Button} from '../UI'
 import {updateQuestion} from '../../store/questionsActions'
-import {flashMessage} from '../../store/flashActions'
 
 class TrashQuestionsDirectoryEntry extends React.Component {
   constructor (props) {
@@ -21,16 +20,15 @@ class TrashQuestionsDirectoryEntry extends React.Component {
       isDeleted: false
     }
 
-    dispatch(updateQuestion(entry.data.id, payload))
-    dispatch(flashMessage('question has been put back to "inbox"', 'log'))
+    dispatch(updateQuestion(entry.data._id, payload, 'moved to "inbox"'))
   }
 
   render () {
     const {entry} = this.props
 
     return (
-      <div className={`${styles.Entry} ${entry.data.seen ? '' : styles.Entry_new}`}>
-        {entry.data.seen
+      <div className={`${styles.Entry} ${entry.data.isSeen ? '' : styles.Entry_new}`}>
+        {entry.data.isSeen
           ? null
           : <div className={styles.Entry__badge}>New</div>
         }
@@ -38,7 +36,7 @@ class TrashQuestionsDirectoryEntry extends React.Component {
         <Block>
           <Flex justifyContent="space-between">
             <div className={styles.Entry__posted}>
-              <Time value={entry.data.postedAt} format="MMMM Do YYYY (h:mm a)" /> by {entry.data.posterName} ({entry.data.posterEmail})
+              <Time value={entry.data.createdAt} format="MMMM Do YYYY (h:mm a)" /> by {entry.data.posterName} ({entry.data.posterEmail})
             </div>
 
             <Button small

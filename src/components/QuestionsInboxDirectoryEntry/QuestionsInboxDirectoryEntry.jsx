@@ -6,7 +6,6 @@ import styles from './QuestionsInboxDirectoryEntry.css'
 import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
 import {Button} from '../UI'
 import {updateQuestion} from '../../store/questionsActions'
-import {flashMessage} from '../../store/flashActions'
 
 class QuestionsInboxDirectoryEntry extends React.Component {
   constructor (props) {
@@ -19,10 +18,10 @@ class QuestionsInboxDirectoryEntry extends React.Component {
   markSeen () {
     const {dispatch, entry} = this.props
     const payload = {
-      seen: !entry.data.seen
+      isSeen: !entry.data.isSeen
     }
 
-    dispatch(updateQuestion(entry.data.id, payload))
+    dispatch(updateQuestion(entry.data._id, payload))
   }
 
   delete () {
@@ -31,16 +30,15 @@ class QuestionsInboxDirectoryEntry extends React.Component {
       isDeleted: true
     }
 
-    dispatch(updateQuestion(entry.data.id, payload))
-    dispatch(flashMessage('question has been put into "trash"', 'log'))
+    dispatch(updateQuestion(entry.data._id, payload, 'moved to "trash"'))
   }
 
   render () {
     const {entry} = this.props
 
     return (
-      <div className={`${styles.Entry} ${entry.data.seen ? '' : styles.Entry_new}`}>
-        {entry.data.seen
+      <div className={`${styles.Entry} ${entry.data.isSeen ? '' : styles.Entry_new}`}>
+        {entry.data.isSeen
           ? null
           : <div className={styles.Entry__badge}>New</div>
         }
@@ -48,10 +46,10 @@ class QuestionsInboxDirectoryEntry extends React.Component {
         <Block>
           <Flex justifyContent="space-between">
             <div className={styles.Entry__posted}>
-              <Time value={entry.data.postedAt} format="MMMM Do YYYY (h:mm a)" /> by {entry.data.posterName} ({entry.data.posterEmail})
+              <Time value={entry.data.createdAt} format="MMMM Do YYYY (h:mm a)" /> by {entry.data.posterName} ({entry.data.posterEmail})
             </div>
 
-            {entry.data.seen
+            {entry.data.isSeen
               ? <ListInline>
                 <ListInlineItem>
                   <Button small

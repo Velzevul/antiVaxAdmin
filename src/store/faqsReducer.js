@@ -9,12 +9,11 @@ const faq = (
 ) => {
   switch (action.type) {
     case RECEIVE_FAQS:
-      return {
-        isUpdating: false,
-        data: state
-      }
+      return Object.assign({}, state, {
+        data: action.item
+      })
     case REQUEST_FAQ_UPDATE:
-      if (state.data.id === action.id) {
+      if (state.data._id === action.id) {
         return Object.assign({}, state, {
           isUpdating: true
         })
@@ -22,7 +21,7 @@ const faq = (
         return state
       }
     case RECEIVE_FAQ_UPDATE:
-      if (state.data.id === action.id) {
+      if (state.data._id === action.id) {
         return Object.assign({}, state, {
           data: action.updatedFaq,
           isDirty: false,
@@ -33,7 +32,7 @@ const faq = (
         return state
       }
     case RECEIVE_FAQ_ERRORS:
-      if (state.data.id === action.id) {
+      if (state.data._id === action.id) {
         return Object.assign({}, state, {
           isUpdating: false,
           errors: action.errors
@@ -42,7 +41,7 @@ const faq = (
         return state
       }
     case MARK_FAQ_DIRTY:
-      if (state.data.id === action.id) {
+      if (state.data._id === action.id) {
         return Object.assign({}, state, {
           isDirty: true
         })
@@ -66,7 +65,10 @@ const faqs = (
     case RECEIVE_FAQS:
       return {
         isFetching: false,
-        items: action.items.map(i => faq(i, action))
+        items: action.items.map(i => faq(undefined, {
+          type: action.type,
+          item: i
+        }))
       }
     case REQUEST_FAQ_UPDATE:
     case RECEIVE_FAQ_UPDATE:
