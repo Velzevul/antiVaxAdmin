@@ -4,7 +4,6 @@ const path = require('path')
 const webpack = require('webpack')
 const pkg = require('./package.json')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const cssFont = require('postcss-font-magician')
 const cssImport = require('postcss-import')
 const cssNext = require('postcss-cssnext')
 
@@ -52,7 +51,7 @@ const config = {
   output: {
     path: PATHS.app,
     filename: '[name].js',
-    publicPath: `${process.env.ANTIVAX_ADMIN_PREFIX}/`
+    publicPath: '/app/'
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -82,8 +81,7 @@ const config = {
   postcss: () => {
     return [
       cssImport({ addDependencyTo: webpack }),
-      cssNext(),
-      cssFont()
+      cssNext()
     ]
   }
 }

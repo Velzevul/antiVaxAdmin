@@ -19,7 +19,6 @@
     "html-webpack-template": "^5.0.0",
     "postcss": "^5.0.21",
     "postcss-cssnext": "^2.7.0",
-    "postcss-font-magician": "^1.4.0",
     "postcss-import": "^8.1.2",
     "postcss-loader": "^0.9.1",
     "react-router": "^2.5.2",
@@ -43,15 +42,7 @@
     "scribe-plugin-intelligent-unlink-command": "^0.1.6",
     "scribe-plugin-link-prompt-command": "^1.0.0",
     "scribe-plugin-toolbar": "^1.0.0",
+    "lodash-amd": "^3.5.0",
     "whatwg-fetch": "^1.0.0"
-  },
-  "standard": {
-    "globals": [
-      "ANTIVAX_ADMIN_SERVER_URL",
-      "ANTIVAX_ADMIN_PREFIX",
-      "fetch",
-      "Headers",
-      "Promise"
-    ]
   }
 }

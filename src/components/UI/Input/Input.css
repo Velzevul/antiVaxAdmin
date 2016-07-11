@@ -47,7 +47,7 @@
     position: absolute;
     top: 100%;
     left: 0; right: 0;
-    padding: 0 (var(--baseline) * 2);
+    padding: 0 calc(var(--baseline) * 2);
 
     font-size: var(--fontSizeSmall);
 

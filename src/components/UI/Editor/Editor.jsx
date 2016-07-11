@@ -6,6 +6,8 @@ import HeadingCmd from 'scribe-plugin-heading-command'
 import LinkPromptCmd from 'scribe-plugin-link-prompt-command'
 import UnlinkCmd from 'scribe-plugin-intelligent-unlink-command'
 
+import {Block, Flex} from '../../Layouts'
+
 import styles from './Editor.css'
 
 class Editor extends React.Component {
@@ -24,17 +26,18 @@ class Editor extends React.Component {
     const scribe = new Scribe(editor)
     scribe.use(HeadingCmd(1))
     scribe.use(HeadingCmd(2))
-    scribe.use(HeadingCmd(3))
     scribe.use(LinkPromptCmd())
     scribe.use(UnlinkCmd())
     scribe.use(Toolbar(toolbar))
 
     scribe.setContent(this.state.value)
 
-    scribe.on('content-changed', () => {
-      this.setState({value: scribe.getHTML()})
+    setTimeout(() => {
+      scribe.on('content-changed', () => {
+        this.setState({value: scribe.getHTML()})
 
-      this.props.onChange(scribe.getHTML())
+        this.props.onChange(scribe.getHTML())
+      })
     })
 
     this.scribe = scribe
@@ -45,10 +48,10 @@ class Editor extends React.Component {
   }
 
   render () {
-    const {label, value, error, disabled, onChange} = this.props
+    const {label, error} = this.props
 
     return (
-      <div className={styles.Editor}>
+      <div className={`${styles.Editor} ${error ? styles.Editor_error : ''}`}>
         <div className={styles.Editor__toolbar} ref="toolbar">
           <button className={`${styles.Editor__command} ${styles.Editor__command_h1}`}
             data-command-name="h1">
@@ -58,11 +61,6 @@ class Editor extends React.Component {
           <button className={`${styles.Editor__command} ${styles.Editor__command_h2}`}
             data-command-name="h2">
             Heading 1
-          </button>
-
-          <button className={`${styles.Editor__command} ${styles.Editor__command_h3}`}
-            data-command-name="h3">
-            Heading 3
           </button>
 
           <div className={styles.Editor__separator} />
@@ -94,13 +92,15 @@ class Editor extends React.Component {
             Link
           </button>
 
-          <button className={`${styles.Editor__command} ${styles.Editor__command_link}`}
+          <button className={`${styles.Editor__command} ${styles.Editor__command_unlink}`}
             data-command-name="unlink">
             Unlink
           </button>
         </div>
 
-        <div className={styles.Editor__textarea} ref="editor" />
+        <div className={styles.Editor__body} ref="editor" />
+
+        <div className={styles.Editor__error}>{error}</div>
       </div>
     )
   }

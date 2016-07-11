@@ -38,19 +38,21 @@ class QuestionsFrequentEdit extends React.Component {
 
     dispatch(markFaqDirty(this.props.item.data._id))
 
+    const newData = {
+      [prop]: value
+    }
+    const newErrors = {
+      [prop]: null
+    }
+
     this.setState({
-      data: Object.assign({}, this.state.data, {
-        [prop]: value
-      }),
-      errors: Object.assign({}, this.state.errors, {
-        [prop]: null
-      })
+      data: Object.assign({}, this.state.data, newData),
+      errors: Object.assign({}, this.state.errors, newErrors)
     })
   }
 
   render () {
     const {isUpdating, isDirty} = this.props.item
-    const {data, errors} = this.state
 
     let header = ''
 
@@ -98,32 +100,32 @@ class QuestionsFrequentEdit extends React.Component {
         </div>
 
         <div className={styles.ItemForm__body}>
-          <Block>
+          <Block n={1.5}>
             <Input label="Title"
-              value={data.title}
-              error={errors.title}
+              value={this.state.data.title}
+              error={this.state.errors.title}
               disabled={isUpdating}
               onChange={value => this.change('title', value)} />
           </Block>
 
-          <Block>
+          <Block n={1.5}>
             <Input label="URL"
-              value={data.url}
-              error={errors.url}
+              value={this.state.data.url}
+              error={this.state.errors.url}
               disabled={isUpdating}
               onChange={value => this.change('url', value)} />
           </Block>
 
-          <Block>
+          <Block n={1.5}>
             <Checkbox label="Published"
-              checked={data.isPublished}
+              checked={this.state.data.isPublished}
               disabled={isUpdating}
               onChange={value => this.change('isPublished', value)} />
           </Block>
 
           <Editor label="Content"
-            value={data.content}
-            error={errors.content}
+            value={this.state.data.content}
+            error={this.state.errors.content}
             disabled={isUpdating}
             onChange={value => this.change('content', value)} />
         </div>
