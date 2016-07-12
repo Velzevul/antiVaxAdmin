@@ -26,7 +26,12 @@ export default {
   },
   faqs: {
     isFetching: true,
-    items: []
+    items: [],
+    newFaq: {
+      isUpdating: false,
+      data: {},
+      errors: {}
+    }
   },
   faq: {
     isDirty: false,

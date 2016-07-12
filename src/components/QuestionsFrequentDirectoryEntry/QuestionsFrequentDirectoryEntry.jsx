@@ -57,6 +57,7 @@ class QuestionsFrequentDirectoryEntry extends React.Component {
               : <ListInline>
                 <ListInlineItem>
                   <Button small
+                    inverse
                     disabled={entry.isUpdating}
                     theme="accent1"
                     onClick={this.publish}>Publish</Button>

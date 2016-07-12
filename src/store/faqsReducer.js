@@ -1,6 +1,6 @@
-import {REQUEST_FAQS, RECEIVE_FAQS,
-  REQUEST_FAQ_UPDATE, RECEIVE_FAQ_UPDATE,
-  RECEIVE_FAQ_ERRORS, MARK_FAQ_DIRTY} from './faqsActions'
+import {REQUEST_FAQS, RECEIVE_FAQS, REQUEST_FAQ_UPDATE,
+  RECEIVE_FAQ_UPDATE, RECEIVE_FAQ_ERRORS, MARK_FAQ_DIRTY,
+  REQUEST_CREATE_FAQ, CONFIRM_CREATE_FAQ, REJECT_CREATE_FAQ} from './faqsActions'
 import initialState from './initialState'
 
 const faq = (
@@ -53,6 +53,27 @@ const faq = (
   }
 }
 
+const newFaq = (
+  state,
+  action
+) => {
+  switch (action.type) {
+    case REQUEST_CREATE_FAQ:
+      return Object.assign({}, state, {
+        isUpdating: true
+      })
+    case CONFIRM_CREATE_FAQ:
+      return initialState.faqs.newFaq
+    case REJECT_CREATE_FAQ:
+      return Object.assign({}, state, {
+        isUpdating: false,
+        errors: action.errors
+      })
+    default:
+      return state
+  }
+}
+
 const faqs = (
   state = initialState.faqs,
   action
@@ -63,19 +84,25 @@ const faqs = (
         isFetching: true
       })
     case RECEIVE_FAQS:
-      return {
+      return Object.assign({}, state, {
         isFetching: false,
         items: action.items.map(i => faq(undefined, {
           type: action.type,
           item: i
         }))
-      }
+      })
     case REQUEST_FAQ_UPDATE:
     case RECEIVE_FAQ_UPDATE:
     case RECEIVE_FAQ_ERRORS:
     case MARK_FAQ_DIRTY:
       return Object.assign({}, state, {
         items: state.items.map(i => faq(i, action))
+      })
+    case REQUEST_CREATE_FAQ:
+    case CONFIRM_CREATE_FAQ:
+    case REJECT_CREATE_FAQ:
+      return Object.assign({}, state, {
+        newFaq: newFaq(state.newFaq, action)
       })
     default:
       return state

@@ -11,6 +11,7 @@ import QuestionsSection from './components/QuestionsSection'
 import QuestionsInboxDirectory from './components/QuestionsInboxDirectory'
 import QuestionsFrequentDirectory from './components/QuestionsFrequentDirectory'
 import QuestionsFrequentEdit from './components/QuestionsFrequentEdit'
+import QuestionsFrequentCreate from './components/QuestionsFrequentCreate'
 
 import TrashSection from './components/TrashSection'
 import TrashQuestionsDirectory from './components/TrashQuestionsDirectory'
@@ -30,7 +31,9 @@ ReactDOM.render((
           <IndexRedirect to={`${ANTIVAX_ADMIN_PREFIX}/questions/inbox`} />
 
           <Route path="inbox" component={QuestionsInboxDirectory} />
+
           <Route path="frequent" component={QuestionsFrequentDirectory}>
+            <Route path="new" component={QuestionsFrequentCreate} />
             <Route path=":itemId" component={QuestionsFrequentEdit} />
           </Route>
         </Route>
