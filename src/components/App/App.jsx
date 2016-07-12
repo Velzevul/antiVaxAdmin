@@ -40,7 +40,7 @@ const App = ({
       <div className={styles.App}>
         <div className={styles.App__sidebar}>
           <div>
-            <Block n={2}>
+            <Block n={2.5}>
               <h1 className={styles.App__title}>Antivax admin</h1>
             </Block>
 

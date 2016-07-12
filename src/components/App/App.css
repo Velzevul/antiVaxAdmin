@@ -10,15 +10,16 @@
     font-family: var(--fontFamily);
     font-size: var(--fontSize);
     font-weight: 600;
+    line-height: calc(var(--baseline) * 3);
 
     color: var(--colorTextDark);
   }
 
   &__sidebar {
     width: calc(var(--baseline) * 20);
-    padding: calc(var(--baseline) * 3)
+    padding: calc(var(--baseline) * 2.5)
              0
-             calc(var(--baseline) * 3)
+             calc(var(--baseline) * 2.5)
              calc(var(--baseline) * 4);
     display: flex;
     flex-direction: column;

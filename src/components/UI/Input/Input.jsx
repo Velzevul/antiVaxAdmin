@@ -33,7 +33,8 @@ class Input extends React.Component {
       <label className={`${styles.Input} ${error ? styles.Input_error : ''}`}>
         {labelEl}
         {prefixEl}
-        <input type={type}
+        <input className={styles.Input__input}
+          type={type}
           ref={el => { this._element = el }}
           value={value}
           disabled={disabled}

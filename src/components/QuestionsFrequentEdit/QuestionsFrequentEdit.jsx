@@ -124,8 +124,7 @@ class QuestionsFrequentEdit extends React.Component {
               onChange={value => this.change('isPublished', value)} />
           </Block>
 
-          <Editor label="Content"
-            value={this.state.data.content}
+          <Editor value={this.state.data.content}
             error={this.state.errors.content}
             disabled={isUpdating}
             onChange={value => this.change('content', value)} />

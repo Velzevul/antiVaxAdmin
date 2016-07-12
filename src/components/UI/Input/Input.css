@@ -11,18 +11,23 @@
   font-weight: 400;
 
   &__input {
+    display: block;
     flex: 1;
     padding: calc(var(--baseline) / 2) var(--baseline);
 
     font-family: inherit;
     font-size: var(--fontSize);
     font-weight: inherit;
-    line-height: var(--baseline) * 1.5;
+    line-height: calc(var(--baseline) * 1.5);
 
     color: var(--colorTextMed);
 
     border: none;
     border-bottom: 1px solid var(--colorBorder);
+
+    &:focus {
+      outline: none;
+    }
   }
 
   &__label {

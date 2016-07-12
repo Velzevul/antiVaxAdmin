@@ -16,7 +16,8 @@ class Checkbox extends React.Component {
     return (
       <div className={styles.Checkbox}>
         {labelEl}
-        <input type="checkbox"
+        <input className={styles.Checkbox__input}
+          type="checkbox"
           ref={el => { this._element = el }}
           checked={checked}
           disabled={disabled}

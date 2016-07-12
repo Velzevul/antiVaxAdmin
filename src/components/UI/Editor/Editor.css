@@ -6,16 +6,6 @@
   flex: 1;
   display: flex;
 
-  &__label {
-    width: calc(var(--baseline) * 8);
-    padding-right: calc(var(--baseline) * 2);
-
-    font-size: var(--fontSizeSmall);
-
-    color: var(--colorTextLight);
-    text-align: right;
-  }
-
   &__toolbar {
     position: absolute;
     top: 0;
@@ -97,7 +87,7 @@
   &__body {
     flex: 1;
     overflow: scroll;
-    padding:  calc(var(--baseline) * 5)
+    padding:  calc(var(--baseline) * 3.5)
               calc(var(--baseline) * 1.5)
               calc(var(--baseline) * 1.5)
               calc(var(--baseline) * 1.5);
