@@ -167,11 +167,11 @@ const requestCreate = () => {
 }
 
 const confirmCreate = (
-  faq
+  item
 ) => {
   return {
     type: CONFIRM_CREATE_FAQ,
-    faq
+    item
   }
 }
 
@@ -289,6 +289,7 @@ export const deleteFaq = (
           dispatch(confirmDelete(id))
           dispatch(flashMessage('Question was deleted', 'log'))
         } else {
+          dispatch(rejectDelete(id))
           console.error(json.data)
           dispatch(flashMessage('Oops, something went wrong :()', 'error'))
         }

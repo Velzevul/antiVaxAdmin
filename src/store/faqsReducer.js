@@ -13,6 +13,10 @@ const faq = (
       return Object.assign({}, state, {
         data: action.item
       })
+    case CONFIRM_CREATE_FAQ:
+      return Object.assign({}, state, {
+        data: action.item
+      })
     case REQUEST_FAQ_UPDATE:
       if (state.data._id === action.id) {
         return Object.assign({}, state, {
@@ -121,10 +125,11 @@ const faqs = (
         newFaq: newFaq(state.newFaq, action)
       })
     case CONFIRM_CREATE_FAQ:
+      console.log(action.faq)
       return Object.assign({}, state, {
         newFaq: initialState.faqs.newFaq,
         items: [
-          action.faq,
+          faq(null, action),
           ...state.items
         ]
       })

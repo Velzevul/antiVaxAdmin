@@ -180,6 +180,7 @@ export const deleteQuestion = (
           dispatch(confirmDelete(id))
           dispatch(flashMessage('Question was deleted', 'log'))
         } else {
+          dispatch(rejectDelete(id))
           console.error(json.data)
           dispatch(flashMessage('Oops, something went wrong :()', 'error'))
         }
