@@ -6,7 +6,7 @@ import Time from 'react-time'
 import styles from './QuestionsFrequentDirectoryEntry.css'
 import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
 import {Button} from '../UI'
-import {updateFaq} from '../../store/faqsActions'
+import {updateFaq, deleteFaq} from '../../store/faqsActions'
 
 class QuestionsFrequentDirectoryEntry extends React.Component {
   constructor (props) {
@@ -27,11 +27,8 @@ class QuestionsFrequentDirectoryEntry extends React.Component {
 
   delete () {
     const {dispatch, entry} = this.props
-    const payload = {
-      isDeleted: true
-    }
 
-    dispatch(updateFaq(entry.data._id, payload, 'moved to "trash"'))
+    dispatch(deleteFaq(entry.data._id))
   }
 
   render () {

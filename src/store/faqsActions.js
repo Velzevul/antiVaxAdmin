@@ -14,6 +14,10 @@ export const REQUEST_CREATE_FAQ = 'CREATE_FAQ'
 export const CONFIRM_CREATE_FAQ = 'CONFIRM_CREATE_FAQ'
 export const REJECT_CREATE_FAQ = 'REJECT_CREATE_FAQ'
 
+export const REQUEST_DELETE_FAQ = 'REQUEST_DELETE_FAQ'
+export const CONFIRM_DELETE_FAQ = 'CONFIRM_DELETE_FAQ'
+export const REJECT_DELETE_FAQ = 'REJECT_DELETE_FAQ'
+
 import {flashMessage} from './flashActions'
 import {logOut} from './authActions'
 
@@ -210,10 +214,8 @@ export const createFaq = (
       .then(json => {
         if (json.success) {
           dispatch(confirmCreate(json.data.faq))
-          // NOTE: think of how to do this better...
-          dispatch(fetchFaqs())
-          hashHistory.push(`/questions/frequent/${json.data.faq._id}`)
           dispatch(flashMessage('Question created successfully', 'log'))
+          hashHistory.push(`/questions/frequent/${json.data.faq._id}`)
         } else if (json.data.name === 'ValidationError') {
           let payload = {}
 
@@ -223,6 +225,70 @@ export const createFaq = (
 
           dispatch(rejectCreate(payload))
           dispatch(flashMessage('Could not create question due to errors', 'error'))
+        } else {
+          console.error(json.data)
+          dispatch(flashMessage('Oops, something went wrong :()', 'error'))
+        }
+      })
+  }
+}
+
+const requestDelete = (
+  id
+) => {
+  return {
+    type: REQUEST_DELETE_FAQ,
+    id
+  }
+}
+
+const confirmDelete = (
+  id
+) => {
+  return {
+    type: CONFIRM_DELETE_FAQ,
+    id
+  }
+}
+
+const rejectDelete = (
+  id
+) => {
+  return {
+    type: REJECT_DELETE_FAQ,
+    id
+  }
+}
+
+export const deleteFaq = (
+  id
+) => {
+  return (dispatch, getState) => {
+    dispatch(requestDelete(id))
+
+    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/faqs/${id}`, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': getState().auth.token
+      }
+    })
+      .then(response => {
+        if (response.status === 401) {
+          dispatch(logOut())
+          dispatch(flashMessage('Authorization failed. Please, log in again', 'error'))
+          throw new Error('Unauthorized action')
+        } else {
+          return response
+        }
+      })
+      .then(response => response.json())
+      .then(json => {
+        if (json.success) {
+          dispatch(confirmDelete(id))
+          dispatch(flashMessage('Question was deleted', 'log'))
+          hashHistory.push('/questions/frequent')
         } else {
           console.error(json.data)
           dispatch(flashMessage('Oops, something went wrong :()', 'error'))
