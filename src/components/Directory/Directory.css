@@ -9,7 +9,7 @@
   align-items: stretch;
 
   &__header {
-    padding:  calc(var(--baseline) * 3)
+    padding:  calc(var(--baseline) * 2.5)
               calc(var(--baseline) * 6);
   }
 
@@ -21,14 +21,5 @@
     flex: 1;
 
     overflow: scroll;
-  }
-
-  &__title {
-    font-family: var(--fontFamily);
-    font-size: var(--fontSizeSmall);
-    font-weight: 600;
-
-    color: var(--colorTextLight);
-    text-transform: uppercase;
   }
 }

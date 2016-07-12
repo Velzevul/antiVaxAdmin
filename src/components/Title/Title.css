@@ -1,0 +1,20 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.Title {
+  font-family: var(--fontFamily);
+  font-size: var(--fontSizeSmall);
+  font-weight: 600;
+  line-height: calc(var(--baseline) * 3);
+
+  text-transform: uppercase;
+}
+  .Title_default {
+    color: var(--colorTextLight);
+  }
+  .Title_success {
+    color: var(--colorSuccess);
+  }
+  .Title_error {
+    color: var(--colorError);
+  }

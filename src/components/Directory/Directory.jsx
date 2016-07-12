@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styles from './Directory.css'
+import Title from '../Title'
 
 const Directory = ({
   title,
@@ -13,7 +14,7 @@ const Directory = ({
     return (
       <div className={styles.Directory}>
         <div className={styles.Directory__header}>
-          <div className={styles.Directory__title}>{title}</div>
+          <Title label={title} />
         </div>
 
         <div className={styles.Directory__body}>

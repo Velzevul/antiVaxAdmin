@@ -7,8 +7,8 @@
   height: 100%;
   align-items: stretch;
 
-  &__title {
-    min-width: calc(var(--baseline) * 15);
+  &__header {
+
     font-family: var(--fontFamily);
     font-size: var(--fontSizeSmall);
     font-weight: 600;
@@ -18,10 +18,10 @@
   }
 
   &__sidebar {
-    max-width: calc(var(--baseline) * 30);
-    padding: calc(var(--baseline) * 3)
+    width: calc(var(--baseline) * 20);
+    padding: calc(var(--baseline) * 2.5)
              0
-             calc(var(--baseline) * 3)
+             calc(var(--baseline) * 2.5)
              calc(var(--baseline) * 4);
 
     border-right: 1px solid var(--colorBorder);

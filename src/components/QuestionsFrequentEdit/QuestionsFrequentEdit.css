@@ -9,7 +9,7 @@
   align-items: stretch;
 
   &__header {
-    padding:  calc(var(--baseline) * 3)
+    padding:  calc(var(--baseline) * 2.5)
               calc(var(--baseline) * 6);
   }
 

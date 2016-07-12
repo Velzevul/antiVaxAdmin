@@ -3,8 +3,9 @@ import {connect} from 'react-redux'
 
 import styles from './QuestionsFrequentEdit.css'
 import {Block, Flex, ListInline, ListInlineItem} from '../Layouts'
-import {Button, Badge, Input, Checkbox, Editor} from '../UI'
+import {Button, Input, Checkbox, Editor} from '../UI'
 import {updateFaq, markFaqDirty} from '../../store/faqsActions'
+import Title from '../Title'
 
 class QuestionsFrequentEdit extends React.Component {
   constructor (props) {
@@ -59,7 +60,7 @@ class QuestionsFrequentEdit extends React.Component {
     if (isDirty) {
       header = (
         <Flex justifyContent="space-between">
-          <Badge small theme="error" label="Unsaved changes" />
+          <Title label="Unsaved Changes" theme="error" />
 
           <ListInline>
             <ListInlineItem>
@@ -82,7 +83,7 @@ class QuestionsFrequentEdit extends React.Component {
     } else {
       header = (
         <Flex justifyContent="space-between">
-          <Badge small label="All changes saved" />
+          <Title label="All Saved" theme="success" />
 
           <Button small
             inverse
