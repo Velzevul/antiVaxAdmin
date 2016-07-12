@@ -41,13 +41,6 @@ ReactDOM.render((
         <Route path="blog" component={Dummy} />
         <Route path="content" component={Dummy} />
         <Route path="users" component={Dummy} />
-
-        <Route path="trash" components={TrashSection}>
-          <IndexRedirect to={`${ANTIVAX_ADMIN_PREFIX}/trash/questions`} />
-
-          <Route path="questions" component={TrashQuestionsDirectory} />
-          <Route path="frequent" component={TrashFrequentDirectory} />
-        </Route>
       </Route>
     </Router>
   </Provider>

@@ -288,7 +288,6 @@ export const deleteFaq = (
         if (json.success) {
           dispatch(confirmDelete(id))
           dispatch(flashMessage('Question was deleted', 'log'))
-          hashHistory.push('/questions/frequent')
         } else {
           console.error(json.data)
           dispatch(flashMessage('Oops, something went wrong :()', 'error'))

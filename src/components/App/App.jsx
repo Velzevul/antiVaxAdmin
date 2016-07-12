@@ -29,10 +29,6 @@ const App = ({
       {
         id: 'users',
         label: 'Users'
-      },
-      {
-        id: 'trash',
-        label: 'Trash'
       }
     ]
 

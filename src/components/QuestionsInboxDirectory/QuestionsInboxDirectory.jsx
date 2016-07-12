@@ -19,9 +19,7 @@ class QuestionsInboxDirectory extends React.Component {
     if (isFetching) {
       return <Loading />
     } else {
-      const fileredItems = items.filter(i => i.data.isDeleted === false)
-
-      const questions = fileredItems.map(i =>
+      const questions = items.map(i =>
         <QuestionsInboxDirectoryEntry key={i.data._id} entry={i} />
       )
 

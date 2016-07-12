@@ -20,9 +20,7 @@ class QuestionsFrequentDirectory extends React.Component {
     if (isFetching) {
       return <Loading />
     } else {
-      const filteredItems = items.filter(i => i.data.isDeleted === false)
-
-      const faqs = filteredItems.map(i =>
+      const faqs = items.map(i =>
         <QuestionsFrequentDirectoryEntry key={i.data._id} entry={i} />
       )
 
