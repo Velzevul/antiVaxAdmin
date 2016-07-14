@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import {Block, Flex, ListInline, ListInlineItem} from '../Layouts'
 import {Button, Input, Checkbox, Editor} from '../UI'
-import {updateFaq, markFaqDirty} from '../../store/faqsActions'
+import {updateFaq} from '../../store/faqsActions'
 import {ItemForm, ItemFormHeader, ItemFormBody} from '../ItemForm'
 import Title from '../Title'
 
@@ -15,17 +15,32 @@ class QuestionsFrequentEdit extends React.Component {
     this.change = this.change.bind(this)
 
     this.state = {
+      isDirty: false,
       data: Object.assign({}, props.item.data),
       errors: Object.assign({}, props.item.errors)
     }
   }
 
   componentWillReceiveProps (newProps) {
-    const {errors} = newProps.item
+    const {errors, data, isUpdating} = newProps.item
 
-    this.setState({
-      errors: Object.assign({}, errors)
-    })
+    if (!isUpdating) {
+      let newState = {}
+
+      if (Object.keys(errors).length === 0 && errors.constructor === Object) {
+        newState = {
+          isDirty: false,
+          data: data,
+          errors: {}
+        }
+      } else {
+        newState = {
+          errors: Object.assign({}, errors)
+        }
+      }
+
+      this.setState(newState)
+    }
   }
 
   save () {
@@ -35,10 +50,6 @@ class QuestionsFrequentEdit extends React.Component {
   }
 
   change (prop, value) {
-    const {dispatch} = this.props
-
-    dispatch(markFaqDirty(this.props.item.data._id))
-
     const newData = {
       [prop]: value
     }
@@ -47,17 +58,18 @@ class QuestionsFrequentEdit extends React.Component {
     }
 
     this.setState({
+      isDirty: true,
       data: Object.assign({}, this.state.data, newData),
       errors: Object.assign({}, this.state.errors, newErrors)
     })
   }
 
   render () {
-    const {isUpdating, isDirty} = this.props.item
+    const {isUpdating} = this.props.item
 
     let header = ''
 
-    if (isDirty) {
+    if (this.state.isDirty) {
       header = (
         <Flex justifyContent="space-between">
           <Title label="Unsaved Changes" theme="error" />

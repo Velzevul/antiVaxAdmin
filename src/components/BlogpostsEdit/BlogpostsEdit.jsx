@@ -29,7 +29,7 @@ class BlogpostsEdit extends React.Component {
 
     if (!isUpdating) {
       let newState = {}
-      
+
       if (Object.keys(errors).length === 0 && errors.constructor === Object) {
         newState = {
           isDirty: false,
@@ -186,14 +186,17 @@ class BlogpostsEdit extends React.Component {
               onChange={value => this.change('isPublished', value)} />
           </Block>
 
-          <Block n={2}>
+          <Block n={3}>
             <Editor value={this.state.data.content}
               error={this.state.errors.content}
               disabled={isUpdating}
               onChange={value => this.change('content', value)} />
           </Block>
 
-          <Comments items={this.state.data.comments || []} onDeleteComment={this.deleteComment} onDeleteReply={this.deleteReply} />
+          {this.state.data.comments.length
+          ? <Comments items={this.state.data.comments} onDeleteComment={this.deleteComment} onDeleteReply={this.deleteReply} />
+          : null
+          }
         </ItemFormBody>
       </ItemForm>
     )

@@ -34,7 +34,6 @@ export default {
     }
   },
   faq: {
-    isDirty: false,
     isUpdating: false,
     data: {},
     errors: {}
@@ -49,7 +48,6 @@ export default {
     }
   },
   blogpost: {
-    isDirty: false,
     isUpdating: false,
     data: {},
     errors: {}

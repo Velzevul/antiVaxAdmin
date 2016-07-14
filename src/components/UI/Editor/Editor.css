@@ -2,6 +2,8 @@
 @import '../../../styles/config.css';
 
 .Editor {
+  position: relative;
+  
   &__toolbar {
     display: flex;
     padding: 0 calc(var(--baseline) * 1.25);

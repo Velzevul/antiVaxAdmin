@@ -27,7 +27,6 @@
     font-size: var(--fontSize);
 
     color: var(--colorTextMed);
-
     text-decoration: none;
 
     &:hover {

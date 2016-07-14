@@ -8,8 +8,6 @@ export const REQUEST_FAQ_UPDATE = 'REQUEST_FAQ_UPDATE'
 export const RECEIVE_FAQ_UPDATE = 'RECEIVE_FAQ_UPDATE'
 export const RECEIVE_FAQ_ERRORS = 'RECEIVE_FAQ_ERRORS'
 
-export const MARK_FAQ_DIRTY = 'MARK_FAQ_DIRTY'
-
 export const REQUEST_CREATE_FAQ = 'CREATE_FAQ'
 export const CONFIRM_CREATE_FAQ = 'CONFIRM_CREATE_FAQ'
 export const REJECT_CREATE_FAQ = 'REJECT_CREATE_FAQ'
@@ -148,15 +146,6 @@ export const updateFaq = (
           dispatch(flashMessage('Oops, something went wrong :()', 'error'))
         }
       })
-  }
-}
-
-export const markFaqDirty = (
-  id
-) => {
-  return {
-    type: MARK_FAQ_DIRTY,
-    id
   }
 }
 

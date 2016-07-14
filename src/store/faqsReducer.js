@@ -1,5 +1,5 @@
 import {REQUEST_FAQS, RECEIVE_FAQS, REQUEST_FAQ_UPDATE,
-  RECEIVE_FAQ_UPDATE, RECEIVE_FAQ_ERRORS, MARK_FAQ_DIRTY,
+  RECEIVE_FAQ_UPDATE, RECEIVE_FAQ_ERRORS,
   REQUEST_CREATE_FAQ, CONFIRM_CREATE_FAQ, REJECT_CREATE_FAQ,
   REQUEST_DELETE_FAQ, CONFIRM_DELETE_FAQ, REJECT_DELETE_FAQ} from './faqsActions'
 import initialState from './initialState'
@@ -29,7 +29,6 @@ const faq = (
       if (state.data._id === action.id) {
         return Object.assign({}, state, {
           data: action.updatedFaq,
-          isDirty: false,
           isUpdating: false,
           errors: {}
         })
@@ -41,14 +40,6 @@ const faq = (
         return Object.assign({}, state, {
           isUpdating: false,
           errors: action.errors
-        })
-      } else {
-        return state
-      }
-    case MARK_FAQ_DIRTY:
-      if (state.data._id === action.id) {
-        return Object.assign({}, state, {
-          isDirty: true
         })
       } else {
         return state
@@ -113,7 +104,6 @@ const faqs = (
     case REQUEST_FAQ_UPDATE:
     case RECEIVE_FAQ_UPDATE:
     case RECEIVE_FAQ_ERRORS:
-    case MARK_FAQ_DIRTY:
     case REQUEST_DELETE_FAQ:
     case REJECT_DELETE_FAQ:
       return Object.assign({}, state, {
