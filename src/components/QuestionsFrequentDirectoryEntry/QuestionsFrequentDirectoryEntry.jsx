@@ -41,38 +41,40 @@ class QuestionsFrequentDirectoryEntry extends React.Component {
           : <div className={styles.Entry__badge}>Draft</div>
         }
 
-        <Block>
-          <Flex justifyContent="space-between">
-            <div className={styles.Entry__modified}>Last modified by {entry.data.lastModifiedBy} on <Time value={entry.data.lastModifiedAt} format="MMMM Do YYYY (h:mm a)" /></div>
+        <Flex justifyContent="space-between" alignItems="center">
+          <div>
+            <Block n={0.5}>
+              <div className={styles.Entry__info}>Last modified by {entry.data.lastModifiedBy} on <Time value={entry.data.lastModifiedAt} format="MMMM Do YYYY (h:mm a)" /></div>
+            </Block>
+            
+            <Link to={`questions/frequent/${entry.data._id}`} className={styles.Entry__title}>{entry.data.title}</Link>
+          </div>
 
-            {entry.data.isPublished
-              ? <Button small
-                disabled={entry.isUpdating}
-                inverse
-                theme="error"
-                onClick={this.publish}>Unpublish</Button>
-              : <ListInline>
-                <ListInlineItem>
-                  <Button small
-                    inverse
-                    disabled={entry.isUpdating}
-                    theme="accent1"
-                    onClick={this.publish}>Publish</Button>
-                </ListInlineItem>
+          {entry.data.isPublished
+            ? <Button small
+              disabled={entry.isUpdating}
+              inverse
+              theme="error"
+              onClick={this.publish}>Unpublish</Button>
+            : <ListInline>
+              <ListInlineItem>
+                <Button small
+                  inverse
+                  disabled={entry.isUpdating}
+                  theme="accent1"
+                  onClick={this.publish}>Publish</Button>
+              </ListInlineItem>
 
-                <ListInlineItem>
-                  <Button small
-                    disabled={entry.isUpdating}
-                    inverse
-                    theme="error"
-                    onClick={this.delete}>Delete</Button>
-                </ListInlineItem>
-              </ListInline>
-            }
-          </Flex>
-        </Block>
-
-        <Link to={`questions/frequent/${entry.data._id}`} className={styles.Entry__title}>{entry.data.title}</Link>
+              <ListInlineItem>
+                <Button small
+                  disabled={entry.isUpdating}
+                  inverse
+                  theme="error"
+                  onClick={this.delete}>Delete</Button>
+              </ListInlineItem>
+            </ListInline>
+          }
+        </Flex>
       </div>
     )
   }

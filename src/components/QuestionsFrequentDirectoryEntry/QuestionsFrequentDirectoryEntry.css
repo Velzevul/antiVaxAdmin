@@ -10,12 +10,12 @@
   &__badge {
     position: absolute;
     right: 100%;
-    top: calc(var(--baseline) * 2);
+    top: 3.1rem;
     width: calc(var(--baseline) * 6);
 
     font-size: 0.688rem;
     font-weight: 600;
-    line-height: 1.813rem;
+    line-height: 1.250rem;
 
     text-transform: uppercase;
     text-align: center;
@@ -35,7 +35,7 @@
     }
   }
 
-  &__modified {
+  &__info {
     font-size: var(--fontSizeSmall);
     font-weight: 300;
 
@@ -43,7 +43,7 @@
   }
 }
   .Entry_draft {
-    & .Entry__modified {
+    & .Entry__title {
       color: var(--colorTextDark);
       font-weight: 700;
     }

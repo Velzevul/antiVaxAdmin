@@ -40,59 +40,58 @@ class QuestionsInboxDirectoryEntry extends React.Component {
           : <div className={styles.Entry__badge}>New</div>
         }
 
-        <Block>
-          <Flex justifyContent="space-between">
-            <div className={styles.Entry__posted}>
-              <Time value={entry.data.createdAt} format="MMMM Do YYYY (h:mm a)" /> by {entry.data.posterName} ({entry.data.posterEmail})
-            </div>
+        <Flex justifyContent="space-between">
+          <div>
+            <Block n={0.5}>
+              <div className={styles.Entry__info}>On <Time value={entry.data.createdAt} format="MMMM Do YYYY (h:mm a)" /> by {entry.data.posterName} ({entry.data.posterEmail})</div>
+            </Block>
+            <div className={styles.Entry__body}>{entry.data.question}</div>
+          </div>
 
-            {entry.data.isSeen
-              ? <ListInline>
-                <ListInlineItem>
-                  <Button small
-                    disabled={entry.isUpdating}
-                    inverse
-                    theme="accent1"
-                    onClick={this.markSeen}>mark as new</Button>
-                </ListInlineItem>
+          {entry.data.isSeen
+            ? <ListInline>
+              <ListInlineItem>
+                <Button small
+                  disabled={entry.isUpdating}
+                  inverse
+                  theme="accent1"
+                  onClick={this.markSeen}>mark as new</Button>
+              </ListInlineItem>
 
-                <ListInlineItem>
-                  <Button small
-                    disabled={entry.isUpdating}
-                    inverse
-                    theme="error"
-                    onClick={this.delete}>Delete</Button>
-                </ListInlineItem>
-              </ListInline>
-              : <ListInline>
-                <ListInlineItem>
-                  <Button small
-                    disabled={entry.isUpdating}
-                    theme="accent1"
-                    href={`mailto:${entry.data.posterEmail}?subject=Reply to your questions on antivax&body=Reply to your question:\n ${entry.data.question}`}>respond via email</Button>
-                </ListInlineItem>
+              <ListInlineItem>
+                <Button small
+                  disabled={entry.isUpdating}
+                  inverse
+                  theme="error"
+                  onClick={this.delete}>Delete</Button>
+              </ListInlineItem>
+            </ListInline>
+            : <ListInline>
+              <ListInlineItem>
+                <Button small
+                  disabled={entry.isUpdating}
+                  theme="accent1"
+                  href={`mailto:${entry.data.posterEmail}?subject=Reply to your questions on antivax&body=Reply to your question:\n ${entry.data.question}`}>respond via email</Button>
+              </ListInlineItem>
 
-                <ListInlineItem>
-                  <Button small
-                    disabled={entry.isUpdating}
-                    inverse
-                    theme="accent1"
-                    onClick={this.markSeen}>mark as seen</Button>
-                </ListInlineItem>
+              <ListInlineItem>
+                <Button small
+                  disabled={entry.isUpdating}
+                  inverse
+                  theme="accent1"
+                  onClick={this.markSeen}>mark as seen</Button>
+              </ListInlineItem>
 
-                <ListInlineItem>
-                  <Button small
-                    disabled={entry.isUpdating}
-                    inverse
-                    theme="error"
-                    onClick={this.delete}>Delete</Button>
-                </ListInlineItem>
-              </ListInline>
-            }
-          </Flex>
-        </Block>
-
-        <div className={styles.Entry__body}>{entry.data.question}</div>
+              <ListInlineItem>
+                <Button small
+                  disabled={entry.isUpdating}
+                  inverse
+                  theme="error"
+                  onClick={this.delete}>Delete</Button>
+              </ListInlineItem>
+            </ListInline>
+          }
+        </Flex>
       </div>
     )
   }

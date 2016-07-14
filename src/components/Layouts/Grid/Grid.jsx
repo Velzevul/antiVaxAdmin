@@ -10,7 +10,6 @@ const Grid = ({
   children
 }) => {
   const style = {
-    width: '100%',
     height: '100%',
     display: 'flex',
     alignItems,
@@ -34,8 +33,8 @@ const GridItem = ({
   children
 }) => {
   let style = {
-    marginLeft: `${baseline * gutter / 2}rem`,
-    marginRight: `${baseline * gutter / 2}rem`,
+    paddingLeft: `${baseline * gutter / 2}rem`,
+    paddingRight: `${baseline * gutter / 2}rem`,
     flex: '1'
   }
 

@@ -14,7 +14,7 @@ class Checkbox extends React.Component {
     }
 
     return (
-      <div className={styles.Checkbox}>
+      <label className={styles.Checkbox}>
         {labelEl}
         <input className={styles.Checkbox__input}
           type="checkbox"
@@ -22,7 +22,7 @@ class Checkbox extends React.Component {
           checked={checked}
           disabled={disabled}
           onChange={() => onChange(this._element.checked)} />
-      </div>
+      </label>
     )
   }
 }

@@ -82,7 +82,7 @@ class QuestionsFrequentCreate extends React.Component {
         </div>
 
         <div className={styles.ItemForm__body}>
-          <Block n={1.5}>
+          <Block n={1}>
             <Input label="Title"
               value={this.state.data.title}
               error={this.state.errors.title}
@@ -90,7 +90,7 @@ class QuestionsFrequentCreate extends React.Component {
               onChange={value => this.change('title', value)} />
           </Block>
 
-          <Block n={1.5}>
+          <Block n={1}>
             <Input label="URL"
               value={this.state.data.url}
               error={this.state.errors.url}
@@ -98,7 +98,7 @@ class QuestionsFrequentCreate extends React.Component {
               onChange={value => this.change('url', value)} />
           </Block>
 
-          <Block n={1.5}>
+          <Block n={1}>
             <Checkbox label="Published"
               checked={this.state.data.isPublished}
               disabled={isUpdating}

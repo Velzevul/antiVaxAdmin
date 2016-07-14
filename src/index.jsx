@@ -13,10 +13,6 @@ import QuestionsFrequentDirectory from './components/QuestionsFrequentDirectory'
 import QuestionsFrequentEdit from './components/QuestionsFrequentEdit'
 import QuestionsFrequentCreate from './components/QuestionsFrequentCreate'
 
-import TrashSection from './components/TrashSection'
-import TrashQuestionsDirectory from './components/TrashQuestionsDirectory'
-import TrashFrequentDirectory from './components/TrashFrequentDirectory'
-
 import Dummy from './components/Dummy'
 
 const store = configureStore()

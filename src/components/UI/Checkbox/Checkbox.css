@@ -13,6 +13,7 @@
   &__input {
     width: calc(var(--baseline) * 2.5);
     height: calc(var(--baseline) * 2.5);
+    margin: 0 calc(var(--baseline) / 2);
 
     text-align: center;
   }
