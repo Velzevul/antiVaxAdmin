@@ -19,8 +19,8 @@ const App = ({
         label: 'Questions'
       },
       {
-        id: 'blog',
-        label: 'Blog'
+        id: 'blogposts',
+        label: 'Blogposts'
       },
       {
         id: 'content',

@@ -1,0 +1,76 @@
+@import '../../styles/config.css';
+@import '../../styles/colors.css';
+
+.Comment {
+  /*...*/
+
+  &__deleteInfo {
+    font-size: var(--fontSizeSmall);
+    color: var(--colorError);
+  }
+
+  &__info {
+    font-size: var(--fontSizeSmall);
+    font-weight: 300;
+
+    color: var(--colorTextLight);
+  }
+
+  &__comment {
+    padding: calc(var(--baseline) * 1) 0;
+    border-top: 1px solid var(--colorBorder);
+  }
+
+  &__body {
+    font-size: var(--fontSize);
+
+    color: var(--colorTextMed);
+    text-align: justify;
+
+    & :global(p) {
+      margin-bottom: var(--baseline);
+    }
+  }
+
+  &__replies {
+    padding-left: calc(var(--baseline) * 3);
+  }
+}
+  .Comment_deleted {
+    & .Comment__replies,
+    & .Comment__body {
+      opacity: 0.3;
+    }
+  }
+
+.Reply {
+  padding: calc(var(--baseline) / 2) 0;
+
+  &__deleteInfo {
+    font-size: var(--fontSizeSmall);
+    color: var(--colorError);
+  }
+
+  &__info {
+    font-size: var(--fontSizeSmall);
+    font-weight: 300;
+
+    color: var(--colorTextLight);
+  }
+
+  &__body {
+    font-size: var(--fontSize);
+
+    color: var(--colorTextMed);
+    text-align: justify;
+
+    & :global(p) {
+      margin-bottom: var(--baseline);
+    }
+  }
+}
+  .Reply_deleted {
+    & .Reply__body {
+      opacity: 0.3;
+    }
+  }

@@ -4,10 +4,10 @@ import {connect} from 'react-redux'
 import {ItemForm, ItemFormBody, ItemFormHeader} from '../ItemForm'
 import {Block, Flex, ListInline, ListInlineItem} from '../Layouts'
 import {Button, Input, Checkbox, Editor} from '../UI'
-import {createFaq} from '../../store/faqsActions'
+import {createBlogpost} from '../../store/blogpostsActions'
 import Title from '../Title'
 
-class QuestionsFrequentCreate extends React.Component {
+class BlogpostsCreate extends React.Component {
   constructor (props) {
     super(props)
 
@@ -36,7 +36,7 @@ class QuestionsFrequentCreate extends React.Component {
   save () {
     const {dispatch} = this.props
 
-    dispatch(createFaq(this.state.data))
+    dispatch(createBlogpost(this.state.data))
   }
 
   change (prop, value) {
@@ -60,7 +60,7 @@ class QuestionsFrequentCreate extends React.Component {
       <ItemForm>
         <ItemFormHeader>
           <Flex justifyContent="space-between">
-            <Title label="Create Frequent Question" />
+            <Title label="Create Blogpost" />
 
             <ListInline>
               <ListInlineItem>
@@ -75,7 +75,7 @@ class QuestionsFrequentCreate extends React.Component {
                   inverse
                   theme="accent1"
                   disabled={isUpdating}
-                  to="questions/frequent">Cancel</Button>
+                  to="Blogposts">Cancel</Button>
               </ListInlineItem>
             </ListInline>
           </Flex>
@@ -118,7 +118,7 @@ class QuestionsFrequentCreate extends React.Component {
 export default connect(
   state => {
     return {
-      item: state.faqs.newFaq
+      item: state.blogposts.newBlogpost
     }
   }
-)(QuestionsFrequentCreate)
+)(BlogpostsCreate)

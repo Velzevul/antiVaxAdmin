@@ -3,12 +3,14 @@ import auth from './authReducer'
 import flash from './flashReducer'
 import questions from './questionsReducer'
 import faqs from './faqsReducer'
+import blogposts from './blogpostsReducer'
 
 const rootReducer = combineReducers({
   auth,
   flash,
   questions,
-  faqs
+  faqs,
+  blogposts
 })
 
 export default rootReducer

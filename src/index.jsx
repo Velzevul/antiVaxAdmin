@@ -13,6 +13,10 @@ import QuestionsFrequentDirectory from './components/QuestionsFrequentDirectory'
 import QuestionsFrequentEdit from './components/QuestionsFrequentEdit'
 import QuestionsFrequentCreate from './components/QuestionsFrequentCreate'
 
+import BlogpostsDirectory from './components/BlogpostsDirectory'
+import BlogpostsCreate from './components/BlogpostsCreate'
+import BlogpostsEdit from './components/BlogpostsEdit'
+
 import Dummy from './components/Dummy'
 
 const store = configureStore()
@@ -34,7 +38,11 @@ ReactDOM.render((
           </Route>
         </Route>
 
-        <Route path="blog" component={Dummy} />
+        <Route path="blogposts" component={BlogpostsDirectory}>
+          <Route path="new" component={BlogpostsCreate} />
+          <Route path=":itemId" component={BlogpostsEdit} />
+        </Route>
+
         <Route path="content" component={Dummy} />
         <Route path="users" component={Dummy} />
       </Route>

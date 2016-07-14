@@ -41,7 +41,18 @@ export default {
   },
   blogposts: {
     isFetching: true,
-    items: []
+    items: [],
+    newBlogpost: {
+      isUpdating: false,
+      data: {},
+      errors: {}
+    }
+  },
+  blogpost: {
+    isDirty: false,
+    isUpdating: false,
+    data: {},
+    errors: {}
   },
   sections: {
     isFetching: true,
