@@ -3,11 +3,11 @@ import {connect} from 'react-redux'
 
 import {Block, Flex, ListInline, ListInlineItem} from '../Layouts'
 import {Button, Input, Checkbox, Editor} from '../UI'
-import {updateFaq} from '../../store/faqsActions'
+import {updateArticle} from '../../store/articleActions'
 import {ItemForm, ItemFormHeader, ItemFormBody} from '../ItemForm'
 import Title from '../Title'
 
-class QuestionsFrequentEdit extends React.Component {
+class ArticleEdit extends React.Component {
   constructor (props) {
     super(props)
 
@@ -46,7 +46,7 @@ class QuestionsFrequentEdit extends React.Component {
   save () {
     const {dispatch} = this.props
 
-    dispatch(updateFaq(this.props.item.data._id, this.state.data))
+    dispatch(updateArticle(this.props.item.data._id, this.state.data))
   }
 
   change (prop, value) {
@@ -76,18 +76,18 @@ class QuestionsFrequentEdit extends React.Component {
 
           <ListInline>
             <ListInlineItem>
-              <Button small
+              <Button
                 theme="accent1"
                 disabled={isUpdating}
                 onClick={this.save}>Save</Button>
             </ListInlineItem>
 
             <ListInlineItem>
-              <Button small
+              <Button
                 inverse
                 theme="accent1"
                 disabled={isUpdating}
-                to="questions/frequent">Cancel</Button>
+                to={this.props.item.data.type.id}>Cancel</Button>
             </ListInlineItem>
           </ListInline>
         </Flex>
@@ -97,11 +97,11 @@ class QuestionsFrequentEdit extends React.Component {
         <Flex justifyContent="space-between">
           <Title label="All Saved" theme="success" />
 
-          <Button small
+          <Button
             inverse
             theme="accent1"
             disabled={isUpdating}
-            to="questions/frequent">Close</Button>
+            to={this.props.item.data.type.id}>Close</Button>
         </Flex>
       )
     }
@@ -151,7 +151,7 @@ export default connect(
     const itemId = ownProps.params.itemId
 
     return {
-      item: state.faqs.items ? state.faqs.items.filter(i => i.data._id === itemId)[0] : {data: {}, errors: {}}
+      item: state.articles.items ? state.articles.items.filter(i => i.data._id === itemId)[0] : {data: {}, errors: {}}
     }
   }
-)(QuestionsFrequentEdit)
+)(ArticleEdit)

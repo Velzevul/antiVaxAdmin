@@ -1,22 +1,37 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {hashHistory} from 'react-router'
 
 import {ItemForm, ItemFormBody, ItemFormHeader} from '../ItemForm'
 import {Block, Flex, ListInline, ListInlineItem} from '../Layouts'
 import {Button, Input, Checkbox, Editor} from '../UI'
-import {createFaq} from '../../store/faqsActions'
+import {createArticle} from '../../store/articleActions'
 import Title from '../Title'
 
-class QuestionsFrequentCreate extends React.Component {
+class ArticleCreate extends React.Component {
   constructor (props) {
     super(props)
 
     this.save = this.save.bind(this)
     this.change = this.change.bind(this)
 
+    const sectionTypeMap = {
+      'faqs': 'FAQ',
+      'diseases': 'Disease Page',
+      'vaccines': 'Vaccine Page',
+      'about-vaccines': 'About Vaccines Page',
+      'vaccine-safety': 'Vaccine Safety Page',
+      'about-project': 'About Project Page',
+      'additional-information': 'Additional Information Page'
+    }
+
     this.state = {
       data: {
         title: '',
+        type: {
+          id: props.params.sectionId,
+          label: sectionTypeMap[props.params.sectionId]
+        },
         url: '',
         content: '',
         isPublished: false
@@ -36,7 +51,7 @@ class QuestionsFrequentCreate extends React.Component {
   save () {
     const {dispatch} = this.props
 
-    dispatch(createFaq(this.state.data))
+    dispatch(createArticle(this.state.data))
   }
 
   change (prop, value) {
@@ -60,22 +75,22 @@ class QuestionsFrequentCreate extends React.Component {
       <ItemForm>
         <ItemFormHeader>
           <Flex justifyContent="space-between">
-            <Title label="Create Frequent Question" />
+            <Title label={`Create new ${this.state.data.type.label}`} />
 
             <ListInline>
               <ListInlineItem>
-                <Button small
+                <Button
                   theme="accent1"
                   disabled={isUpdating}
                   onClick={this.save}>Save</Button>
               </ListInlineItem>
 
               <ListInlineItem>
-                <Button small
+                <Button
                   inverse
                   theme="accent1"
                   disabled={isUpdating}
-                  to="questions/frequent">Cancel</Button>
+                  to={this.state.data.type.id}>Cancel</Button>
               </ListInlineItem>
             </ListInline>
           </Flex>
@@ -118,7 +133,7 @@ class QuestionsFrequentCreate extends React.Component {
 export default connect(
   state => {
     return {
-      item: state.faqs.newFaq
+      item: state.articles.newArticle
     }
   }
-)(QuestionsFrequentCreate)
+)(ArticleCreate)

@@ -17,14 +17,14 @@ const Button = ({
   extraClassNames
 }) => {
   let style = {
-    padding: `${baseline * 0.75}rem ${baseline * 1.5}rem`,
+    padding: `${baseline * 0.6}rem ${baseline * 1.5}rem`,
     lineHeight: `${1.5 * baseline}rem`,
     fontSize: `${1.083 * baseline}rem`
   }
 
   if (small) {
     style = {
-      padding: `${baseline * 0.5}rem ${baseline * 1}rem`,
+      padding: `${baseline * 0.3}rem ${baseline * 1}rem`,
       lineHeight: `${1.5 * baseline}rem`,
       fontSize: `${0.917 * baseline}rem`
     }

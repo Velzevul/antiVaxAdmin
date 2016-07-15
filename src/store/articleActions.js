@@ -1,44 +1,44 @@
 import 'whatwg-fetch'
 import {hashHistory} from 'react-router'
 
-export const REQUEST_FAQS = 'REQUEST_FAQS'
-export const RECEIVE_FAQS = 'RECEIVE_FAQS'
+export const REQUEST_ARTICLES = 'REQUEST_ARTICLES'
+export const RECEIVE_ARTICLES = 'RECEIVE_ARTICLES'
 
-export const REQUEST_FAQ_UPDATE = 'REQUEST_FAQ_UPDATE'
-export const RECEIVE_FAQ_UPDATE = 'RECEIVE_FAQ_UPDATE'
-export const RECEIVE_FAQ_ERRORS = 'RECEIVE_FAQ_ERRORS'
+export const REQUEST_UPDATE_ARTICLE = 'REQUEST_UPDATE_ARTICLE'
+export const CONFIRM_UPDATE_ARTICLE = 'CONFIRM_UPDATE_ARTICLE'
+export const REJECT_UPDATE_ARTICLE = 'REJECT_UPDATE_ARTICLE'
 
-export const REQUEST_CREATE_FAQ = 'CREATE_FAQ'
-export const CONFIRM_CREATE_FAQ = 'CONFIRM_CREATE_FAQ'
-export const REJECT_CREATE_FAQ = 'REJECT_CREATE_FAQ'
+export const REQUEST_CREATE_ARTICLE = 'CREATE_ARTICLE'
+export const CONFIRM_CREATE_ARTICLE = 'CONFIRM_CREATE_ARTICLE'
+export const REJECT_CREATE_ARTICLE = 'REJECT_CREATE_ARTICLE'
 
-export const REQUEST_DELETE_FAQ = 'REQUEST_DELETE_FAQ'
-export const CONFIRM_DELETE_FAQ = 'CONFIRM_DELETE_FAQ'
-export const REJECT_DELETE_FAQ = 'REJECT_DELETE_FAQ'
+export const REQUEST_DELETE_ARTICLE = 'REQUEST_DELETE_ARTICLE'
+export const CONFIRM_DELETE_ARTICLE = 'CONFIRM_DELETE_ARTICLE'
+export const REJECT_DELETE_ARTICLE = 'REJECT_DELETE_ARTICLE'
 
 import {flashMessage} from './flashActions'
 import {logOut} from './authActions'
 
-const requestFaqs = () => {
+const requestArticles = () => {
   return {
-    type: REQUEST_FAQS
+    type: REQUEST_ARTICLES
   }
 }
 
-const receiveFaqs = (
+const receiveArticles = (
   items
 ) => {
   return {
-    type: RECEIVE_FAQS,
+    type: RECEIVE_ARTICLES,
     items
   }
 }
 
-export const fetchFaqs = () => {
+export const fetchArticles = () => {
   return (dispatch, getState) => {
-    dispatch(requestFaqs())
+    dispatch(requestArticles())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/faqs/`, {
+    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/articles/`, {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export const fetchFaqs = () => {
     .then(response => response.json())
     .then(json => {
       if (json.success) {
-        dispatch(receiveFaqs(json.data.faqs))
+        dispatch(receiveArticles(json.data.articles))
       } else {
         console.error(json.data)
         dispatch(flashMessage('Oops, something went wrong :()', 'error'))
@@ -70,19 +70,19 @@ const requestUpdate = (
   id
 ) => {
   return {
-    type: REQUEST_FAQ_UPDATE,
+    type: REQUEST_UPDATE_ARTICLE,
     id
   }
 }
 
 const receiveUpdate = (
   id,
-  updatedFaq
+  item
 ) => {
   return {
-    type: RECEIVE_FAQ_UPDATE,
+    type: CONFIRM_UPDATE_ARTICLE,
     id,
-    updatedFaq
+    item
   }
 }
 
@@ -91,13 +91,13 @@ const receiveErrors = (
   errors
 ) => {
   return {
-    type: RECEIVE_FAQ_ERRORS,
+    type: REJECT_UPDATE_ARTICLE,
     id,
     errors
   }
 }
 
-export const updateFaq = (
+export const updateArticle = (
   id,
   data,
   successMessage
@@ -105,7 +105,7 @@ export const updateFaq = (
   return (dispatch, getState) => {
     dispatch(requestUpdate(id))
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/faqs/${id}`, {
+    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/articles/${id}`, {
       method: 'PUT',
       mode: 'cors',
       headers: {
@@ -113,7 +113,7 @@ export const updateFaq = (
         'x-access-token': getState().auth.token
       },
       body: JSON.stringify({
-        faq: data
+        article: data
       })
     })
       .then(response => {
@@ -128,7 +128,7 @@ export const updateFaq = (
       .then(response => response.json())
       .then(json => {
         if (json.success) {
-          dispatch(receiveUpdate(id, json.data.faq))
+          dispatch(receiveUpdate(id, json.data.article))
           if (successMessage) {
             dispatch(flashMessage(successMessage, 'log'))
           }
@@ -140,7 +140,7 @@ export const updateFaq = (
           }
 
           dispatch(receiveErrors(id, payload))
-          dispatch(flashMessage('Could not update question due to errors', 'error'))
+          dispatch(flashMessage('Could not update article due to errors', 'error'))
         } else {
           console.error(json.data)
           dispatch(flashMessage('Oops, something went wrong :()', 'error'))
@@ -151,7 +151,7 @@ export const updateFaq = (
 
 const requestCreate = () => {
   return {
-    type: REQUEST_CREATE_FAQ
+    type: REQUEST_CREATE_ARTICLE
   }
 }
 
@@ -159,7 +159,7 @@ const confirmCreate = (
   item
 ) => {
   return {
-    type: CONFIRM_CREATE_FAQ,
+    type: CONFIRM_CREATE_ARTICLE,
     item
   }
 }
@@ -168,18 +168,18 @@ const rejectCreate = (
   errors
 ) => {
   return {
-    type: REJECT_CREATE_FAQ,
+    type: REJECT_CREATE_ARTICLE,
     errors
   }
 }
 
-export const createFaq = (
+export const createArticle = (
   data
 ) => {
   return (dispatch, getState) => {
     dispatch(requestCreate())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/faqs`, {
+    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/articles/`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -187,7 +187,7 @@ export const createFaq = (
         'x-access-token': getState().auth.token
       },
       body: JSON.stringify({
-        faq: data
+        article: data
       })
     })
       .then(response => {
@@ -202,9 +202,9 @@ export const createFaq = (
       .then(response => response.json())
       .then(json => {
         if (json.success) {
-          dispatch(confirmCreate(json.data.faq))
-          dispatch(flashMessage('Question created successfully', 'log'))
-          hashHistory.push(`/questions/frequent/${json.data.faq._id}`)
+          dispatch(confirmCreate(json.data.article))
+          dispatch(flashMessage('Article created successfully', 'log'))
+          hashHistory.push(`/${json.data.article.type.id}/${json.data.article._id}`)
         } else if (json.data.name === 'ValidationError') {
           let payload = {}
 
@@ -213,7 +213,7 @@ export const createFaq = (
           }
 
           dispatch(rejectCreate(payload))
-          dispatch(flashMessage('Could not create question due to errors', 'error'))
+          dispatch(flashMessage('Could not create article due to errors', 'error'))
         } else {
           console.error(json.data)
           dispatch(flashMessage('Oops, something went wrong :()', 'error'))
@@ -226,7 +226,7 @@ const requestDelete = (
   id
 ) => {
   return {
-    type: REQUEST_DELETE_FAQ,
+    type: REQUEST_DELETE_ARTICLE,
     id
   }
 }
@@ -235,7 +235,7 @@ const confirmDelete = (
   id
 ) => {
   return {
-    type: CONFIRM_DELETE_FAQ,
+    type: CONFIRM_DELETE_ARTICLE,
     id
   }
 }
@@ -244,18 +244,18 @@ const rejectDelete = (
   id
 ) => {
   return {
-    type: REJECT_DELETE_FAQ,
+    type: REJECT_DELETE_ARTICLE,
     id
   }
 }
 
-export const deleteFaq = (
+export const deleteArticle = (
   id
 ) => {
   return (dispatch, getState) => {
     dispatch(requestDelete(id))
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/faqs/${id}`, {
+    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/articles/${id}`, {
       method: 'DELETE',
       mode: 'cors',
       headers: {
@@ -276,7 +276,7 @@ export const deleteFaq = (
       .then(json => {
         if (json.success) {
           dispatch(confirmDelete(id))
-          dispatch(flashMessage('Question was deleted', 'log'))
+          dispatch(flashMessage('Article was deleted', 'log'))
         } else {
           dispatch(rejectDelete(id))
           console.error(json.data)

@@ -7,11 +7,9 @@ import configureStore from './store'
 import { Provider } from 'react-redux'
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router'
 
-import QuestionsSection from './components/QuestionsSection'
-import QuestionsInboxDirectory from './components/QuestionsInboxDirectory'
-import QuestionsFrequentDirectory from './components/QuestionsFrequentDirectory'
-import QuestionsFrequentEdit from './components/QuestionsFrequentEdit'
-import QuestionsFrequentCreate from './components/QuestionsFrequentCreate'
+import ArticleDirectory from './components/ArticleDirectory'
+import ArticleCreate from './components/ArticleCreate'
+import ArticleEdit from './components/ArticleEdit'
 
 import BlogpostsDirectory from './components/BlogpostsDirectory'
 import BlogpostsCreate from './components/BlogpostsCreate'
@@ -21,36 +19,26 @@ import UsersDirectory from './components/UsersDirectory'
 import UsersCreate from './components/UsersCreate'
 import UsersEdit from './components/UsersEdit'
 
-import Dummy from './components/Dummy'
-
 const store = configureStore()
 
 ReactDOM.render((
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path={`${ANTIVAX_ADMIN_PREFIX}/`} component={App}>
-        <IndexRedirect to={`${ANTIVAX_ADMIN_PREFIX}/questions`} />
-
-        <Route path="questions" component={QuestionsSection}>
-          <IndexRedirect to={`${ANTIVAX_ADMIN_PREFIX}/questions/inbox`} />
-
-          <Route path="inbox" component={QuestionsInboxDirectory} />
-
-          <Route path="frequent" component={QuestionsFrequentDirectory}>
-            <Route path="new" component={QuestionsFrequentCreate} />
-            <Route path=":itemId" component={QuestionsFrequentEdit} />
-          </Route>
-        </Route>
 
         <Route path="blogposts" component={BlogpostsDirectory}>
           <Route path="new" component={BlogpostsCreate} />
           <Route path=":itemId" component={BlogpostsEdit} />
         </Route>
 
-        <Route path="content" component={Dummy} />
         <Route path="users" component={UsersDirectory}>
           <Route path="new" component={UsersCreate} />
           <Route path=":itemId" component={UsersEdit} />
+        </Route>
+
+        <Route path=":sectionId" component={ArticleDirectory}>
+          <Route path="new" component={ArticleCreate} />
+          <Route path=":itemId" component={ArticleEdit} />
         </Route>
       </Route>
     </Router>

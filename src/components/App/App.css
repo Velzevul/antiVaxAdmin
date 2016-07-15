@@ -16,7 +16,7 @@
   }
 
   &__sidebar {
-    width: calc(var(--baseline) * 20);
+    width: calc(var(--baseline) * 25);
     padding: calc(var(--baseline) * 2.5)
              0
              calc(var(--baseline) * 2.5)

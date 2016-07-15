@@ -3,23 +3,18 @@
 
 .Entry {
   position: relative;
-  padding: calc(var(--baseline) * 2) 0;
+  padding: calc(var(--baseline) * 1.5) 0;
 
   border-top: 1px solid var(--colorBorder);
 
   &__badge {
-    position: absolute;
-    right: 100%;
-    top: 3.1rem;
-    width: calc(var(--baseline) * 6);
-
     font-size: 0.688rem;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.250rem;
 
     text-transform: uppercase;
     text-align: center;
-    color: var(--colorAccent2);
+    color: var(--colorTextLight);
     letter-spacing: 1px;
   }
 
@@ -42,8 +37,7 @@
   }
 }
   .Entry_draft {
-    & .Entry__title {
-      color: var(--colorTextDark);
-      font-weight: 700;
+    & .Entry__badge {
+      color: var(--colorAccent2);
     }
   }

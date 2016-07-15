@@ -13,7 +13,7 @@
     top: 3.1rem;
     width: calc(var(--baseline) * 6);
 
-    font-size: 0.625rem;
+    font-size: var(--baseline);
     font-weight: 600;
     line-height: 1.250rem;
 

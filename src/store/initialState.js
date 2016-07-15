@@ -17,16 +17,16 @@ export default {
     isUpdating: false,
     data: {}
   },
-  faqs: {
+  articles: {
     isFetching: true,
     items: [],
-    newFaq: {
+    newArticle: {
       isUpdating: false,
       data: {},
       errors: {}
     }
   },
-  faq: {
+  article: {
     isUpdating: false,
     data: {},
     errors: {}
@@ -58,9 +58,5 @@ export default {
     isUpdating: false,
     data: {},
     errors: {}
-  },
-  sections: {
-    isFetching: true,
-    items: []
   }
 }

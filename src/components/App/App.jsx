@@ -19,12 +19,40 @@ const App = ({
         label: 'Questions'
       },
       {
+        id: 'faqs',
+        label: 'FAQs'
+      },
+      {
         id: 'blogposts',
         label: 'Blogposts'
       },
       {
-        id: 'content',
-        label: 'Content'
+        id: 'diseases',
+        label: 'Diseases'
+      },
+      {
+        id: 'vaccines',
+        label: 'Vaccines'
+      },
+      {
+        id: 'about-vaccines',
+        label: 'About Vaccines'
+      },
+      {
+        id: 'vaccine-safety',
+        label: 'Vaccine Safety'
+      },
+      {
+        id: 'vaccination-schedule',
+        label: 'Vaccination Schedule'
+      },
+      {
+        id: 'about-project',
+        label: 'About Project'
+      },
+      {
+        id: 'additional-information',
+        label: 'Additional Information'
       },
       {
         id: 'users',
