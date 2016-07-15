@@ -21,12 +21,12 @@ class UsersDirectory extends React.Component {
       return <Loading />
     } else {
       const users = items.map(i =>
-        <UsersDirectoryEntry key={i.data._id} entry={i} />
+        <UsersDirectoryEntry key={i.data._id} item={i} />
       )
 
       const actions = (
         <div>
-          <Button small
+          <Button
             to="/users/new"
             theme="accent1">Create new</Button>
         </div>

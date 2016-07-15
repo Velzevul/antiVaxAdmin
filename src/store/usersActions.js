@@ -203,7 +203,7 @@ export const createUser = (
       .then(json => {
         if (json.success) {
           dispatch(confirmCreate(json.data.user))
-          dispatch(flashMessage('Question created successfully', 'log'))
+          dispatch(flashMessage('User created successfully', 'log'))
           hashHistory.push(`/users/${json.data.user._id}`)
         } else if (json.data.name === 'ValidationError') {
           let payload = {}

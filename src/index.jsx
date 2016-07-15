@@ -19,12 +19,17 @@ import UsersDirectory from './components/UsersDirectory'
 import UsersCreate from './components/UsersCreate'
 import UsersEdit from './components/UsersEdit'
 
+import QuestionsDirectory from './components/QuestionsDirectory'
+
 const store = configureStore()
 
 ReactDOM.render((
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path={`${ANTIVAX_ADMIN_PREFIX}/`} component={App}>
+        <IndexRedirect to="questions" />
+
+        <Route path="questions" component={QuestionsDirectory} />
 
         <Route path="blogposts" component={BlogpostsDirectory}>
           <Route path="new" component={BlogpostsCreate} />

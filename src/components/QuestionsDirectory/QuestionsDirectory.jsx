@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 
 import {fetchQuestions} from '../../store/questionsActions'
 import Directory from '../Directory'
-import QuestionsInboxDirectoryEntry from '../QuestionsInboxDirectoryEntry'
+import QuestionsDirectoryEntry from '../QuestionsDirectoryEntry'
 import Loading from '../Loading'
 
-class QuestionsInboxDirectory extends React.Component {
+class QuestionsDirectory extends React.Component {
   componentWillMount () {
     const {dispatch} = this.props
 
@@ -20,11 +20,11 @@ class QuestionsInboxDirectory extends React.Component {
       return <Loading />
     } else {
       const questions = items.map(i =>
-        <QuestionsInboxDirectoryEntry key={i.data._id} entry={i} />
+        <QuestionsDirectoryEntry key={i.data._id} item={i} />
       )
 
       return (
-        <Directory title="Inbox" items={questions} children={children} />
+        <Directory title="Questions" items={questions} children={children} />
       )
     }
   }
@@ -37,4 +37,4 @@ export default connect(
       items: state.questions.items
     }
   }
-)(QuestionsInboxDirectory)
+)(QuestionsDirectory)

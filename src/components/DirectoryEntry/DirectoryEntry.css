@@ -1,33 +1,23 @@
 @import '../../styles/colors.css';
 @import '../../styles/config.css';
 
-.Entry {
+.DirectoryEntry {
   position: relative;
   padding: calc(var(--baseline) * 1.5) 0;
 
   border-top: 1px solid var(--colorBorder);
-
-  &__badge {
-    font-size: 0.688rem;
-    font-weight: 700;
-    line-height: 1.250rem;
-
-    text-transform: uppercase;
-    text-align: center;
-    color: var(--colorTextLight);
-    letter-spacing: 1px;
-  }
 
   &__title {
     font-size: var(--fontSize);
 
     color: var(--colorTextMed);
     text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
+    &__title_link {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
 
   &__info {
     font-size: var(--fontSizeSmall);
@@ -36,8 +26,3 @@
     color: var(--colorTextLight);
   }
 }
-  .Entry_draft {
-    & .Entry__badge {
-      color: var(--colorAccent2);
-    }
-  }

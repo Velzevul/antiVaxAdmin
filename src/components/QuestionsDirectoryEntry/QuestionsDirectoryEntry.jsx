@@ -6,56 +6,66 @@ import Badge from '../Badge'
 import {DirectoryEntry, DirectoryEntryTitle, DirectoryEntryInfo} from '../DirectoryEntry'
 import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
 import {Button} from '../UI'
-import {updateArticle, deleteArticle} from '../../store/articleActions'
+import {updateQuestion, deleteQuestion} from '../../store/questionsActions'
 
-class ArticleDirectoryEntry extends React.Component {
+class QuestionsDirectoryEntry extends React.Component {
   constructor (props) {
     super(props)
 
-    this.publish = this.publish.bind(this)
+    this.markSeen = this.markSeen.bind(this)
     this.delete = this.delete.bind(this)
   }
 
-  publish () {
+  markSeen () {
     const {dispatch, item} = this.props
     const payload = {
-      isPublished: !item.data.isPublished
+      isSeen: !item.data.isSeen
     }
 
-    dispatch(updateArticle(item.data._id, payload))
+    dispatch(updateQuestion(item.data._id, payload))
   }
 
   delete () {
     const {dispatch, item} = this.props
 
-    dispatch(deleteArticle(item.data._id))
+    dispatch(deleteQuestion(item.data._id))
   }
 
   render () {
     const {item} = this.props
 
     return (
-      <DirectoryEntry>
+      <DirectoryEntry draft={!item.data.isSeen}>
         <Block n={0.5}>
           <Flex justifyContent="space-between" alignItems="center">
             <ListInline>
               <ListInlineItem>
-                <Badge label={item.data.isPublished ? 'Published' : 'Draft'}
-                  theme={item.data.isPublished ? 'success' : 'error'} />
+                <Badge label={item.data.isSeen ? 'Seen' : 'New'}
+                  theme={item.data.isSeen ? 'default' : 'Accent2'} />
               </ListInlineItem>
 
               <ListInlineItem>
-                <DirectoryEntryInfo>Last modified by {item.data.lastModifiedBy} on <Time value={item.data.lastModifiedAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryEntryInfo>
+                <DirectoryEntryInfo>Posted by {item.data.posterName} ({item.data.posterEmail}) on <Time value={item.data.createdAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryEntryInfo>
               </ListInlineItem>
             </ListInline>
 
             <ListInline>
+              {item.data.isSeen
+              ? ''
+              : <ListInlineItem>
+                <Button small
+                  disabled={item.isUpdating}
+                  theme="accent1"
+                  href={`mailto:${item.data.posterEmail}?subject=Reply to your questions on antivax&body=Reply to your question:\n ${item.data.question}`}>respond via email</Button>
+              </ListInlineItem>
+              }
+
               <ListInlineItem>
                 <Button small
                   disabled={item.isUpdating}
                   inverse
-                  theme={item.data.isPublished ? 'error' : 'accent1'}
-                  onClick={this.publish}>{item.data.isPublished ? 'Unpublish' : 'Publish'}</Button>
+                  theme="accent1"
+                  onClick={this.markSeen}>{item.data.isSeen ? 'mark as new' : 'mark as seen'}</Button>
               </ListInlineItem>
 
               <ListInlineItem>
@@ -69,10 +79,10 @@ class ArticleDirectoryEntry extends React.Component {
           </Flex>
         </Block>
 
-        <DirectoryEntryTitle to={`${item.data.type.id}/${item.data._id}`}>{item.data.title}</DirectoryEntryTitle>
+        <DirectoryEntryTitle>{item.data.question}</DirectoryEntryTitle>
       </DirectoryEntry>
     )
   }
 }
 
-export default connect()(ArticleDirectoryEntry)
+export default connect()(QuestionsDirectoryEntry)

@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router'
 import Time from 'react-time'
 
-import styles from './BlogpostsDirectoryEntry.css'
+import Badge from '../Badge'
+import {DirectoryEntry, DirectoryEntryTitle, DirectoryEntryInfo} from '../DirectoryEntry'
 import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
 import {Button} from '../UI'
 import {updateBlogpost, deleteBlogpost} from '../../store/blogpostsActions'
@@ -17,65 +17,60 @@ class BlogpostsDirectoryEntry extends React.Component {
   }
 
   publish () {
-    const {dispatch, entry} = this.props
+    const {dispatch, item} = this.props
     const payload = {
-      isPublished: !entry.data.isPublished
+      isPublished: !item.data.isPublished
     }
 
-    dispatch(updateBlogpost(entry.data._id, payload))
+    dispatch(updateBlogpost(item.data._id, payload))
   }
 
   delete () {
-    const {dispatch, entry} = this.props
+    const {dispatch, item} = this.props
 
-    dispatch(deleteBlogpost(entry.data._id))
+    dispatch(deleteBlogpost(item.data._id))
   }
 
   render () {
-    const {entry} = this.props
+    const {item} = this.props
 
     return (
-      <div className={`${styles.Entry} ${entry.data.isPublished ? '' : styles.Entry_draft}`}>
-        {entry.data.isPublished
-          ? null
-          : <div className={styles.Entry__badge}>Draft</div>
-        }
+      <DirectoryEntry>
+        <Block n={0.5}>
+          <Flex justifyContent="space-between" alignItems="center">
+            <ListInline>
+              <ListInlineItem>
+                <Badge label={item.data.isPublished ? 'Published' : 'Draft'}
+                  theme={item.data.isPublished ? 'success' : 'error'} />
+              </ListInlineItem>
 
-        <Flex justifyContent="space-between" alignItems="center">
-          <div>
-            <Block n={0.5}>
-              <div className={styles.Entry__info}>Last modified by {entry.data.lastModifiedBy} on <Time value={entry.data.lastModifiedAt} format="MMMM Do YYYY (h:mm a)" /></div>
-            </Block>
+              <ListInlineItem>
+                <DirectoryEntryInfo>Last modified by {item.data.lastModifiedBy} on <Time value={item.data.lastModifiedAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryEntryInfo>
+              </ListInlineItem>
+            </ListInline>
 
-            <Link to={`blogposts/${entry.data._id}`} className={styles.Entry__title}>{entry.data.title}</Link>
-          </div>
-
-          {entry.data.isPublished
-            ? <Button small
-              disabled={entry.isUpdating}
-              inverse
-              theme="error"
-              onClick={this.publish}>Unpublish</Button>
-            : <ListInline>
+            <ListInline>
               <ListInlineItem>
                 <Button small
+                  disabled={item.isUpdating}
                   inverse
-                  disabled={entry.isUpdating}
-                  theme="accent1"
-                  onClick={this.publish}>Publish</Button>
+                  theme={item.data.isPublished ? 'error' : 'accent1'}
+                  onClick={this.publish}>{item.data.isPublished ? 'Unpublish' : 'Publish'}</Button>
               </ListInlineItem>
 
               <ListInlineItem>
                 <Button small
-                  disabled={entry.isUpdating}
+                  disabled={item.isUpdating || item.data.isPublished}
                   inverse
                   theme="error"
                   onClick={this.delete}>Delete</Button>
               </ListInlineItem>
             </ListInline>
-          }
-        </Flex>
-      </div>
+          </Flex>
+        </Block>
+
+        <DirectoryEntryTitle to={`blogposts/${item.data._id}`}>{item.data.title}</DirectoryEntryTitle>
+      </DirectoryEntry>
     )
   }
 }

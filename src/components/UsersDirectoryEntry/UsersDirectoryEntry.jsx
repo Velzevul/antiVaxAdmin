@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router'
 import Time from 'react-time'
 
-import styles from './UsersDirectoryEntry.css'
+import Badge from '../Badge'
+import {DirectoryEntry, DirectoryEntryTitle, DirectoryEntryInfo} from '../DirectoryEntry'
 import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
 import {Button} from '../UI'
 import {updateUser, deleteUser} from '../../store/usersActions'
@@ -17,65 +17,67 @@ class UsersDirectoryEntry extends React.Component {
   }
 
   disable () {
-    const {dispatch, entry} = this.props
+    const {dispatch, item} = this.props
     const payload = {
-      isEnabled: !entry.data.isEnabled
+      isEnabled: !item.data.isEnabled
     }
 
-    dispatch(updateUser(entry.data._id, payload))
+    dispatch(updateUser(item.data._id, payload))
   }
 
   delete () {
-    const {dispatch, entry} = this.props
+    const {dispatch, item} = this.props
 
-    dispatch(deleteUser(entry.data._id))
+    dispatch(deleteUser(item.data._id))
   }
 
   render () {
-    const {entry} = this.props
+    const {item} = this.props
 
     return (
-      <div className={`${styles.Entry} ${entry.data.isEnabled ? '' : styles.Entry_draft}`}>
-        {entry.data.isEnabled
-          ? null
-          : <div className={styles.Entry__badge}>Disabled</div>
-        }
+      <DirectoryEntry draft={!item.data.isEnabled}>
+        <Block n={0.5}>
+          <Flex justifyContent="space-between" alignItems="center">
+            <DirectoryEntryInfo>Last log in on <Time value={item.data.lastLoggedInAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryEntryInfo>
 
-        <Flex justifyContent="space-between" alignItems="center">
-          <div>
-            <Block n={0.5}>
-              <div className={styles.Entry__info}>Last logged in on <Time value={entry.data.lastLoggedInAt} format="MMMM Do YYYY (h:mm a)" /></div>
-            </Block>
-
-            <Link to={`users/${entry.data._id}`} className={styles.Entry__title}>{entry.data.name}</Link>
-          </div>
-
-          {entry.data.isEnabled
-            ? <Button small
-              disabled={entry.isUpdating}
-              inverse
-              theme="error"
-              onClick={this.disable}>Disable</Button>
-            : <ListInline>
+            <ListInline>
               <ListInlineItem>
                 <Button small
+                  disabled={item.disable}
                   inverse
-                  disabled={entry.isUpdating}
-                  theme="accent1"
-                  onClick={this.disable}>Enable</Button>
+                  theme={item.data.isEnabled ? 'error' : 'accent1'}
+                  onClick={this.disable}>{item.data.isEnabled ? 'Disable' : 'Enable'}</Button>
               </ListInlineItem>
 
               <ListInlineItem>
                 <Button small
-                  disabled={entry.isUpdating}
+                  disabled={item.isUpdating || item.data.isEnabled}
                   inverse
                   theme="error"
                   onClick={this.delete}>Delete</Button>
               </ListInlineItem>
             </ListInline>
-          }
-        </Flex>
-      </div>
+          </Flex>
+        </Block>
+
+        <ListInline>
+          <ListInlineItem>
+            <DirectoryEntryTitle to={`users/${item.data._id}`}>{item.data.name} ({item.data.email})</DirectoryEntryTitle>
+          </ListInlineItem>
+
+          {item.data.isEnabled
+          ? ''
+          : <ListInlineItem>
+            <Badge label="Disabled" theme="error" />
+          </ListInlineItem>}
+
+          {item.data.admin
+          ? <ListInlineItem>
+            <Badge label="Admin" theme="success" />
+          </ListInlineItem>
+          : ''}
+        </ListInline>
+      </DirectoryEntry>
     )
   }
 }

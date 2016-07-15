@@ -21,12 +21,12 @@ class BlogpostsDirectory extends React.Component {
       return <Loading />
     } else {
       const blogposts = items.map(i =>
-        <BlogpostsDirectoryEntry key={i.data._id} entry={i} />
+        <BlogpostsDirectoryEntry key={i.data._id} item={i} />
       )
 
       const actions = (
         <div>
-          <Button small
+          <Button
             to="/blogposts/new"
             theme="accent1">Create new</Button>
         </div>
