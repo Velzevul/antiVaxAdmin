@@ -1,0 +1,49 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.Entry {
+  position: relative;
+  padding: calc(var(--baseline) * 2) 0;
+
+  border-top: 1px solid var(--colorBorder);
+
+  &__badge {
+    position: absolute;
+    right: 100%;
+    top: 3.1rem;
+    width: calc(var(--baseline) * 6);
+
+    font-size: 0.625rem;
+    font-weight: 600;
+    line-height: 1.250rem;
+
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--colorAccent2);
+    letter-spacing: 1px;
+  }
+
+  &__title {
+    font-size: var(--fontSize);
+
+    color: var(--colorTextMed);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__info {
+    font-size: var(--fontSizeSmall);
+    font-weight: 300;
+
+    color: var(--colorTextLight);
+  }
+}
+  .Entry_draft {
+    & .Entry__title {
+      color: var(--colorTextDark);
+      font-weight: 700;
+    }
+  }

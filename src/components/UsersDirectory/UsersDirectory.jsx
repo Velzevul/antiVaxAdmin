@@ -1,17 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {fetchBlogposts} from '../../store/blogpostsActions'
+import {fetchUsers} from '../../store/usersActions'
 import Directory from '../Directory'
-import BlogpostsDirectoryEntry from '../BlogpostsDirectoryEntry'
+import UsersDirectoryEntry from '../UsersDirectoryEntry'
 import {Button} from '../UI'
 import Loading from '../Loading'
 
-class BlogpostsDirectory extends React.Component {
+class UsersDirectory extends React.Component {
   componentWillMount () {
     const {dispatch} = this.props
 
-    dispatch(fetchBlogposts())
+    dispatch(fetchUsers())
   }
 
   render () {
@@ -20,20 +20,20 @@ class BlogpostsDirectory extends React.Component {
     if (isFetching) {
       return <Loading />
     } else {
-      const blogposts = items.map(i =>
-        <BlogpostsDirectoryEntry key={i.data._id} entry={i} />
+      const users = items.map(i =>
+        <UsersDirectoryEntry key={i.data._id} entry={i} />
       )
 
       const actions = (
         <div>
           <Button small
-            to="/blogposts/new"
+            to="/users/new"
             theme="accent1">Create new</Button>
         </div>
       )
 
       return (
-        <Directory title="Blogposts" items={blogposts} actions={actions} children={children} />
+        <Directory title="Users" items={users} actions={actions} children={children} />
       )
     }
   }
@@ -42,8 +42,8 @@ class BlogpostsDirectory extends React.Component {
 export default connect(
   state => {
     return {
-      isFetching: state.blogposts.isFetching,
-      items: state.blogposts.items
+      isFetching: state.users.isFetching,
+      items: state.users.items
     }
   }
-)(BlogpostsDirectory)
+)(UsersDirectory)

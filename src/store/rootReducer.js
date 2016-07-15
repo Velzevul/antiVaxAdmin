@@ -4,13 +4,15 @@ import flash from './flashReducer'
 import questions from './questionsReducer'
 import faqs from './faqsReducer'
 import blogposts from './blogpostsReducer'
+import users from './usersReducer'
 
 const rootReducer = combineReducers({
   auth,
   flash,
   questions,
   faqs,
-  blogposts
+  blogposts,
+  users
 })
 
 export default rootReducer
