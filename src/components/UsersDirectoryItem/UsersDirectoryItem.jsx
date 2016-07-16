@@ -3,12 +3,12 @@ import {connect} from 'react-redux'
 import Time from 'react-time'
 
 import Badge from '../Badge'
-import {DirectoryEntry, DirectoryEntryTitle, DirectoryEntryInfo} from '../DirectoryEntry'
+import {DirectoryItem, DirectoryItemTitle, DirectoryItemInfo} from '../DirectoryItem'
 import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
 import {Button} from '../UI'
 import {updateUser, deleteUser} from '../../store/usersActions'
 
-class UsersDirectoryEntry extends React.Component {
+class UsersDirectoryItem extends React.Component {
   constructor (props) {
     super(props)
 
@@ -35,10 +35,10 @@ class UsersDirectoryEntry extends React.Component {
     const {item} = this.props
 
     return (
-      <DirectoryEntry draft={!item.data.isEnabled}>
+      <DirectoryItem draft={!item.data.isEnabled}>
         <Block n={0.5}>
           <Flex justifyContent="space-between" alignItems="center">
-            <DirectoryEntryInfo>Last log in on <Time value={item.data.lastLoggedInAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryEntryInfo>
+            <DirectoryItemInfo>Last log in on <Time value={item.data.lastLoggedInAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryItemInfo>
 
             <ListInline>
               <ListInlineItem>
@@ -62,7 +62,7 @@ class UsersDirectoryEntry extends React.Component {
 
         <ListInline>
           <ListInlineItem>
-            <DirectoryEntryTitle to={`users/${item.data._id}`}>{item.data.name} ({item.data.email})</DirectoryEntryTitle>
+            <DirectoryItemTitle to={`users/${item.data._id}`}>{item.data.name} ({item.data.email})</DirectoryItemTitle>
           </ListInlineItem>
 
           {item.data.isEnabled
@@ -77,9 +77,9 @@ class UsersDirectoryEntry extends React.Component {
           </ListInlineItem>
           : ''}
         </ListInline>
-      </DirectoryEntry>
+      </DirectoryItem>
     )
   }
 }
 
-export default connect()(UsersDirectoryEntry)
+export default connect()(UsersDirectoryItem)

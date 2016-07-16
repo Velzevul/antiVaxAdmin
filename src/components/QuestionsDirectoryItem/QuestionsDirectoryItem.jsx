@@ -3,12 +3,12 @@ import {connect} from 'react-redux'
 import Time from 'react-time'
 
 import Badge from '../Badge'
-import {DirectoryEntry, DirectoryEntryTitle, DirectoryEntryInfo} from '../DirectoryEntry'
+import {DirectoryItem, DirectoryItemTitle, DirectoryItemInfo} from '../DirectoryItem'
 import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
 import {Button} from '../UI'
 import {updateQuestion, deleteQuestion} from '../../store/questionsActions'
 
-class QuestionsDirectoryEntry extends React.Component {
+class QuestionsDirectoryItem extends React.Component {
   constructor (props) {
     super(props)
 
@@ -35,7 +35,7 @@ class QuestionsDirectoryEntry extends React.Component {
     const {item} = this.props
 
     return (
-      <DirectoryEntry draft={!item.data.isSeen}>
+      <DirectoryItem draft={!item.data.isSeen}>
         <Block n={0.5}>
           <Flex justifyContent="space-between" alignItems="center">
             <ListInline>
@@ -45,7 +45,7 @@ class QuestionsDirectoryEntry extends React.Component {
               </ListInlineItem>
 
               <ListInlineItem>
-                <DirectoryEntryInfo>Posted by {item.data.posterName} ({item.data.posterEmail}) on <Time value={item.data.createdAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryEntryInfo>
+                <DirectoryItemInfo>Posted by {item.data.posterName} ({item.data.posterEmail}) on <Time value={item.data.createdAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryItemInfo>
               </ListInlineItem>
             </ListInline>
 
@@ -79,10 +79,10 @@ class QuestionsDirectoryEntry extends React.Component {
           </Flex>
         </Block>
 
-        <DirectoryEntryTitle>{item.data.question}</DirectoryEntryTitle>
-      </DirectoryEntry>
+        <DirectoryItemTitle>{item.data.question}</DirectoryItemTitle>
+      </DirectoryItem>
     )
   }
 }
 
-export default connect()(QuestionsDirectoryEntry)
+export default connect()(QuestionsDirectoryItem)

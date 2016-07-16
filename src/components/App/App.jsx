@@ -7,6 +7,7 @@ import FlashMessage from '../FlashMessage'
 import Nav from '../Nav'
 import CurrentUser from '../CurrentUser'
 import {Block} from '../Layouts'
+import {categories, sections, blogposts} from '../../config'
 
 const App = ({
   user,
@@ -19,45 +20,26 @@ const App = ({
         label: 'Questions'
       },
       {
-        id: 'faqs',
-        label: 'FAQs'
-      },
-      {
-        id: 'blogposts',
-        label: 'Blogposts'
-      },
-      {
-        id: 'diseases',
-        label: 'Diseases'
-      },
-      {
-        id: 'vaccines',
-        label: 'Vaccines'
-      },
-      {
-        id: 'about-vaccines',
-        label: 'About Vaccines'
-      },
-      {
-        id: 'vaccine-safety',
-        label: 'Vaccine Safety'
-      },
-      {
-        id: 'vaccination-schedule',
-        label: 'Vaccination Schedule'
-      },
-      {
-        id: 'about-project',
-        label: 'About Project'
-      },
-      {
-        id: 'additional-information',
-        label: 'Additional Information'
+        id: 'schedule-builder',
+        label: 'Schedule Builder'
       },
       {
         id: 'users',
         label: 'Users'
-      }
+      },
+      {
+        id: 'sections',
+        label: 'Website Sections',
+        heading: true
+      },
+      blogposts,
+      ...sections,
+      {
+        id: 'categories',
+        label: 'Categories',
+        heading: true
+      },
+      ...categories
     ]
 
     return (

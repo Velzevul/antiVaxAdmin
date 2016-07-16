@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import {fetchQuestions} from '../../store/questionsActions'
 import Directory from '../Directory'
-import QuestionsDirectoryEntry from '../QuestionsDirectoryEntry'
+import QuestionsDirectoryItem from '../QuestionsDirectoryItem'
 import Loading from '../Loading'
 
 class QuestionsDirectory extends React.Component {
@@ -20,7 +20,7 @@ class QuestionsDirectory extends React.Component {
       return <Loading />
     } else {
       const questions = items.map(i =>
-        <QuestionsDirectoryEntry key={i.data._id} item={i} />
+        <QuestionsDirectoryItem key={i.data._id} item={i} />
       )
 
       return (

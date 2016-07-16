@@ -2,10 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import {Block, Flex, ListInline, ListInlineItem} from '../Layouts'
-import {Button, Input, Checkbox, Editor} from '../UI'
+import {Button, Input, Checkbox, Editor, Select} from '../UI'
 import {updateArticle} from '../../store/articleActions'
 import {ItemForm, ItemFormHeader, ItemFormBody} from '../ItemForm'
 import Title from '../Title'
+import {categories, isSection, isBlogpost} from '../../config'
+import Comments from '../Comments'
 
 class ArticleEdit extends React.Component {
   constructor (props) {
@@ -13,6 +15,9 @@ class ArticleEdit extends React.Component {
 
     this.save = this.save.bind(this)
     this.change = this.change.bind(this)
+    this.deleteComment = this.deleteComment.bind(this)
+    this.deleteReply = this.deleteReply.bind(this)
+    this.currentSection = props.item.data.type
 
     this.state = {
       isDirty: false,
@@ -64,11 +69,71 @@ class ArticleEdit extends React.Component {
     })
   }
 
+  deleteComment (id) {
+    const newComments = this.state.data.comments.map(c => {
+      if (c._id === id) {
+        return Object.assign({}, c, {
+          isDeleted: !c.isDeleted
+        })
+      } else {
+        return c
+      }
+    })
+
+    this.setState({
+      isDirty: true,
+      data: Object.assign({}, this.state.data, {
+        comments: newComments
+      })
+    })
+  }
+
+  deleteReply (id, commentId) {
+    const comment = this.state.data.comments.filter(c => c._id === commentId)[0]
+    const newReplies = comment.replies.map(r => {
+      if (r._id === id) {
+        return Object.assign({}, r, {
+          isDeleted: !r.isDeleted
+        })
+      } else {
+        return r
+      }
+    })
+
+    this.setState({
+      isDirty: true,
+      data: Object.assign({}, this.state.data, {
+        comments: this.state.data.comments.map(c => {
+          if (c._id === commentId) {
+            return Object.assign({}, c, {
+              replies: newReplies
+            })
+          } else {
+            return c
+          }
+        })
+      })
+    })
+  }
+
   render () {
     const {isUpdating} = this.props.item
 
-    let header = ''
+    let typeSpecificForm = ''
+    if (isSection(this.currentSection.id)) {
+      typeSpecificForm = (
+        <Select options={categories}
+          onChange={(v) => this.change('category', v)}
+          value={this.state.data.category}
+          label="Category:" />
+      )
+    } else if (isBlogpost(this.currentSection.id) && this.state.data.comments.length > 0) {
+      typeSpecificForm = (
+        <Comments items={this.state.data.comments} onDeleteComment={this.deleteComment} onDeleteReply={this.deleteReply} />
+      )
+    }
 
+    let header = ''
     if (this.state.isDirty) {
       header = (
         <Flex justifyContent="space-between">
@@ -114,7 +179,7 @@ class ArticleEdit extends React.Component {
 
         <ItemFormBody>
           <Block n={1}>
-            <Input label="Title"
+            <Input label="Title:"
               value={this.state.data.title}
               error={this.state.errors.title}
               disabled={isUpdating}
@@ -122,7 +187,7 @@ class ArticleEdit extends React.Component {
           </Block>
 
           <Block n={1}>
-            <Input label="URL"
+            <Input label="URL:"
               value={this.state.data.url}
               error={this.state.errors.url}
               disabled={isUpdating}
@@ -130,16 +195,20 @@ class ArticleEdit extends React.Component {
           </Block>
 
           <Block n={1}>
-            <Checkbox label="Published"
+            <Checkbox label="Published:"
               checked={this.state.data.isPublished}
               disabled={isUpdating}
               onChange={value => this.change('isPublished', value)} />
           </Block>
 
-          <Editor value={this.state.data.content}
-            error={this.state.errors.content}
-            disabled={isUpdating}
-            onChange={value => this.change('content', value)} />
+          <Block n={typeSpecificForm ? 3 : 0}>
+            <Editor value={this.state.data.content}
+              error={this.state.errors.content}
+              disabled={isUpdating}
+              onChange={value => this.change('content', value)} />
+          </Block>
+
+          {typeSpecificForm}
         </ItemFormBody>
       </ItemForm>
     )

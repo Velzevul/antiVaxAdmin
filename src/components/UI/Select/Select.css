@@ -1,0 +1,62 @@
+@import '../../../styles/colors.css';
+@import '../../../styles/config.css';
+
+.Select {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+
+  font-family: var(--fontFamily);
+  font-weight: 400;
+
+  &__label {
+    width: calc(var(--baseline) * 8);
+    padding-right: calc(var(--baseline) * 2);
+
+    font-size: var(--fontSizeSmall);
+
+    color: var(--colorTextLight);
+    text-align: right;
+  }
+
+  &__wrap {
+    position: relative;
+    min-width: calc(var(--baseline) * 20);
+
+    &:after {
+      content:'\25BC';
+      display: block;
+      position: absolute;
+      top: 0; right: var(--baseline);
+      line-height: calc(var(--baseline) * 2.5);
+      font-size: 0.5rem;
+      color: var(--colorTextLight);
+    }
+  }
+
+  &__fake {
+    padding: calc(var(--baseline) / 2) var(--baseline);
+
+    font-size: var(--fontSize);
+    line-height: calc(var(--baseline) * 1.5);
+
+    color: var(--colorTextMed);
+
+    border: none;
+    border-bottom: 1px solid var(--colorBorder);
+  }
+
+  &__input {
+    appearance: none;
+    opacity: 0;
+
+    display: block;
+    width: 100%;
+
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    z-index: 1;
+  }
+}

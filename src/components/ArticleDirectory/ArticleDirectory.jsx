@@ -3,10 +3,11 @@ import {connect} from 'react-redux'
 
 import {fetchArticles} from '../../store/articleActions'
 import Directory from '../Directory'
-import ArticleDirectoryEntry from '../ArticleDirectoryEntry'
+import ArticleDirectoryItem from '../ArticleDirectoryItem'
 import {Button} from '../UI'
 import Loading from '../Loading'
 import PageNotFound from '../PageNotFound'
+import {getCurrentSection, isSection, isCategory, isBlogpost} from '../../config'
 
 class ArticleDirectory extends React.Component {
   constructor (props) {
@@ -19,12 +20,24 @@ class ArticleDirectory extends React.Component {
 
   componentWillMount () {
     const {dispatch, params} = this.props
-    const allowedSections = ['faqs', 'diseases', 'vaccines', 'about-vaccines', 'vaccine-safety', 'about-project', 'additional-information']
 
-    if (allowedSections.indexOf(params.sectionId) === -1) {
-      this.setState({ notFound: true })
-    } else {
+    if (isSection(params.sectionId) || isCategory(params.sectionId) || isBlogpost(params.sectionId)) {
+      this.setState({ notFound: false })
       dispatch(fetchArticles())
+    } else {
+      this.setState({ notFound: true })
+    }
+  }
+
+  componentWillReceiveProps (newProps) {
+    const {params} = newProps
+
+    if (params.sectionId !== this.props.params.sectionId) {
+      if (isSection(params.sectionId) || isCategory(params.sectionId) || isBlogpost(params.sectionId)) {
+        this.setState({ notFound: false })
+      } else {
+        this.setState({ notFound: true })
+      }
     }
   }
 
@@ -36,33 +49,25 @@ class ArticleDirectory extends React.Component {
     } else {
       const {children, isFetching, items, params} = this.props
 
+      const currentSection = getCurrentSection(params.sectionId)
+
       if (isFetching) {
         return <Loading />
       } else {
-        const articles = items.filter(i => i.data.type.id === params.sectionId).map(i =>
-          <ArticleDirectoryEntry key={i.data._id} item={i} />
+        const articles = items.filter(i => i.data.type.id === currentSection.id).map(i =>
+          <ArticleDirectoryItem key={i.data._id} item={i} />
         )
 
         const actions = (
           <div>
             <Button med
-              to={`${params.sectionId}/new`}
+              to={`${currentSection.id}/new`}
               theme="accent1">Create new</Button>
           </div>
         )
 
-        const sectionTypeMap = {
-          'faqs': 'FAQs',
-          'diseases': 'Diseases',
-          'vaccines': 'Vaccines',
-          'about-vaccines': 'About Vaccines',
-          'vaccine-safety': 'Vaccine Safety',
-          'about-project': 'About Project',
-          'additional-information': 'Additional Information'
-        }
-
         return (
-          <Directory title={sectionTypeMap[params.sectionId]} items={articles} actions={actions} children={children} />
+          <Directory title={currentSection.label} items={articles} actions={actions} children={children} />
         )
       }
     }

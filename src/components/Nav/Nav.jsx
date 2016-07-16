@@ -5,12 +5,20 @@ import styles from './Nav.css'
 const Nav = ({
   items
 }) => {
-  const navItems = items.map(i =>
-    <Link key={i.id}
-      className={styles.Nav__item}
-      activeClassName={styles.Nav__item_active}
-      to={`${ANTIVAX_ADMIN_PREFIX}/${i.id}`}>{i.label}</Link>
-  )
+  const navItems = items.map(i => {
+    if (i.heading) {
+      return (
+        <div key={i.id} className={styles.Nav__heading}>{i.label}</div>
+      )
+    } else {
+      return (
+        <Link key={i.id}
+          className={styles.Nav__item}
+          activeClassName={styles.Nav__item_active}
+          to={`/${i.id}`}>{i.label}</Link>
+      )
+    }
+  })
 
   return (
     <div className={styles.Nav}>

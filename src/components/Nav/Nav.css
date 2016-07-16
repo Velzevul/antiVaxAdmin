@@ -32,4 +32,14 @@
         color: var(--colorAccent1);
       }
     }
+
+  &__heading {
+    margin-top: calc(var(--baseline) * 1.5);
+    font-family: var(--fontFamily);
+    font-size: var(--fontSize);
+    font-weight: 700;
+    line-height: calc(var(--baseline) * 3);
+
+    color: var(--colorAccent2);
+  }
 }

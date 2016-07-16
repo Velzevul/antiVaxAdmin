@@ -3,12 +3,12 @@ import {connect} from 'react-redux'
 import Time from 'react-time'
 
 import Badge from '../Badge'
-import {DirectoryEntry, DirectoryEntryTitle, DirectoryEntryInfo} from '../DirectoryEntry'
+import {DirectoryItem, DirectoryItemTitle, DirectoryItemInfo} from '../DirectoryItem'
 import {Block, ListInline, ListInlineItem, Flex} from '../Layouts'
 import {Button} from '../UI'
 import {updateArticle, deleteArticle} from '../../store/articleActions'
 
-class ArticleDirectoryEntry extends React.Component {
+class ArticleDirectoryItem extends React.Component {
   constructor (props) {
     super(props)
 
@@ -35,7 +35,7 @@ class ArticleDirectoryEntry extends React.Component {
     const {item} = this.props
 
     return (
-      <DirectoryEntry>
+      <DirectoryItem>
         <Block n={0.5}>
           <Flex justifyContent="space-between" alignItems="center">
             <ListInline>
@@ -45,7 +45,7 @@ class ArticleDirectoryEntry extends React.Component {
               </ListInlineItem>
 
               <ListInlineItem>
-                <DirectoryEntryInfo>Last modified by {item.data.lastModifiedBy} on <Time value={item.data.lastModifiedAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryEntryInfo>
+                <DirectoryItemInfo>Last modified by {item.data.lastModifiedBy} on <Time value={item.data.lastModifiedAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryItemInfo>
               </ListInlineItem>
             </ListInline>
 
@@ -69,10 +69,10 @@ class ArticleDirectoryEntry extends React.Component {
           </Flex>
         </Block>
 
-        <DirectoryEntryTitle to={`${item.data.type.id}/${item.data._id}`}>{item.data.title}</DirectoryEntryTitle>
-      </DirectoryEntry>
+        <DirectoryItemTitle to={`${item.data.type.id}/${item.data._id}`}>{item.data.title}</DirectoryItemTitle>
+      </DirectoryItem>
     )
   }
 }
 
-export default connect()(ArticleDirectoryEntry)
+export default connect()(ArticleDirectoryItem)

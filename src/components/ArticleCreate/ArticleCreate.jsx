@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {hashHistory} from 'react-router'
 
 import {ItemForm, ItemFormBody, ItemFormHeader} from '../ItemForm'
 import {Block, Flex, ListInline, ListInlineItem} from '../Layouts'
-import {Button, Input, Checkbox, Editor} from '../UI'
+import {Button, Input, Checkbox, Editor, Select} from '../UI'
 import {createArticle} from '../../store/articleActions'
 import Title from '../Title'
+import {categories, isSection, getCurrentSection} from '../../config'
 
 class ArticleCreate extends React.Component {
   constructor (props) {
@@ -14,27 +14,15 @@ class ArticleCreate extends React.Component {
 
     this.save = this.save.bind(this)
     this.change = this.change.bind(this)
-
-    const sectionTypeMap = {
-      'faqs': 'FAQ',
-      'diseases': 'Disease Page',
-      'vaccines': 'Vaccine Page',
-      'about-vaccines': 'About Vaccines Page',
-      'vaccine-safety': 'Vaccine Safety Page',
-      'about-project': 'About Project Page',
-      'additional-information': 'Additional Information Page'
-    }
+    this.currentSection = getCurrentSection(this.props.params.sectionId)
 
     this.state = {
       data: {
         title: '',
-        type: {
-          id: props.params.sectionId,
-          label: sectionTypeMap[props.params.sectionId]
-        },
         url: '',
         content: '',
-        isPublished: false
+        isPublished: false,
+        category: ''
       },
       errors: {}
     }
@@ -50,8 +38,11 @@ class ArticleCreate extends React.Component {
 
   save () {
     const {dispatch} = this.props
+    const payload = Object.assign({}, this.state.data, {
+      type: this.currentSection
+    })
 
-    dispatch(createArticle(this.state.data))
+    dispatch(createArticle(payload))
   }
 
   change (prop, value) {
@@ -71,11 +62,21 @@ class ArticleCreate extends React.Component {
   render () {
     const {isUpdating} = this.props.item
 
+    let typeSpecificForm = ''
+    if (isSection(this.currentSection.id)) {
+      typeSpecificForm = (
+        <Select options={categories}
+          onChange={(v) => this.change('category', v)}
+          value={this.state.data.category}
+          label="Category:" />
+      )
+    }
+
     return (
       <ItemForm>
         <ItemFormHeader>
           <Flex justifyContent="space-between">
-            <Title label={`Create new ${this.state.data.type.label}`} />
+            <Title label={`New ${this.currentSection.label} page`} />
 
             <ListInline>
               <ListInlineItem>
@@ -90,7 +91,7 @@ class ArticleCreate extends React.Component {
                   inverse
                   theme="accent1"
                   disabled={isUpdating}
-                  to={this.state.data.type.id}>Cancel</Button>
+                  to={this.currentSection.id}>Cancel</Button>
               </ListInlineItem>
             </ListInline>
           </Flex>
@@ -98,7 +99,7 @@ class ArticleCreate extends React.Component {
 
         <ItemFormBody>
           <Block n={1}>
-            <Input label="Title"
+            <Input label="Title:"
               value={this.state.data.title}
               error={this.state.errors.title}
               disabled={isUpdating}
@@ -106,7 +107,7 @@ class ArticleCreate extends React.Component {
           </Block>
 
           <Block n={1}>
-            <Input label="URL"
+            <Input label="URL:"
               value={this.state.data.url}
               error={this.state.errors.url}
               disabled={isUpdating}
@@ -114,16 +115,20 @@ class ArticleCreate extends React.Component {
           </Block>
 
           <Block n={1}>
-            <Checkbox label="Published"
+            <Checkbox label="Published:"
               checked={this.state.data.isPublished}
               disabled={isUpdating}
               onChange={value => this.change('isPublished', value)} />
           </Block>
 
-          <Editor value={this.state.data.content}
-            error={this.state.errors.content}
-            disabled={isUpdating}
-            onChange={value => this.change('content', value)} />
+          <Block n={typeSpecificForm ? 3 : 0}>
+            <Editor value={this.state.data.content}
+              error={this.state.errors.content}
+              disabled={isUpdating}
+              onChange={value => this.change('content', value)} />
+          </Block>
+
+          {typeSpecificForm}
         </ItemFormBody>
       </ItemForm>
     )

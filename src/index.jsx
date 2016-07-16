@@ -11,10 +11,6 @@ import ArticleDirectory from './components/ArticleDirectory'
 import ArticleCreate from './components/ArticleCreate'
 import ArticleEdit from './components/ArticleEdit'
 
-import BlogpostsDirectory from './components/BlogpostsDirectory'
-import BlogpostsCreate from './components/BlogpostsCreate'
-import BlogpostsEdit from './components/BlogpostsEdit'
-
 import UsersDirectory from './components/UsersDirectory'
 import UsersCreate from './components/UsersCreate'
 import UsersEdit from './components/UsersEdit'
@@ -30,11 +26,6 @@ ReactDOM.render((
         <IndexRedirect to="questions" />
 
         <Route path="questions" component={QuestionsDirectory} />
-
-        <Route path="blogposts" component={BlogpostsDirectory}>
-          <Route path="new" component={BlogpostsCreate} />
-          <Route path=":itemId" component={BlogpostsEdit} />
-        </Route>
 
         <Route path="users" component={UsersDirectory}>
           <Route path="new" component={UsersCreate} />

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import {fetchUsers} from '../../store/usersActions'
 import Directory from '../Directory'
-import UsersDirectoryEntry from '../UsersDirectoryEntry'
+import UsersDirectoryItem from '../UsersDirectoryItem'
 import {Button} from '../UI'
 import Loading from '../Loading'
 
@@ -21,7 +21,7 @@ class UsersDirectory extends React.Component {
       return <Loading />
     } else {
       const users = items.map(i =>
-        <UsersDirectoryEntry key={i.data._id} item={i} />
+        <UsersDirectoryItem key={i.data._id} item={i} />
       )
 
       const actions = (
