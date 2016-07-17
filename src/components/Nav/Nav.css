@@ -34,7 +34,7 @@
     }
 
   &__heading {
-    margin-top: calc(var(--baseline) * 1.5);
+    margin-top: calc(var(--baseline) * 1);
     font-family: var(--fontFamily);
     font-size: var(--fontSize);
     font-weight: 700;
