@@ -4,13 +4,15 @@ import flash from './flashReducer'
 import questions from './questionsReducer'
 import articles from './articleReducer'
 import users from './usersReducer'
+import schedule from './scheduleReducer'
 
 const rootReducer = combineReducers({
   auth,
   flash,
   questions,
   articles,
-  users
+  users,
+  schedule
 })
 
 export default rootReducer

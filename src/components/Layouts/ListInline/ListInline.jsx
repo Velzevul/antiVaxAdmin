@@ -6,11 +6,15 @@ import styles from './ListInline.css'
 const ListInline = ({
   n = 1,
   extraClassNames = '',
-  children
+  children,
+  alignItems = 'center',
+  justfyContent = 'flex-start'
 }) => {
   const style = {
     marginBottom: `-${baseline * n}rem`,
-    marginLeft: `-${baseline * n}rem`
+    marginLeft: `-${baseline * n}rem`,
+    alignItems,
+    justfyContent
   }
 
   return (

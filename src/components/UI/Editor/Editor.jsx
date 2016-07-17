@@ -35,7 +35,6 @@ class Editor extends React.Component {
     setTimeout(() => {
       scribe.on('content-changed', () => {
         this.setState({value: scribe.getHTML()})
-
         this.props.onChange(scribe.getHTML())
       })
     })
@@ -43,59 +42,75 @@ class Editor extends React.Component {
     this.scribe = scribe
   }
 
-  componentWillReceiveProps () {
-    // empty for now
+  componentWillReceiveProps (newProps) {
+    if (newProps.value !== this.state.value) {
+      this.scribe.setContent(newProps.value)
+      this.setState({value: newProps.value})
+    }
   }
 
   render () {
     const {label, error} = this.props
 
+    var labelElement = ''
+    if (label) {
+      labelElement = (
+        <Block>
+          <div className={styles.Editor__label}>{label}</div>
+        </Block>
+      )
+    }
+
     return (
       <div className={`${styles.Editor} ${error ? styles.Editor_error : ''}`}>
+        {labelElement}
+
         <div className={styles.Editor__toolbar} ref="toolbar">
-          <button className={`${styles.Editor__command} ${styles.Editor__command_h1}`}
-            data-command-name="h1">
-            Heading 1
-          </button>
+          <Flex>
+            <button className={`${styles.Editor__command} ${styles.Editor__command_h1}`}
+              data-command-name="h1">
+              Heading 1
+            </button>
 
-          <button className={`${styles.Editor__command} ${styles.Editor__command_h2}`}
-            data-command-name="h2">
-            Heading 1
-          </button>
+            <button className={`${styles.Editor__command} ${styles.Editor__command_h2}`}
+              data-command-name="h2">
+              Heading 1
+            </button>
 
-          <div className={styles.Editor__separator} />
+            <div className={styles.Editor__separator} />
 
-          <button className={`${styles.Editor__command} ${styles.Editor__command_bold}`}
-            data-command-name="bold">
-            bold
-          </button>
+            <button className={`${styles.Editor__command} ${styles.Editor__command_bold}`}
+              data-command-name="bold">
+              bold
+            </button>
 
-          <button className={`${styles.Editor__command} ${styles.Editor__command_italic}`}
-            data-command-name="italic">
-            italic
-          </button>
+            <button className={`${styles.Editor__command} ${styles.Editor__command_italic}`}
+              data-command-name="italic">
+              italic
+            </button>
 
-          <button className={`${styles.Editor__command} ${styles.Editor__command_ol}`}
-            data-command-name="insertOrderedList">
-            Ol
-          </button>
+            <button className={`${styles.Editor__command} ${styles.Editor__command_ol}`}
+              data-command-name="insertOrderedList">
+              Ol
+            </button>
 
-          <button className={`${styles.Editor__command} ${styles.Editor__command_ul}`}
-            data-command-name="insertUnOrderedList">
-            Ul
-          </button>
+            <button className={`${styles.Editor__command} ${styles.Editor__command_ul}`}
+              data-command-name="insertUnOrderedList">
+              Ul
+            </button>
 
-          <div className={styles.Editor__separator} />
+            <div className={styles.Editor__separator} />
 
-          <button className={`${styles.Editor__command} ${styles.Editor__command_link}`}
-            data-command-name="linkPrompt">
-            Link
-          </button>
+            <button className={`${styles.Editor__command} ${styles.Editor__command_link}`}
+              data-command-name="linkPrompt">
+              Link
+            </button>
 
-          <button className={`${styles.Editor__command} ${styles.Editor__command_unlink}`}
-            data-command-name="unlink">
-            Unlink
-          </button>
+            <button className={`${styles.Editor__command} ${styles.Editor__command_unlink}`}
+              data-command-name="unlink">
+              Unlink
+            </button>
+          </Flex>
         </div>
 
         <div className={styles.Editor__body} ref="editor" />

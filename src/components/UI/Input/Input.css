@@ -31,13 +31,9 @@
   }
 
   &__label {
-    width: calc(var(--baseline) * 8);
-    padding-right: calc(var(--baseline) * 2);
-
     font-size: var(--fontSizeSmall);
 
     color: var(--colorTextLight);
-    text-align: right;
   }
 
   &__prefix {

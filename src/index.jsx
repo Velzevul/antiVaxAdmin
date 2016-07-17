@@ -17,6 +17,8 @@ import UsersEdit from './components/UsersEdit'
 
 import QuestionsDirectory from './components/QuestionsDirectory'
 
+import ScheduleBuilder from './components/ScheduleBuilder'
+
 const store = configureStore()
 
 ReactDOM.render((
@@ -26,6 +28,8 @@ ReactDOM.render((
         <IndexRedirect to="questions" />
 
         <Route path="questions" component={QuestionsDirectory} />
+
+        <Route path="schedule-builder" component={ScheduleBuilder} />
 
         <Route path="users" component={UsersDirectory}>
           <Route path="new" component={UsersCreate} />

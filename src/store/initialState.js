@@ -58,5 +58,11 @@ export default {
     isUpdating: false,
     data: {},
     errors: {}
+  },
+  schedule: {
+    isFetching: true,
+    isUpdating: false,
+    items: [],
+    postScheduleContent: null
   }
 }

@@ -3,9 +3,8 @@
 
 .Editor {
   position: relative;
-  
+
   &__toolbar {
-    display: flex;
     padding: 0 calc(var(--baseline) * 1.25);
     border: 1px solid var(--colorBorder);
     background: white;
@@ -161,6 +160,12 @@
 
     color: var(--colorError);
     text-align: right;
+  }
+
+  &__label {
+    font-size: var(--fontSizeSmall);
+
+    color: var(--colorTextLight);
   }
 }
   .Editor_error {

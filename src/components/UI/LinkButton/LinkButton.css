@@ -1,0 +1,54 @@
+@import '../../../styles/colors.css';
+@import '../../../styles/config.css';
+
+
+.Link {
+  appearance: none;
+
+  display: inline-block;
+
+  font-size: var(--fontSize);
+  line-height: inherit;
+
+  text-decoration: underline;
+
+  transition-property: color;
+  transition-duration: 0.2s;
+
+  cursor: pointer;
+
+  background: none;
+  border: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:disabled:hover {
+    text-decoration: underline;
+  }
+}
+  .Link_small {
+    font-size: var(--fontSizeSmall);
+  }
+  .Link_accent1 {
+    color: var(--colorAccent1);
+
+    &:disabled {
+      color: color(var(--colorAccent1) lightness(+25%));
+    }
+  }
+  .Link_accent2 {
+    color: var(--colorAccent2);
+
+    &:disabled {
+      color: color(var(--colorAccent2) lightness(+25%));
+    }
+  }
+  .Link_error {
+    color: var(--colorError);
+
+    &:disabled {
+      color: color(var(--colorError) lightness(+25%));
+    }
+  }

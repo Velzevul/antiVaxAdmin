@@ -34,11 +34,22 @@ class UsersDirectoryItem extends React.Component {
   render () {
     const {item} = this.props
 
+    let lastLoggedIn = ''
+    if (item.data.lastLoggedInAt) {
+      lastLoggedIn = (
+        <DirectoryItemInfo>Last log in on <Time value={item.data.lastLoggedInAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryItemInfo>
+      )
+    } else {
+      lastLoggedIn = (
+        <DirectoryItemInfo>Never logged in</DirectoryItemInfo>
+      )
+    }
+
     return (
       <DirectoryItem draft={!item.data.isEnabled}>
         <Block n={0.5}>
           <Flex justifyContent="space-between" alignItems="center">
-            <DirectoryItemInfo>Last log in on <Time value={item.data.lastLoggedInAt} format="MMMM Do YYYY (h:mm a)" /></DirectoryItemInfo>
+            {lastLoggedIn}
 
             <ListInline>
               <ListInlineItem>

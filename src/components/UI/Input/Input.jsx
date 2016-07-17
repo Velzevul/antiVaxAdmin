@@ -1,17 +1,37 @@
 import React from 'react'
 
+const baseline = 0.750
 import styles from './Input.css'
 
 class Input extends React.Component {
   render () {
-    const {value, onChange, label = null, placeholder = '',
-      prefix = null, type = 'text', disabled = false,
-      error = null} = this.props
+    const {
+      value,
+      onChange,
+      label = null,
+      labelParams = {
+        width: 8,
+        padding: 2
+      },
+      placeholder = '',
+      prefix = null,
+      type = 'text',
+      disabled = false,
+      error = null
+    } = this.props
 
     let labelEl = ''
     if (label) {
+      let labelStyle = {
+        paddingRight: `${labelParams.padding * baseline}rem`
+      }
+      if (labelParams.width) {
+        labelStyle.width = `${labelParams.width * baseline}rem`
+        labelStyle.textAlign = 'right'
+      }
+
       labelEl = (
-        <div className={styles.Input__label}>{label}</div>
+        <div style={labelStyle} className={`${styles.Input__label}`}>{label}</div>
       )
     }
 
