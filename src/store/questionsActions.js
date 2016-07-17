@@ -36,7 +36,7 @@ export const fetchQuestions = () => {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': getState().auth.token
+        'x-access-token': localStorage.getItem('antiVax_auth_token')
       }
     })
       .then(response => {
@@ -91,7 +91,7 @@ export const updateQuestion = (
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': getState().auth.token
+        'x-access-token': localStorage.getItem('antiVax_auth_token')
       },
       body: JSON.stringify({
         question: data
@@ -162,7 +162,7 @@ export const deleteQuestion = (
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': getState().auth.token
+        'x-access-token': localStorage.getItem('antiVax_auth_token')
       }
     })
       .then(response => {

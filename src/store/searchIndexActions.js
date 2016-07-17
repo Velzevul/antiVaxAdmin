@@ -34,7 +34,7 @@ export const fetchSearchIndex = () => {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': getState().auth.token
+        'x-access-token': localStorage.getItem('antiVax_auth_token')
       }
     })
       .then(response => {
@@ -84,7 +84,7 @@ export const updateSearchIndex = () => {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': getState().auth.token
+        'x-access-token': localStorage.getItem('antiVax_auth_token')
       }
     })
       .then(response => {

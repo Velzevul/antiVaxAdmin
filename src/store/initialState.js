@@ -1,8 +1,7 @@
 export default {
   auth: {
     isFetching: false,
-    user: null,
-    token: null
+    user: null
   },
   flash: {
     message: null,

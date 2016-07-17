@@ -13,30 +13,29 @@ const requestAuth = () => {
 }
 
 export const logOut = () => {
-  return {
-    type: LOGOUT
+  return dispatch => {
+    localStorage.removeItem('antiVax_auth_token')
+    dispatch({type: LOGOUT})
   }
 }
 
 const logIn = (
-  user,
-  token
+  user
 ) => {
   return {
     type: LOGIN,
-    user,
-    token
+    user
   }
 }
 
-export const authenticate = (
+export const loginWithCredentials = (
   email,
   password
 ) => {
   return dispatch => {
     dispatch(requestAuth())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/auth/authenticate`, {
+    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/auth/admin/authenticate-credentials`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -50,7 +49,37 @@ export const authenticate = (
       .then(response => response.json())
       .then(json => {
         if (json.success) {
-          dispatch(logIn(json.data.user, json.data.token))
+          localStorage.setItem('antiVax_auth_token', json.data.token)
+          dispatch(logIn(json.data.user))
+        } else {
+          dispatch(logOut())
+          dispatch(flashMessage(json.data.error, 'error'))
+        }
+      })
+  }
+}
+
+export const loginWithToken = (
+  token
+) => {
+  return dispatch => {
+    dispatch(requestAuth())
+
+    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/auth/admin/authenticate-token`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token
+      })
+    })
+      .then(response => response.json())
+      .then(json => {
+        if (json.success) {
+          localStorage.setItem('antiVax_auth_token', json.data.token)
+          dispatch(logIn(json.data.user))
         } else {
           dispatch(logOut())
           dispatch(flashMessage(json.data.error, 'error'))

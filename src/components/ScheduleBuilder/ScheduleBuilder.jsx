@@ -68,8 +68,6 @@ class ScheduleBuilder extends React.Component {
         }),
         ...this.state.items.slice(index + 1)
       ]
-    }, () => {
-      console.log(this.state)
     })
   }
 

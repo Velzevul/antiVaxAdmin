@@ -13,14 +13,12 @@ const auth = (
     case LOGIN:
       return {
         isFetching: false,
-        user: action.user,
-        token: action.token
+        user: action.user
       }
     case LOGOUT:
       return {
         isFetching: false,
-        user: null,
-        token: null
+        user: null
       }
     default:
       return state

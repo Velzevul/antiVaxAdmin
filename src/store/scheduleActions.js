@@ -34,7 +34,7 @@ export const fetchSchedule = () => {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': getState().auth.token
+        'x-access-token': localStorage.getItem('antiVax_auth_token')
       }
     })
       .then(response => {
@@ -87,7 +87,7 @@ export const updateSchedule = (
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': getState().auth.token
+        'x-access-token': localStorage.getItem('antiVax_auth_token')
       },
       body: JSON.stringify({
         schedule: data

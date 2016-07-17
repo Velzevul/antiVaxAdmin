@@ -42,7 +42,7 @@ export const fetchUsers = () => {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': getState().auth.token
+        'x-access-token': localStorage.getItem('antiVax_auth_token')
       }
     })
     .then(response => {
@@ -110,7 +110,7 @@ export const updateUser = (
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': getState().auth.token
+        'x-access-token': localStorage.getItem('antiVax_auth_token')
       },
       body: JSON.stringify({
         user: data
@@ -184,7 +184,7 @@ export const createUser = (
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': getState().auth.token
+        'x-access-token': localStorage.getItem('antiVax_auth_token')
       },
       body: JSON.stringify({
         user: data
@@ -260,7 +260,7 @@ export const deleteUser = (
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': getState().auth.token
+        'x-access-token': localStorage.getItem('antiVax_auth_token')
       }
     })
       .then(response => {

@@ -2,8 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import {Flex, List, ListItem} from '../Layouts'
-import {ModalWindow, ModalWindowBody, ModalWindowHeader, ModalWindowFooter, TextInput, Button} from '../UI'
-import {authenticate} from '../../store/authActions'
+import {ModalWindow, ModalWindowBody, ModalWindowHeader, ModalWindowFooter, Input, Button} from '../UI'
+import {loginWithCredentials} from '../../store/authActions'
 
 class Login extends React.Component {
   constructor (props) {
@@ -37,7 +37,7 @@ class Login extends React.Component {
     }
 
     if (!emailError && !passwordError) {
-      dispatch(authenticate(this.state.email, this.state.password))
+      dispatch(loginWithCredentials(this.state.email, this.state.password))
     } else {
       this.setState({
         emailError,
@@ -63,10 +63,6 @@ class Login extends React.Component {
   render () {
     const {isFetching} = this.props
 
-    const inputStyle = {
-      width: '20rem'
-    }
-
     return (
       <ModalWindow>
         <form onSubmit={this.submitForm}>
@@ -75,20 +71,20 @@ class Login extends React.Component {
           </ModalWindowHeader>
 
           <ModalWindowBody>
-            <List n={0.5}>
-              <ListItem n={0.5}>
-                <TextInput style={inputStyle}
+            <List n={1.5}>
+              <ListItem n={1.5}>
+                <Input
                   value={this.state.email}
-                  label="email"
+                  label="Email:"
                   placeholder="e.g. casey@gmail.com"
                   error={this.state.emailError}
                   onChange={this.changeEmail} />
               </ListItem>
 
-              <ListItem n={0.5}>
-                <TextInput style={inputStyle}
+              <ListItem n={1.5}>
+                <Input
                   value={this.state.password}
-                  label="password"
+                  label="Password:"
                   placeholder="e.g. BigSecret"
                   error={this.state.passwordError}
                   onChange={this.changePassword}
@@ -98,7 +94,9 @@ class Login extends React.Component {
           </ModalWindowBody>
 
           <ModalWindowFooter>
-            <Button disabled={isFetching} theme="primary" label="Login">Login</Button>
+            <Button
+              disabled={isFetching}
+              label="Login">Login</Button>
           </ModalWindowFooter>
         </form>
       </ModalWindow>
