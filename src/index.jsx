@@ -24,7 +24,7 @@ const store = configureStore()
 ReactDOM.render((
   <Provider store={store}>
     <Router history={hashHistory}>
-      <Route path={`${ANTIVAX_ADMIN_PREFIX}/`} component={App}>
+      <Route path={'/'} component={App}>
         <IndexRedirect to="questions" />
 
         <Route path="questions" component={QuestionsDirectory} />
