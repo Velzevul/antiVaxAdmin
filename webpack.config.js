@@ -68,7 +68,7 @@ const config = {
   output: {
     path: PATHS.app,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production' ? '/antivax-server/' : '/app/'
+    publicPath: process.env.NODE_ENV === 'production' ? '/antivax-admin/' : '/app/'
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
