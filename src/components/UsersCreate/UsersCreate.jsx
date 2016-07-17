@@ -65,14 +65,14 @@ class UsersCreate extends React.Component {
 
             <ListInline>
               <ListInlineItem>
-                <Button small
+                <Button
                   theme="accent1"
                   disabled={isUpdating}
                   onClick={this.save}>Save</Button>
               </ListInlineItem>
 
               <ListInlineItem>
-                <Button small
+                <Button
                   inverse
                   theme="accent1"
                   disabled={isUpdating}

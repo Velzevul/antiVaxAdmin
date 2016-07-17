@@ -2,44 +2,50 @@
 @import '../../styles/config.css';
 
 .Nav {
+  flex: 1;
+  overflow: scroll;
   width: 100%;
+  padding: calc(var(--baseline) * 2) 0;
 
   &__item {
     display: block;
-    padding: calc(var(--baseline) / 2) 0;
+    padding: calc(var(--baseline) * 0.75) calc(var(--baseline) * 4);
 
     font-size: var(--fontSize);
 
     text-decoration: none;
-    color: var(--colorTextMed);
+    color: color(var(--colorTextAlt) alpha(-30%));
 
     border: none;
-    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    background-color: var(--colorBgAlt);
 
     transition: color 0.2s,
-                border-color 0.2s;
+                background-color 0.2s;
 
     &:hover {
       text-decoration: underline;
     }
   }
     &__item_active {
-      color: var(--colorAccent1);
-      border-color: var(--colorAccent1);
+      color: var(--colorTextAlt);
+      border-color: var(--colorBorderAlt);
+      background-color: var(--colorHighlightAlt);
 
       &:hover {
         text-decoration: none;
-        color: var(--colorAccent1);
       }
     }
 
   &__heading {
-    margin-top: calc(var(--baseline) * 1);
+    padding: calc(var(--baseline) / 2) calc(var(--baseline) * 4);
+    margin-top: calc(var(--baseline) * 1.5);
+
     font-family: var(--fontFamily);
     font-size: var(--fontSize);
-    font-weight: 700;
-    line-height: calc(var(--baseline) * 3);
+    font-weight: 400;
+    line-height: calc(var(--baseline) * 2);
 
-    color: var(--colorAccent2);
+    color: color(white alpha(-20%));
   }
 }

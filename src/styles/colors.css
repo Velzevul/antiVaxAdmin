@@ -1,12 +1,20 @@
 :root {
   --colorTextDark:  #2C3643;
   --colorTextMed:   #5B636D;
-  --colorTextLight: #ADB1B6;
+  --colorTextLight: #91969c;
 
-  --colorBorder:    #D0D0D0;
+  --colorBg:        #FFFFFF;
+  --colorBorder:    #bdbdbd;
+
+  --colorBg:      #e3eefb;
 
   --colorAccent1: #68A1E4;
   --colorAccent2: #E4A868;
   --colorError:   #E46868;
   --colorSuccess: #6EB96F;
+
+  --colorBgAlt:        #2C3643;
+  --colorHighlightAlt: #414e5f;
+  --colorBorderAlt:    #505d6d;
+  --colorTextAlt:      #a8c5ea;
 }

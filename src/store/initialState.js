@@ -64,5 +64,11 @@ export default {
     isUpdating: false,
     items: [],
     postScheduleContent: null
+  },
+  searchIndex: {
+    isFetching: true,
+    isUpdating: false,
+    lastUpdatedOn: null,
+    lastUpdatedBy: null
   }
 }

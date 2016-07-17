@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Time from 'react-time'
 
 import styles from './App.css'
 import Login from '../Login'
@@ -10,89 +11,128 @@ import {Block} from '../Layouts'
 import {categories, sections, blogposts} from '../../config'
 import {logOut} from '../../store/authActions'
 import {flashMessage} from '../../store/flashActions'
+import {fetchSearchIndex, updateSearchIndex} from '../../store/searchIndexActions'
 
-const App = ({
-  user,
-  children,
-  logOut
-}) => {
-  if (user) {
-    const navItems = [
-      {
-        id: 'questions',
-        label: 'Questions'
-      },
-      {
-        id: 'schedule-builder',
-        label: 'Schedule Builder'
-      },
-      {
-        id: 'users',
-        label: 'Users'
-      },
-      {
-        id: 'sections',
-        label: 'Website Sections',
-        heading: true
-      },
-      blogposts,
-      ...sections,
-      {
-        id: 'categories',
-        label: 'Categories',
-        heading: true
-      },
-      ...categories
-    ]
+class App extends React.Component {
+  componentWillReceiveProps (nextProps) {
+    const {fetchIndex, user} = nextProps
 
-    return (
-      <div className={styles.App}>
-        <div className={styles.App__sidebar}>
-          <div>
-            <Block n={3}>
+    if (!this.props.user && user) {
+      fetchIndex()
+    }
+  }
+
+  render () {
+    const {
+      user,
+      searchIndex,
+      children,
+      logOut,
+      updateIndex
+    } = this.props
+
+    if (user) {
+      const navItems = [
+        {
+          id: 'questions',
+          label: 'Questions'
+        },
+        {
+          id: 'schedule-builder',
+          label: 'Schedule Builder'
+        },
+        {
+          id: 'users',
+          label: 'Users'
+        },
+        {
+          id: 'sections',
+          label: 'Website Sections',
+          heading: true
+        },
+        blogposts,
+        ...sections,
+        {
+          id: 'categories',
+          label: 'Categories',
+          heading: true
+        },
+        ...categories
+      ]
+
+      let indexInfo = ''
+      if (searchIndex.isFetching) {
+        indexInfo = (
+          <div className={styles.App__info}>Fetching...</div>
+        )
+      } else if (searchIndex.isUpdating) {
+        indexInfo = (
+          <div className={styles.App__info}>Updating...</div>
+        )
+      } else {
+        indexInfo = (
+          <div className={styles.App__info}>last updated on <Time value={searchIndex.lastUpdatedOn} format="MMMM Do YYYY (h:mm a)" /> by {searchIndex.lastUpdatedBy}</div>
+        )
+      }
+
+      return (
+        <div className={styles.App}>
+          <div className={styles.App__sidebar}>
+            <div className={styles.App__header}>
               <h1 className={styles.App__title}>Antivax admin</h1>
-            </Block>
+            </div>
 
             <Nav items={navItems} />
+
+            <div className={styles.App__options}>
+              <Block n={0.5}>
+                {indexInfo}
+              </Block>
+
+              <Block n={0.5}>
+                <Button
+                  inverse
+                  fullWidth
+                  disabled={searchIndex.isUpdating || searchIndex.isFetching}
+                  theme="accent1"
+                  onClick={updateIndex}>Update search index</Button>
+              </Block>
+
+              <Block n={0.5}>
+                <div className={styles.App__info}>Logged in as {user.name}</div>
+              </Block>
+
+              <Button fullWidth theme="accent1" onClick={logOut}>Log out</Button>
+            </div>
           </div>
 
-          <div className={styles.App__options}>
-            <Block n={0.5}>
-              <div className={styles.App__user}>Logged in as {user.name}</div>
-            </Block>
+          {children}
 
-            <Block>
-              <Button
-                inverse
-                fullWidth
-                theme="accent1"
-                onClick={logOut}>Re-build search index</Button>
-            </Block>
-
-            <Button fullWidth theme="accent1" onClick={logOut}>Log out</Button>
-          </div>
+          <FlashMessage />
         </div>
+      )
+    } else {
+      return (
+        <div className={styles.App}>
+          <Login />
 
-        {children}
-
-        <FlashMessage />
-      </div>
-    )
-  } else {
-    return (
-      <div className={styles.App}>
-        <Login />
-
-        <FlashMessage />
-      </div>
-    )
+          <FlashMessage />
+        </div>
+      )
+    }
   }
 }
 
 export default connect(
   state => {
     return {
-      user: state.auth.user
+      user: state.auth.user,
+      searchIndex: {
+        isFetching: state.searchIndex.isFetching,
+        isUpdating: state.searchIndex.isUpdating,
+        lastUpdatedOn: state.searchIndex.lastUpdatedOn,
+        lastUpdatedBy: state.searchIndex.lastUpdatedBy
+      }
     }
   },
   dispatch => {
@@ -100,6 +140,12 @@ export default connect(
       logOut: () => {
         dispatch(logOut())
         dispatch(flashMessage('You have been successfully logged out', 'log'))
+      },
+      updateIndex: () => {
+        dispatch(updateSearchIndex())
+      },
+      fetchIndex: () => {
+        dispatch(fetchSearchIndex())
       }
     }
   }
