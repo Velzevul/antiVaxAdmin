@@ -41,7 +41,7 @@ class QuestionsDirectoryItem extends React.Component {
             <ListInline>
               <ListInlineItem>
                 <Badge label={item.data.isSeen ? 'Seen' : 'New'}
-                  theme={item.data.isSeen ? 'default' : 'Accent2'} />
+                  theme={item.data.isSeen ? 'default' : 'accent2'} />
               </ListInlineItem>
 
               <ListInlineItem>
