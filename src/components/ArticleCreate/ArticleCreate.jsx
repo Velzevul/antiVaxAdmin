@@ -6,7 +6,7 @@ import {Block, Flex, ListInline, ListInlineItem} from '../Layouts'
 import {Button, Input, Checkbox, Editor, Select} from '../UI'
 import {createArticle} from '../../store/articleActions'
 import Title from '../Title'
-import {categories, isSection, getCurrentSection} from '../../config'
+import {attachments, isSection, getCurrentSection} from '../../config'
 
 class ArticleCreate extends React.Component {
   constructor (props) {
@@ -22,7 +22,7 @@ class ArticleCreate extends React.Component {
         url: '',
         content: '',
         isPublished: false,
-        category: ''
+        attachment: ''
       },
       errors: {}
     }
@@ -65,10 +65,10 @@ class ArticleCreate extends React.Component {
     let typeSpecificForm = ''
     if (isSection(this.currentSection.id)) {
       typeSpecificForm = (
-        <Select options={categories}
-          onChange={(v) => this.change('category', v)}
-          value={this.state.data.category}
-          label="Category:" />
+        <Select options={attachments}
+          onChange={(v) => this.change('attachment', v)}
+          value={this.state.data.attachment}
+          label="Attachment:" />
       )
     }
 

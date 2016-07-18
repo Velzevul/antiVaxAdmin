@@ -6,7 +6,7 @@ import {Button, Input, Checkbox, Editor, Select} from '../UI'
 import {updateArticle} from '../../store/articleActions'
 import {ItemForm, ItemFormHeader, ItemFormBody} from '../ItemForm'
 import Title from '../Title'
-import {categories, isSection, isBlogpost} from '../../config'
+import {attachments, isSection, isBlogpost} from '../../config'
 import Comments from '../Comments'
 
 class ArticleEdit extends React.Component {
@@ -122,10 +122,10 @@ class ArticleEdit extends React.Component {
     let typeSpecificForm = ''
     if (isSection(this.currentSection.id)) {
       typeSpecificForm = (
-        <Select options={categories}
-          onChange={(v) => this.change('category', v)}
-          value={this.state.data.category}
-          label="Category:" />
+        <Select options={attachments}
+          onChange={(v) => this.change('attachment', v)}
+          value={this.state.data.attachment}
+          label="Attachment:" />
       )
     } else if (isBlogpost(this.currentSection.id) && this.state.data.comments.length > 0) {
       typeSpecificForm = (

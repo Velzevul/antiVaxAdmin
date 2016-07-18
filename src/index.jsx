@@ -29,7 +29,7 @@ ReactDOM.render((
 
         <Route path="questions" component={QuestionsDirectory} />
 
-        <Route path="schedule-builder" component={ScheduleBuilder} />
+        <Route path="schedule" component={ScheduleBuilder} />
 
         <Route path="users" component={UsersDirectory}>
           <Route path="new" component={UsersCreate} />

@@ -3,11 +3,12 @@ export const blogposts = {
   label: 'Blogposts'
 }
 
+export const faqs = {
+  id: 'faqs',
+  label: 'FAQs'
+}
+
 export const sections = [
-  {
-    id: 'faqs',
-    label: 'FAQs'
-  },
   {
     id: 'about-vaccines',
     label: 'About Vaccines'
@@ -30,7 +31,7 @@ export const sections = [
   }
 ]
 
-export const categories = [
+export const attachments = [
   {
     id: 'diseases',
     label: 'Diseases'
@@ -42,6 +43,10 @@ export const categories = [
   {
     id: 'ingridients',
     label: 'Ingridients'
+  },
+  {
+    id: 'schedule',
+    label: 'Vaccination Schedule'
   }
 ]
 
@@ -53,10 +58,19 @@ export const isBlogpost = (id) => {
   return id === blogposts.id
 }
 
-export const isCategory = (id) => {
-  return categories.map(c => c.id).indexOf(id) !== -1
+export const isAttachment = (id) => {
+  return attachments.map(c => c.id).indexOf(id) !== -1
+}
+
+export const isFaq = (id) => {
+  return id === faqs.id
 }
 
 export const getCurrentSection = (id) => {
-  return sections.concat(categories).concat([blogposts]).filter(s => s.id === id)[0]
+  return [
+    ...sections,
+    ...attachments,
+    blogposts,
+    faqs
+  ].filter(s => s.id === id)[0]
 }

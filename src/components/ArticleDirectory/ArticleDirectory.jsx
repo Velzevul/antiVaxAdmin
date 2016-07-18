@@ -7,7 +7,7 @@ import ArticleDirectoryItem from '../ArticleDirectoryItem'
 import {Button} from '../UI'
 import Loading from '../Loading'
 import PageNotFound from '../PageNotFound'
-import {getCurrentSection, isSection, isCategory, isBlogpost} from '../../config'
+import {getCurrentSection, isSection, isAttachment, isBlogpost, isFaq} from '../../config'
 
 class ArticleDirectory extends React.Component {
   constructor (props) {
@@ -21,7 +21,7 @@ class ArticleDirectory extends React.Component {
   componentWillMount () {
     const {dispatch, params} = this.props
 
-    if (isSection(params.sectionId) || isCategory(params.sectionId) || isBlogpost(params.sectionId)) {
+    if (isSection(params.sectionId) || isAttachment(params.sectionId) || isBlogpost(params.sectionId) || isFaq(params.sectionId)) {
       this.setState({ notFound: false })
       dispatch(fetchArticles())
     } else {
@@ -33,7 +33,7 @@ class ArticleDirectory extends React.Component {
     const {params} = newProps
 
     if (params.sectionId !== this.props.params.sectionId) {
-      if (isSection(params.sectionId) || isCategory(params.sectionId) || isBlogpost(params.sectionId)) {
+      if (isSection(params.sectionId) || isAttachment(params.sectionId) || isBlogpost(params.sectionId) || isFaq(params.sectionId)) {
         this.setState({ notFound: false })
       } else {
         this.setState({ notFound: true })

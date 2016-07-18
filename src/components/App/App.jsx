@@ -9,7 +9,7 @@ import Loading from '../Loading'
 import Login from '../Login'
 import {Button} from '../UI'
 import {Block} from '../Layouts'
-import {categories, sections, blogposts} from '../../config'
+import {attachments, sections, blogposts, faqs} from '../../config'
 import {logOut, loginWithToken} from '../../store/authActions'
 import {flashMessage} from '../../store/flashActions'
 import {fetchSearchIndex, updateSearchIndex} from '../../store/searchIndexActions'
@@ -52,10 +52,8 @@ class App extends React.Component {
             id: 'questions',
             label: 'Questions'
           },
-          {
-            id: 'schedule-builder',
-            label: 'Schedule Builder'
-          },
+          blogposts,
+          faqs,
           {
             id: 'users',
             label: 'Users'
@@ -65,14 +63,13 @@ class App extends React.Component {
             label: 'Website Sections',
             heading: true
           },
-          blogposts,
           ...sections,
           {
-            id: 'categories',
-            label: 'Categories',
+            id: 'attachments',
+            label: 'Attachments',
             heading: true
           },
-          ...categories
+          ...attachments
         ]
 
         let indexInfo = ''
