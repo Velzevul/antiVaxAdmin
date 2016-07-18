@@ -61,8 +61,7 @@ export default {
   schedule: {
     isFetching: true,
     isUpdating: false,
-    items: [],
-    postScheduleContent: null
+    items: []
   },
   searchIndex: {
     isFetching: true,

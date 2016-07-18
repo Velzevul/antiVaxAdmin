@@ -14,8 +14,7 @@ const schedule = (
     case RECEIVE_SCHEDULE:
       return Object.assign({}, state, {
         isFetching: false,
-        items: action.items,
-        postScheduleContent: action.postScheduleContent
+        items: action.items
       })
     case REQUEST_UPDATE_SCHEDULE:
       return Object.assign({}, state, {
@@ -24,8 +23,7 @@ const schedule = (
     case RECEIVE_UPDATE_SCHEDULE:
       return Object.assign({}, state, {
         isUpdating: false,
-        items: action.items,
-        postScheduleContent: action.postScheduleContent
+        items: action.items
       })
     default:
       return state

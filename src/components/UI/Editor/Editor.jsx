@@ -6,7 +6,8 @@ import HeadingCmd from 'scribe-plugin-heading-command'
 import LinkPromptCmd from 'scribe-plugin-link-prompt-command'
 import UnlinkCmd from 'scribe-plugin-intelligent-unlink-command'
 
-import {Block, Flex} from '../../Layouts'
+const baseline = 0.750
+import {Flex, Block} from '../../Layouts'
 
 import styles from './Editor.css'
 
@@ -50,20 +51,35 @@ class Editor extends React.Component {
   }
 
   render () {
-    const {label, error} = this.props
+    const {
+      error,
+      labelParams = {
+        width: 8,
+        padding: 2
+      },
+      label = null
+    } = this.props
 
-    var labelElement = ''
+    let labelEl = ''
     if (label) {
-      labelElement = (
+      let labelStyle = {
+        paddingRight: `${labelParams.padding * baseline}rem`
+      }
+      if (labelParams.width) {
+        labelStyle.width = `${labelParams.width * baseline}rem`
+        labelStyle.textAlign = 'right'
+      }
+
+      labelEl = (
         <Block>
-          <div className={styles.Editor__label}>{label}</div>
+          <div style={labelStyle} className={`${styles.Editor__label}`}>{label}</div>
         </Block>
       )
     }
 
     return (
       <div className={`${styles.Editor} ${error ? styles.Editor_error : ''}`}>
-        {labelElement}
+        {labelEl}
 
         <div className={styles.Editor__toolbar} ref="toolbar">
           <Flex>

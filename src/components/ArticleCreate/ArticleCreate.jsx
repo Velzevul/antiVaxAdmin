@@ -6,7 +6,7 @@ import {Block, Flex, ListInline, ListInlineItem} from '../Layouts'
 import {Button, Input, Checkbox, Editor, Select} from '../UI'
 import {createArticle} from '../../store/articleActions'
 import Title from '../Title'
-import {attachments, isSection, getCurrentSection} from '../../config'
+import {attachments, isSection, isBlogpost, getCurrentSection} from '../../config'
 
 class ArticleCreate extends React.Component {
   constructor (props) {
@@ -20,6 +20,7 @@ class ArticleCreate extends React.Component {
       data: {
         title: '',
         url: '',
+        snippet: '',
         content: '',
         isPublished: false,
         attachment: ''
@@ -62,13 +63,28 @@ class ArticleCreate extends React.Component {
   render () {
     const {isUpdating} = this.props.item
 
-    let typeSpecificForm = ''
+    let attachmentSelect = ''
     if (isSection(this.currentSection.id)) {
-      typeSpecificForm = (
-        <Select options={attachments}
+      attachmentSelect = (
+        <Select
+          options={attachments}
           onChange={(v) => this.change('attachment', v)}
           value={this.state.data.attachment}
           label="Attachment:" />
+      )
+    }
+
+    let snippetForm = ''
+    if (isBlogpost(this.currentSection.id)) {
+      snippetForm = (
+        <Block n={1}>
+          <Editor
+            label="Preview:"
+            value={this.state.data.snippet}
+            error={this.state.errors.snippet}
+            disabled={isUpdating}
+            onChange={value => this.change('snippet', value)} />
+        </Block>
       )
     }
 
@@ -121,14 +137,18 @@ class ArticleCreate extends React.Component {
               onChange={value => this.change('isPublished', value)} />
           </Block>
 
-          <Block n={typeSpecificForm ? 3 : 0}>
-            <Editor value={this.state.data.content}
+          {snippetForm}
+
+          <Block n={attachmentSelect ? 3 : 0}>
+            <Editor
+              label="Content:"
+              value={this.state.data.content}
               error={this.state.errors.content}
               disabled={isUpdating}
               onChange={value => this.change('content', value)} />
           </Block>
 
-          {typeSpecificForm}
+          {attachmentSelect}
         </ItemFormBody>
       </ItemForm>
     )

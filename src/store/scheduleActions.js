@@ -16,13 +16,11 @@ const requestSchedule = () => {
 }
 
 const receiveSchedule = (
-  items,
-  postScheduleContent
+  items
 ) => {
   return {
     type: RECEIVE_SCHEDULE,
-    items,
-    postScheduleContent
+    items
   }
 }
 
@@ -49,7 +47,7 @@ export const fetchSchedule = () => {
       .then(response => response.json())
       .then(json => {
         if (json.success) {
-          dispatch(receiveSchedule(json.data.schedule.items, json.data.schedule.postScheduleContent))
+          dispatch(receiveSchedule(json.data.schedule.items))
         } else {
           console.error(json.data)
           dispatch(flashMessage('Oops, something went wrong :()', 'error'))
@@ -65,13 +63,11 @@ const requestUpdate = () => {
 }
 
 const receiveUpdate = (
-  items,
-  postScheduleContent
+  items
 ) => {
   return {
     type: RECEIVE_UPDATE_SCHEDULE,
-    items,
-    postScheduleContent
+    items
   }
 }
 
@@ -105,7 +101,7 @@ export const updateSchedule = (
       .then(response => response.json())
       .then(json => {
         if (json.success) {
-          dispatch(receiveUpdate(json.data.schedule.items, json.data.schedule.postScheduleContent))
+          dispatch(receiveUpdate(json.data.schedule.items))
           if (successMessage) {
             dispatch(flashMessage(successMessage, 'log'))
           }

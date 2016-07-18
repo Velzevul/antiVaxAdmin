@@ -119,16 +119,34 @@ class ArticleEdit extends React.Component {
   render () {
     const {isUpdating} = this.props.item
 
-    let typeSpecificForm = ''
+    let attachmentSelect = ''
     if (isSection(this.currentSection.id)) {
-      typeSpecificForm = (
-        <Select options={attachments}
+      attachmentSelect = (
+        <Select
+          options={attachments}
           onChange={(v) => this.change('attachment', v)}
           value={this.state.data.attachment}
           label="Attachment:" />
       )
-    } else if (isBlogpost(this.currentSection.id) && this.state.data.comments.length > 0) {
-      typeSpecificForm = (
+    }
+
+    let snippetForm = ''
+    if (isBlogpost(this.currentSection.id)) {
+      snippetForm = (
+        <Block n={1}>
+          <Editor
+            label="Preview:"
+            value={this.state.data.snippet}
+            error={this.state.errors.snippet}
+            disabled={isUpdating}
+            onChange={value => this.change('snippet', value)} />
+        </Block>
+      )
+    }
+
+    let commentsForm = ''
+    if (isBlogpost(this.currentSection.id) && this.state.data.comments.length > 0) {
+      commentsForm = (
         <Comments items={this.state.data.comments} onDeleteComment={this.deleteComment} onDeleteReply={this.deleteReply} />
       )
     }
@@ -201,14 +219,19 @@ class ArticleEdit extends React.Component {
               onChange={value => this.change('isPublished', value)} />
           </Block>
 
-          <Block n={typeSpecificForm ? 3 : 0}>
-            <Editor value={this.state.data.content}
+          {snippetForm}
+
+          <Block n={attachmentSelect || commentsForm ? 3 : 0}>
+            <Editor
+              label="Content:"
+              value={this.state.data.content}
               error={this.state.errors.content}
               disabled={isUpdating}
               onChange={value => this.change('content', value)} />
           </Block>
 
-          {typeSpecificForm}
+          {attachmentSelect}
+          {commentsForm}
         </ItemFormBody>
       </ItemForm>
     )

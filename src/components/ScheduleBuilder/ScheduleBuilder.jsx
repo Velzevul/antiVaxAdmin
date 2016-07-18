@@ -16,13 +16,11 @@ class ScheduleBuilder extends React.Component {
 
     this.discard = this.discard.bind(this)
     this.changeItem = this.changeItem.bind(this)
-    this.changePostScheduleContent = this.changePostScheduleContent.bind(this)
     this.insertItem = this.insertItem.bind(this)
 
     this.state = {
       isDirty: false,
-      items: this.props.items,
-      postScheduleContent: this.props.postScheduleContent
+      items: this.props.items
     }
   }
 
@@ -33,13 +31,12 @@ class ScheduleBuilder extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    const {items, postScheduleContent, isFetchingVaccines, isFetchingSchedule, isUpdating} = newProps
+    const {items, isFetchingVaccines, isFetchingSchedule, isUpdating} = newProps
 
     if (!isUpdating && !isFetchingVaccines && !isFetchingSchedule) {
       const newState = {
         isDirty: false,
-        items,
-        postScheduleContent
+        items
       }
 
       this.setState(newState)
@@ -47,12 +44,11 @@ class ScheduleBuilder extends React.Component {
   }
 
   discard () {
-    const {items, postScheduleContent} = this.props
+    const {items} = this.props
 
     this.setState({
       isDirty: false,
-      items,
-      postScheduleContent
+      items
     })
   }
 
@@ -69,15 +65,6 @@ class ScheduleBuilder extends React.Component {
         ...this.state.items.slice(index + 1)
       ]
     })
-  }
-
-  changePostScheduleContent (value) {
-    if (value !== this.state.postScheduleContent && value !== '<p><br></p>') {
-      this.setState({
-        isDirty: true,
-        postScheduleContent: value
-      })
-    }
   }
 
   insertItem () {
@@ -127,8 +114,7 @@ class ScheduleBuilder extends React.Component {
                   theme="accent1"
                   disabled={isUpdating}
                   onClick={() => save({
-                    items: this.state.items,
-                    postScheduleContent: this.state.postScheduleContent
+                    items: this.state.items
                   })}>Save</Button>
               </ListInlineItem>
 
@@ -167,12 +153,6 @@ class ScheduleBuilder extends React.Component {
                 theme="accent1"
                 onClick={() => this.insertItem()}>Insert new item</Button>
             </Block>
-
-            <Editor
-              label="Post schedule content:"
-              value={this.state.postScheduleContent}
-              disabled={isUpdating}
-              onChange={this.changePostScheduleContent} />
           </ItemFormBody>
         </ItemForm>
       )
@@ -187,8 +167,7 @@ export default connect(
       isFetchingSchedule: state.schedule.isFetching,
       vaccines: state.articles.items.filter(a => a.data.type.id === 'vaccines'),
       isUpdating: state.schedule.isUpdating,
-      items: state.schedule.items.map(i => Object.assign({}, i)),
-      postScheduleContent: state.schedule.postScheduleContent
+      items: state.schedule.items.map(i => Object.assign({}, i))
     }
   },
   dispatch => {
