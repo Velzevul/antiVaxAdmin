@@ -50,7 +50,9 @@ const Reply = ({
         </Flex>
       </Block>
 
-      <div className={styles.Reply__body}>{item.content}</div>
+      <div
+        className={styles.Reply__body}
+        dangerouslySetInnerHTML={{__html: item.content}} />
     </div>
   )
 }
@@ -60,7 +62,17 @@ const Comment = ({
   onDeleteComment,
   onDeleteReply
 }) => {
-  const replies = item.replies.map(r =>
+  const sortedReplies = item.replies.sort((a, b) => {
+    if (a.createdAt > b.createdAt) {
+      return -1
+    } else if (a.createdAt < b.createdAt) {
+      return 1
+    } else {
+      return 0
+    }
+  })
+
+  const replies = sortedReplies.map(r =>
     <Reply key={r._id} commentId={item._id} item={r} onDeleteReply={onDeleteReply} commentIsDeleted={item.isDeleted} />
   )
 
@@ -103,9 +115,9 @@ const Comment = ({
         </Block>
 
         <Block n={1}>
-          <div className={styles.Comment__body}>
-            {item.content}
-          </div>
+          <div
+            className={styles.Comment__body}
+            dangerouslySetInnerHTML={{__html: item.content}} />
         </Block>
 
         <div className={styles.Comment__replies}>

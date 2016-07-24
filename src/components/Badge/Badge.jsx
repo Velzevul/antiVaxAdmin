@@ -6,7 +6,7 @@ const Badge = ({
   label,
   theme = 'default'
 }) => {
-  let classNames=[styles.Badge]
+  let classNames = [styles.Badge]
   switch (theme) {
     case 'accent1':
       classNames.push(styles.Badge_accent1)
