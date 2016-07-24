@@ -16,7 +16,9 @@ class UsersEdit extends React.Component {
 
     this.state = {
       isDirty: false,
-      data: Object.assign({}, props.item.data),
+      data: Object.assign({}, props.item.data, {
+        password: ''
+      }),
       errors: Object.assign({}, props.item.errors)
     }
   }
@@ -30,7 +32,9 @@ class UsersEdit extends React.Component {
       if (Object.keys(errors).length === 0 && errors.constructor === Object) {
         newState = {
           isDirty: false,
-          data: data,
+          data: Object.assign({}, data, {
+            password: ''
+          }),
           errors: {}
         }
       } else {
@@ -45,8 +49,13 @@ class UsersEdit extends React.Component {
 
   save () {
     const {dispatch} = this.props
+    const payload = Object.assign(this.state.data)
 
-    dispatch(updateUser(this.props.item.data._id, this.state.data))
+    if (!payload.password) {
+      delete payload.password
+    }
+
+    dispatch(updateUser(this.props.item.data._id, payload))
   }
 
   change (prop, value) {
@@ -127,6 +136,14 @@ class UsersEdit extends React.Component {
               error={this.state.errors.email}
               disabled={isUpdating}
               onChange={value => this.change('email', value)} />
+          </Block>
+
+          <Block n={1}>
+            <Input label="Password"
+              value={this.state.data.password}
+              error={this.state.errors.password}
+              disabled={isUpdating}
+              onChange={value => this.change('password', value)} />
           </Block>
 
           <Block n={1}>
