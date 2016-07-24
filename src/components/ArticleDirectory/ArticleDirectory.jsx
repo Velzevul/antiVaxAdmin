@@ -54,9 +54,16 @@ class ArticleDirectory extends React.Component {
       if (isFetching) {
         return <Loading />
       } else {
-        const articles = items.filter(i => i.data.type.id === currentSection.id).map(i =>
-          <ArticleDirectoryItem key={i.data._id} item={i} />
-        )
+        const filteredArticles = items
+          .filter(i => i.data.type.id === currentSection.id)
+          .sort((a, b) => {
+            return a.data.order - b.data.order
+          })
+
+        const articles = filteredArticles
+          .map(i =>
+            <ArticleDirectoryItem key={i.data._id} item={i} nItems={filteredArticles.length} />
+          )
 
         const actions = (
           <div>

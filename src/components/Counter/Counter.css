@@ -1,0 +1,30 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.Counter {
+  text-align: center;
+
+  &__button {
+    display: block;
+    width: calc(var(--baseline) * 1.5);
+    height: calc(var(--baseline) * 1.5);
+    line-height: calc(var(--baseline) * 1.5);
+    appearance: none;
+    background: none;
+    border: none;
+    color: var(--colorTextLight);
+
+    cursor: pointer;
+  }
+
+  &__value {
+    display: block;
+    width: calc(var(--baseline) * 1.5);
+    height: calc(var(--baseline) * 1.5);
+
+    font-size: var(--fontSizeSmall);
+    line-height: calc(var(--baseline) * 1.5);
+
+    color: var(--colorTextMed);
+  }
+}
