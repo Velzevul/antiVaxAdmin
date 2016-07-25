@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {fetchArticles} from '../../store/articleActions'
+import {fetchArticles, updateArticle} from '../../store/articleActions'
 import Directory from '../Directory'
 import ArticleDirectoryItem from '../ArticleDirectoryItem'
 import {Button} from '../UI'
@@ -13,17 +13,19 @@ class ArticleDirectory extends React.Component {
   constructor (props) {
     super(props)
 
+    this.swap = this.swap.bind(this)
+
     this.state = {
       notFound: false
     }
   }
 
   componentWillMount () {
-    const {dispatch, params} = this.props
+    const {fetchArticles, params} = this.props
 
     if (isSection(params.sectionId) || isAttachment(params.sectionId) || isBlogpost(params.sectionId) || isFaq(params.sectionId)) {
       this.setState({ notFound: false })
-      dispatch(fetchArticles())
+      fetchArticles()
     } else {
       this.setState({ notFound: true })
     }
@@ -39,6 +41,24 @@ class ArticleDirectory extends React.Component {
         this.setState({ notFound: true })
       }
     }
+  }
+
+  swap (orderA, orderB) {
+    const {updateArticle, items, params: {sectionId}} = this.props
+    const currentSection = getCurrentSection(sectionId)
+    const filteredArticles = items
+      .filter(i => i.data.type.id === currentSection.id)
+
+    const articleA = filteredArticles.filter(a => a.data.order === orderA)[0]
+    const articleB = filteredArticles.filter(a => a.data.order === orderB)[0]
+
+    updateArticle(articleA.data._id, {
+      order: orderB
+    })
+
+    updateArticle(articleB.data._id, {
+      order: orderA
+    })
   }
 
   render () {
@@ -62,7 +82,7 @@ class ArticleDirectory extends React.Component {
 
         const articles = filteredArticles
           .map(i =>
-            <ArticleDirectoryItem key={i.data._id} item={i} nItems={filteredArticles.length} />
+            <ArticleDirectoryItem key={i.data._id} item={i} nItems={filteredArticles.length} swap={this.swap} />
           )
 
         const actions = (
@@ -86,6 +106,16 @@ export default connect(
     return {
       isFetching: state.articles.isFetching,
       items: state.articles.items
+    }
+  },
+  dispatch => {
+    return {
+      updateArticle: (id, data) => {
+        dispatch(updateArticle(id, data))
+      },
+      fetchArticles: () => {
+        dispatch(fetchArticles())
+      }
     }
   }
 )(ArticleDirectory)

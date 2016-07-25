@@ -29,25 +29,15 @@ class ArticleDirectoryItem extends React.Component {
   }
 
   moveUp () {
-    const {dispatch, item} = this.props
+    const {swap, item} = this.props
 
-    const payload = {
-      order: Math.max(item.data.order - 1, 0)
-    }
-
-    dispatch(updateArticle(item.data._id, payload))
+    swap(item.data.order, Math.max(item.data.order - 1, 0))
   }
 
   moveDown () {
-    const {dispatch, item} = this.props
+    const {swap, item} = this.props
 
-    console.log(this.props.nItems)
-
-    const payload = {
-      order: Math.min(item.data.order + 1, this.props.nItems - 1)
-    }
-
-    dispatch(updateArticle(item.data._id, payload))
+    swap(item.data.order, Math.min(item.data.order + 1, this.props.nItems - 1))
   }
 
   delete () {

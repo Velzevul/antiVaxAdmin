@@ -17,11 +17,16 @@ const DirectoryItemTitle = ({
 }) => {
   if (to) {
     return (
-      <Link to={to} className={`${styles.DirectoryItem__title} ${styles.DirectoryItem__title_link}`}>{children}</Link>
+      <Link
+        to={to}
+        className={`${styles.DirectoryItem__title} ${styles.DirectoryItem__title_link}`}
+        dangerouslySetInnerHTML={{__html: children}} />
     )
   } else {
     return (
-      <div className={styles.DirectoryItem__title}>{children}</div>
+      <div
+        className={styles.DirectoryItem__title}
+        dangerouslySetInnerHTML={{__html: children}} />
     )
   }
 }
