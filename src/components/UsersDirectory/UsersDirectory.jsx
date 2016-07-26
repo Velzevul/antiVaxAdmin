@@ -27,7 +27,7 @@ class UsersDirectory extends React.Component {
       const actions = (
         <div>
           <Button
-            to="/users/new"
+            to={`${PUBLIC_PATH}/users/new`}
             theme="accent1">Create new</Button>
         </div>
       )

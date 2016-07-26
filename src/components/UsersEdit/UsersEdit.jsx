@@ -96,7 +96,7 @@ class UsersEdit extends React.Component {
                 inverse
                 theme="accent1"
                 disabled={isUpdating}
-                to="users">Cancel</Button>
+                to={`${PUBLIC_PATH}/users`}>Cancel</Button>
             </ListInlineItem>
           </ListInline>
         </Flex>
@@ -110,7 +110,7 @@ class UsersEdit extends React.Component {
             inverse
             theme="accent1"
             disabled={isUpdating}
-            to="users">Close</Button>
+            to={`${PUBLIC_PATH}/users`}>Close</Button>
         </Flex>
       )
     }

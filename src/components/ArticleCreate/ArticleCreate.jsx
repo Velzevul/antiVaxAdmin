@@ -107,7 +107,7 @@ class ArticleCreate extends React.Component {
                   inverse
                   theme="accent1"
                   disabled={isUpdating}
-                  to={this.currentSection.id}>Cancel</Button>
+                  to={`${PUBLIC_PATH}/${this.currentSection.id}`}>Cancel</Button>
               </ListInlineItem>
             </ListInline>
           </Flex>

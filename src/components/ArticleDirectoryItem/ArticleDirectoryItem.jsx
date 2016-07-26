@@ -97,7 +97,7 @@ class ArticleDirectoryItem extends React.Component {
               </Flex>
             </Block>
 
-            <DirectoryItemTitle to={`${item.data.type.id}/${item.data._id}`}>{item.data.title}</DirectoryItemTitle>
+            <DirectoryItemTitle to={`${PUBLIC_PATH}/${item.data.type.id}/${item.data._id}`}>{item.data.title}</DirectoryItemTitle>
           </MediaBody>
         </Media>
       </DirectoryItem>

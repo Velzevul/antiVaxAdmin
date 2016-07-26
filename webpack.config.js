@@ -10,16 +10,17 @@ const cssImport = require('postcss-import')
 const cssNext = require('postcss-cssnext')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
+const PUBLIC_PATH = process.env.NODE_ENV === 'production' ? '' : '/app'
 console.log(NODE_ENV)
+console.log(PUBLIC_PATH)
 console.log(__dirname)
+
 const PATHS = {
   src: path.join(__dirname, 'src'),
   app: path.join(__dirname, 'app')
 }
 
-const getPlugins = (
-  production = false
-) => {
+const getPlugins = () => {
   let plugins = []
 
   plugins.push(new CleanWebpackPlugin(['app'], {
@@ -37,8 +38,8 @@ const getPlugins = (
     'process.env': {
       NODE_ENV: JSON.stringify(NODE_ENV)
     },
-    NODE_ENV: JSON.stringify(NODE_ENV),
-    ANTIVAX_ADMIN_SERVER_URL: JSON.stringify(process.env.ANTIVAX_ADMIN_SERVER_URL)
+    ANTIVAX_ADMIN_SERVER_URL: JSON.stringify(process.env.ANTIVAX_ADMIN_SERVER_URL),
+    PUBLIC_PATH: JSON.stringify(PUBLIC_PATH)
   }))
 
   plugins.push(new webpack.optimize.CommonsChunkPlugin({
@@ -49,7 +50,7 @@ const getPlugins = (
     allChunks: true
   }))
 
-  if (production) {
+  if (NODE_ENV === 'production') {
     plugins.push(new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
@@ -68,7 +69,7 @@ const config = {
   output: {
     path: PATHS.app,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production' ? '/antivax-admin/' : '/app/'
+    publicPath: PUBLIC_PATH
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -93,7 +94,7 @@ const config = {
     ]
   },
   plugins: getPlugins(NODE_ENV === 'production'),
-  devtool: NODE_ENV === 'production' ? 'source-map' : 'cheap-inline-module-source-map',
+  devtool: NODE_ENV === 'production' ? null : 'cheap-inline-module-source-map',
   watch: NODE_ENV === 'development',
   postcss: () => {
     return [

@@ -15,7 +15,7 @@ const Nav = ({
         <Link key={i.id}
           className={styles.Nav__item}
           activeClassName={styles.Nav__item_active}
-          to={`/${i.id}`}>{i.label}</Link>
+          to={`${PUBLIC_PATH}/${i.id}`}>{i.label}</Link>
       )
     }
   })

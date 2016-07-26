@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import {hashHistory} from 'react-router'
+import {browserHistory} from 'react-router'
 
 export const REQUEST_ARTICLES = 'REQUEST_ARTICLES'
 export const RECEIVE_ARTICLES = 'RECEIVE_ARTICLES'
@@ -204,7 +204,7 @@ export const createArticle = (
         if (json.success) {
           dispatch(confirmCreate(json.data.article))
           dispatch(flashMessage('Article created successfully', 'log'))
-          hashHistory.push(`/${json.data.article.type.id}/${json.data.article._id}`)
+          browserHistory.push(`${PUBLIC_PATH}/${json.data.article.type.id}/${json.data.article._id}`)
         } else if (json.data.name === 'ValidationError') {
           let payload = {}
 

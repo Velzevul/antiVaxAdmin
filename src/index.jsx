@@ -5,7 +5,7 @@ import App from './components/App'
 import './styles/global.css'
 import configureStore from './store'
 import { Provider } from 'react-redux'
-import {Router, Route, IndexRedirect, hashHistory} from 'react-router'
+import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 
 import ArticleDirectory from './components/ArticleDirectory'
 import ArticleCreate from './components/ArticleCreate'
@@ -23,8 +23,8 @@ const store = configureStore()
 
 ReactDOM.render((
   <Provider store={store}>
-    <Router history={hashHistory}>
-      <Route path={'/'} component={App}>
+    <Router history={browserHistory}>
+      <Route path={`${PUBLIC_PATH}/`} component={App}>
         <IndexRedirect to="questions" />
 
         <Route path="questions" component={QuestionsDirectory} />

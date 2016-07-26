@@ -76,7 +76,7 @@ class UsersCreate extends React.Component {
                   inverse
                   theme="accent1"
                   disabled={isUpdating}
-                  to="users">Cancel</Button>
+                  to={`${PUBLIC_PATH}/users`}>Cancel</Button>
               </ListInlineItem>
             </ListInline>
           </Flex>

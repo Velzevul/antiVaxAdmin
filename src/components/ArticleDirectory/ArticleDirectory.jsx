@@ -88,7 +88,7 @@ class ArticleDirectory extends React.Component {
         const actions = (
           <div>
             <Button med
-              to={`${currentSection.id}/new`}
+              to={`${PUBLIC_PATH}/${currentSection.id}/new`}
               theme="accent1">Create new</Button>
           </div>
         )

@@ -170,7 +170,7 @@ class ArticleEdit extends React.Component {
                 inverse
                 theme="accent1"
                 disabled={isUpdating}
-                to={this.props.item.data.type.id}>Cancel</Button>
+                to={`${PUBLIC_PATH}/${this.props.item.data.type.id}`}>Cancel</Button>
             </ListInlineItem>
           </ListInline>
         </Flex>
@@ -184,7 +184,7 @@ class ArticleEdit extends React.Component {
             inverse
             theme="accent1"
             disabled={isUpdating}
-            to={this.props.item.data.type.id}>Close</Button>
+            to={`${PUBLIC_PATH}/${this.props.item.data.type.id}`}>Close</Button>
         </Flex>
       )
     }

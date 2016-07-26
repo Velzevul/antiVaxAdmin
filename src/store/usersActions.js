@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import {hashHistory} from 'react-router'
+import {browserHistory} from 'react-router'
 
 export const REQUEST_USERS = 'REQUEST_USERS'
 export const RECEIVE_USERS = 'RECEIVE_USERS'
@@ -204,7 +204,7 @@ export const createUser = (
         if (json.success) {
           dispatch(confirmCreate(json.data.user))
           dispatch(flashMessage('User created successfully', 'log'))
-          hashHistory.push(`/users/${json.data.user._id}`)
+          browserHistory.push(`${PUBLIC_PATH}/users/${json.data.user._id}`)
         } else if (json.data.name === 'ValidationError') {
           let payload = {}
 
