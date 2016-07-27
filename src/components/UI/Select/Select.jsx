@@ -14,8 +14,7 @@ class Select extends React.Component {
       labelParams = {
         width: 8,
         padding: 2
-      },
-      allowEmpty = true
+      }
     } = this.props
 
     let labelEl = ''
@@ -33,21 +32,8 @@ class Select extends React.Component {
       )
     }
 
-    let inputLabel = ''
-    if (value) {
-      inputLabel = options.filter(o => o.id === value)[0].label
-    } else if (allowEmpty) {
-      inputLabel = 'None'
-    } else {
-      inputLabel = options[0].label
-    }
-
-    let noneOption = ''
-    if (allowEmpty) {
-      noneOption = (
-        <option value={''}>None</option>
-      )
-    }
+    const selectedOption = options.filter(o => o.id === value)[0]
+    const inputLabel = selectedOption ? selectedOption.label : 'None'
 
     return (
       <div className={styles.Select}>
@@ -61,10 +47,9 @@ class Select extends React.Component {
             value={value}
             disabled={disabled}
             onChange={(v) => onChange(v.target.value)}>
-            {options.map(o =>
-              <option key={o.id} value={o.id}>{o.label}</option>
+            {options.map((o, index) =>
+              <option key={index} value={o.id}>{o.label}</option>
             )}
-            {noneOption}
           </select>
         </div>
       </div>

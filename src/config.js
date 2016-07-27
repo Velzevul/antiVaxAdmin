@@ -41,8 +41,8 @@ export const attachments = [
     label: 'Vaccines'
   },
   {
-    id: 'ingridients',
-    label: 'Ingridients'
+    id: 'ingredients',
+    label: 'Ingredients'
   },
   {
     id: 'schedule',

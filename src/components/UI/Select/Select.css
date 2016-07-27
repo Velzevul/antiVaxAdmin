@@ -32,7 +32,7 @@
   }
 
   &__fake {
-    padding: calc(var(--baseline) / 2) var(--baseline);
+    padding: calc(var(--baseline) / 2) calc(var(--baseline) * 3) calc(var(--baseline) / 2) var(--baseline);
 
     font-size: var(--fontSize);
     line-height: calc(var(--baseline) * 1.5);

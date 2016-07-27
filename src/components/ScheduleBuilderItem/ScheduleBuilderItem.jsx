@@ -17,26 +17,18 @@ class ScheduleBuilderItem extends React.Component {
     const {item, vaccines, onChange} = this.props
     const newVaccines = [
       ...item.vaccines,
-      {
-        title: vaccines.length > 0 ? vaccines[0].data.title : '',
-        url: vaccines.length > 0 ? vaccines[0].data.url : ''
-      }
+      vaccines[0].data._id
     ]
 
     onChange('vaccines', newVaccines)
   }
 
   changeVaccine (index, value) {
-    const {item, vaccines, onChange} = this.props
-
-    const selectedVaccine = vaccines.filter(v => v.data.url === value)[0]
+    const {item, onChange} = this.props
 
     const newVaccines = [
       ...item.vaccines.slice(0, index),
-      {
-        title: selectedVaccine.data.title,
-        url: selectedVaccine.data.url
-      },
+      value,
       ...item.vaccines.slice(index + 1)
     ]
 
@@ -67,12 +59,11 @@ class ScheduleBuilderItem extends React.Component {
                 width: 0,
                 padding: 2
               }}
-              value={v.url}
+              value={v}
               disabled={isUpdating || item.isDeleted}
-              allowEmpty={false}
               options={vaccines.map(v => {
                 return {
-                  id: v.data.url,
+                  id: v.data._id,
                   label: v.data.title
                 }
               })}

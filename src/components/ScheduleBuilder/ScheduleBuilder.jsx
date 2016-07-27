@@ -76,10 +76,7 @@ class ScheduleBuilder extends React.Component {
         ...this.state.items,
         {
           age: '',
-          vaccines: [{
-            url: vaccines[0].data.url,
-            title: vaccines[0].data.title
-          }],
+          vaccines: [vaccines[0].data._id],
           isDeleted: false
         }
       ]

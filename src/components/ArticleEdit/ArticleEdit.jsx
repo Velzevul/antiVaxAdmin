@@ -123,7 +123,13 @@ class ArticleEdit extends React.Component {
     if (isSection(this.currentSection.id)) {
       attachmentSelect = (
         <Select
-          options={attachments}
+          options={[
+            ...attachments,
+            {
+              id: '',
+              label: 'None'
+            }
+          ]}
           onChange={(v) => this.change('attachment', v)}
           value={this.state.data.attachment}
           label="Attachment:" />
