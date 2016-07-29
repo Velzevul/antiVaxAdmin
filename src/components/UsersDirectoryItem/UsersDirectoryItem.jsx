@@ -73,7 +73,7 @@ class UsersDirectoryItem extends React.Component {
 
         <ListInline>
           <ListInlineItem>
-            <DirectoryItemTitle to={`${PUBLIC_PATH}/users/${item.data._id}`}>{item.data.email}</DirectoryItemTitle>
+            <DirectoryItemTitle to={`${PUBLIC_PATH}/users/${item.data._id}`}>{item.data.name}</DirectoryItemTitle>
           </ListInlineItem>
 
           {item.data.isEnabled

@@ -91,7 +91,7 @@ class App extends React.Component {
           <div className={styles.App}>
             <div className={styles.App__sidebar}>
               <div className={styles.App__header}>
-                <h1 className={styles.App__title}>Antivax admin</h1>
+                <h1 className={styles.App__title}>Vaccine Answers Admin</h1>
               </div>
 
               <Nav items={navItems} />
