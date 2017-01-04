@@ -9,6 +9,7 @@ class Select extends React.Component {
       onChange,
       value,
       label,
+      labelWidth = 8,
       disabled
     } = this.props
 
@@ -17,7 +18,10 @@ class Select extends React.Component {
 
     return (
       <div className={styles.Select}>
-        <div className={`${styles.Select__label}`}>{label}</div>
+        {label
+          ? <div style={{width: `${labelWidth}rem`}} className={`${styles.Select__label}`}>{label}</div>
+          : ''
+        }
 
         <div className={styles.Select__wrap}>
           <div className={styles.Select__fake}>{inputLabel}</div>

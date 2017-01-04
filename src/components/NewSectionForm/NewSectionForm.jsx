@@ -53,7 +53,8 @@ class NewSectionForm extends React.Component {
   }
 
   render () {
-    const {item: {isUpdating}, parentSection, params: {navigationType, sectionId}} = this.props
+    const {item: {isUpdating}, parentSection} = this.props
+
     let sectionTypes = []
     if (parentSection.data.sectionType === 'meta') {
       sectionTypes = [
@@ -86,6 +87,7 @@ class NewSectionForm extends React.Component {
         }
       ]
     }
+
     return (
       <Form>
         <FormHeader>Add new section</FormHeader>
@@ -126,7 +128,7 @@ class NewSectionForm extends React.Component {
             <ListInlineItem>
               <LinkButton disabled={isUpdating}
                 color="red"
-                to={`/sections/${navigationType}/${sectionId}`}>Cancel</LinkButton>
+                to={`/sections/`}>Cancel</LinkButton>
             </ListInlineItem>
           </ListInline>
         </FormFooter>
@@ -137,21 +139,18 @@ class NewSectionForm extends React.Component {
 
 export default connect(
   (state, ownProps) => {
-    const {params: {sectionId}} = ownProps
-    const parentSection = state.sections.items.find(s => s.data._id === sectionId)
+    const {location: {query: {parentId}}} = ownProps
+    const parentSection = state.sections.items.find(s => s.data._id === parentId)
 
     return {
       item: state.sections.newSection,
       parentSection
     }
   },
-  (dispatch, ownProps) => {
-    const {params: {navigationType, sectionId}} = ownProps
-    const backlink = `/sections/${navigationType}/${sectionId}`
-
+  dispatch => {
     return {
       createSection: (data) => {
-        dispatch(createSection(data, backlink))
+        dispatch(createSection(data, `/sections/`))
       }
     }
   }

@@ -72,40 +72,7 @@ class EditSectionForm extends React.Component {
   }
 
   render () {
-    const {section: {isUpdating}, parentSection, params} = this.props
-
-    let sectionTypes = []
-    if (parentSection.data.sectionType === 'meta') {
-      sectionTypes = [
-        {
-          id: 'articles',
-          label: 'List of articles'
-        },
-        {
-          id: 'parent',
-          label: 'Parent'
-        },
-        {
-          id: 'custom',
-          label: 'Custom page'
-        },
-        {
-          id: 'blogposts',
-          label: 'List of blog posts'
-        }
-      ]
-    } else {
-      sectionTypes = [
-        {
-          id: 'articles',
-          label: 'List of articles'
-        },
-        {
-          id: 'blogposts',
-          label: 'list of blog posts'
-        }
-      ]
-    }
+    const {section, parentSection} = this.props
 
     let actions = (
       <ListInline>
@@ -114,8 +81,8 @@ class EditSectionForm extends React.Component {
         </ListInlineItem>
 
         <ListInlineItem>
-          <LinkButton disabled={isUpdating}
-            to={`/sections/${params.navigationType}/${params.sectionId}`}>Close</LinkButton>
+          <LinkButton disabled={section.isUpdating}
+            to="/sections">Close</LinkButton>
         </ListInlineItem>
       </ListInline>
     )
@@ -123,16 +90,16 @@ class EditSectionForm extends React.Component {
       actions = (
         <ListInline>
           <ListInlineItem>
-            <Button disabled={isUpdating}
+            <Button disabled={section.isUpdating}
               onClick={this.save}>
               Save Changes
             </Button>
           </ListInlineItem>
 
           <ListInlineItem>
-            <LinkButton disabled={isUpdating}
+            <LinkButton disabled={section.isUpdating}
               color="red"
-              to={`/sections/${params.navigationType}/${params.sectionId}`}>Discard Changes</LinkButton>
+              to="/sections">Discard Changes</LinkButton>
           </ListInlineItem>
         </ListInline>
       )
@@ -147,23 +114,15 @@ class EditSectionForm extends React.Component {
             <Input label="Title"
               value={this.state.data.title}
               error={this.state.errors.title}
-              disabled={isUpdating}
+              disabled={section.isUpdating}
               onChange={value => this.change('title', value)} />
           </Block>
 
-          <Block n={1}>
-            <Input label="url"
-              value={this.state.data.url}
-              error={this.state.errors.url}
-              disabled={isUpdating}
-              onChange={value => this.change('url', value)} />
-          </Block>
-
-          <Select label="Type"
-            value={this.state.data.sectionType}
-            options={sectionTypes}
-            disabled={isUpdating}
-            onChange={value => this.change('sectionType', value)} />
+          <Input label="url"
+            value={this.state.data.url}
+            error={this.state.errors.url}
+            disabled={section.isUpdating}
+            onChange={value => this.change('url', value)} />
         </FormBody>
 
         <FormFooter>
@@ -172,7 +131,7 @@ class EditSectionForm extends React.Component {
 
             <div>
               <IconButton type="delete"
-                disabled={isUpdating}
+                disabled={section.isUpdating}
                 onClick={this.delete} />
             </div>
           </Flex>
@@ -184,18 +143,17 @@ class EditSectionForm extends React.Component {
 
 export default connect(
   (state, ownProps) => {
-    const {location: {query: {sectionId}}, params: {sectionId: parentSectionId}} = ownProps
+    const {params: {sectionId}} = ownProps
     const section = state.sections.items.find(s => s.data._id === sectionId)
-    const parentSection = state.sections.items.find(s => s.data._id === parentSectionId)
+    const parentSection = state.sections.items.find(s => s.data._id === section.data.parent)
 
     return {
       section,
       parentSection
     }
   },
-  (dispatch, ownProps) => {
-    const {params: {navigationType, sectionId}} = ownProps
-    const backlink = `/sections/${navigationType}/${sectionId}`
+  dispatch => {
+    const backlink = '/sections'
 
     return {
       deleteSection: (id, children) => {

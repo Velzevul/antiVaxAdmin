@@ -38,6 +38,9 @@ const Icon = ({
     case 'user-disabled':
       classNames.push(styles.Icon_userDisabled)
       break
+    case 'plus':
+      classNames.push(styles.Icon_plus)
+      break
   }
 
   return (

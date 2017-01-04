@@ -1,10 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
 
 import TableRow from '../TableRow'
 import TableColumn from '../TableColumn'
 import TableCell from '../TableCell'
-import {ListInline, ListInlineItem} from '../Layouts'
+import {Flex} from '../Layouts'
 import {LinkButton} from '../UI'
 import Icon from '../Icon'
 
@@ -13,31 +12,19 @@ import styles from './SectionsListItem.css'
 const SectionsListItem = ({
   section,
   parent,
-  disableInteraction,
-  navigationType
+  disableInteraction
 }) => {
-  let sectionType = ''
-  let sectionLink = ''
-  let icon = ''
+  let icon = null
   if (section.data.sectionType === 'parent') {
-    sectionType = 'parent'
-    sectionLink = `/sections/${navigationType}/${section.data._id}`
     icon = 'folder'
   } else if (section.data.sectionType === 'custom') {
-    sectionType = 'custom page'
-    sectionLink = `/sections/${navigationType}/${section.data._id}/custom-page`
     icon = 'file-code'
   } else if (section.data.sectionType === 'articles') {
-    sectionType = 'articles'
-    sectionLink = `/sections/${navigationType}/${section.data._id}/articles`
     icon = 'file-text'
   } else if (section.data.sectionType === 'blogposts') {
-    sectionType = 'blog'
-    sectionLink = `/sections/${navigationType}/${section.data._id}/articles`
     icon = 'file-blogpost'
   }
 
-  let editLink = `/sections/${navigationType}/${parent.data._id}/edit?sectionId=${section.data._id}`
   let url = ''
   if (parent.data.sectionType === 'meta') {
     url = `/${section.data.url}`
@@ -45,63 +32,61 @@ const SectionsListItem = ({
     url = `/${parent.data.url}/${section.data.url}`
   }
 
-  let actions = (
-    <ListInlineItem>
-      <div className={styles.SectionsListItem__actions}>
-        <LinkButton to={editLink}>edit</LinkButton>
-      </div>
-    </ListInlineItem>
-  )
-  if (disableInteraction) {
-    actions = ''
+  let actions = ''
+  if (!disableInteraction) {
+    if (section.data.sectionType === 'parent') {
+      actions = (
+        <div className={styles.SectionsListItem__actions}>
+          <Flex justifyContent="flex-end">
+            <LinkButton to={`/sections/new?parentId=${section.data._id}`}>add new sub-section</LinkButton>
+
+            <LinkButton to={`/sections/${section.data._id}/edit`}>edit</LinkButton>
+          </Flex>
+        </div>
+      )
+    } else {
+      actions = (
+        <div className={styles.SectionsListItem__actions}>
+          <Flex justifyContent="flex-end">
+            <LinkButton to={`/sections/${section.data._id}/edit`}>edit</LinkButton>
+          </Flex>
+        </div>
+      )
+    }
+  }
+
+  let sectionLink = ''
+  if (!disableInteraction && section.data.sectionType !== 'parent') {
+    sectionLink = `/sections/${section.data._id}`
   }
 
   return (
     <div className={`${styles.SectionsListItem}
       ${disableInteraction ? '' : styles.SectionsListItem_interactive}`}>
-      <TableRow interactive={!disableInteraction}>
-        <TableColumn width="stretch">
-          <ListInline>
-            <ListInlineItem>
-              <TableCell title
-                to={disableInteraction ? null : sectionLink}>
-                <ListInline>
-                  <ListInlineItem>
-                    <Icon type={icon} />
-                  </ListInlineItem>
-
-                  <ListInlineItem>
-                    {section.data.title}
-                  </ListInlineItem>
-                </ListInline>
-              </TableCell>
-            </ListInlineItem>
-
-            {actions}
-          </ListInline>
+      <TableRow interactive={!disableInteraction}
+        indented={parent.data.sectionType !== 'meta'}>
+        <TableColumn>
+          <Icon type={icon} />
         </TableColumn>
 
-        <TableColumn width="30">
+        <TableColumn width="stretch">
+          <TableCell title
+            to={sectionLink}>
+            {section.data.title}
+          </TableCell>
+        </TableColumn>
+
+        <TableColumn width="stretch">
           <TableCell>{url}</TableCell>
         </TableColumn>
 
-        <TableColumn width="10"
-          align="right">
-          <TableCell>{sectionType}</TableCell>
+        <TableColumn width="20"
+          last>
+          {actions}
         </TableColumn>
       </TableRow>
     </div>
   )
 }
 
-export default connect(
-  (state, ownProps) => {
-    const section = state.sections.items.find(s => s.data._id === ownProps.sectionId)
-    const parent = state.sections.items.find(s => s.data._id === section.data.parent)
-
-    return {
-      section,
-      parent
-    }
-  }
-)(SectionsListItem)
+export default SectionsListItem

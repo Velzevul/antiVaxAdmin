@@ -8,12 +8,16 @@ class Checkbox extends React.Component {
       checked,
       onChange,
       label,
+      labelWidth = 8,
       disabled = false
     } = this.props
 
     return (
       <label className={styles.Checkbox}>
-        <div className={styles.Checkbox__label}>{label}</div>
+        {label
+          ? <div style={{width: `${labelWidth}rem`}} className={styles.Checkbox__label}>{label}</div>
+          : ''
+        }
 
         <input className={styles.Checkbox__input}
           type="checkbox"

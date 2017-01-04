@@ -11,21 +11,22 @@ import UsersList from './components/UsersList'
 import EditUserForm from './components/EditUserForm'
 import NewUserForm from './components/NewUserForm'
 
-import Sections from './components/Sections'
+// import Sections from './components/Sections'
+import Section from './components/Section'
 
 import SectionsList from './components/SectionsList'
 import NewSectionForm from './components/NewSectionForm'
 import EditSectionForm from './components/EditSectionForm'
 
-import BlogpostsList from './components/BlogpostsList'
-import NewBlogpostForm from './components/NewBlogpostForm'
-import EditBlogpostForm from './components/EditBlogpostForm'
+// import BlogpostsList from './components/BlogpostsList'
+// import NewBlogpostForm from './components/NewBlogpostForm'
+// import EditBlogpostForm from './components/EditBlogpostForm'
 
-import ArticlesList from './components/ArticlesList'
+// import ArticlesList from './components/ArticlesList'
 import NewArticle from './components/NewArticle'
 import EditArticleForm from './components/EditArticleForm'
 
-import CustomSectionForm from './components/CustomSectionForm'
+// import CustomSectionForm from './components/CustomSectionForm'
 
 import SearchIndex from './components/SearchIndex'
 
@@ -64,17 +65,13 @@ ReactDOM.render((
           <Route path=":userId" component={EditUserForm} />
         </Route>
 
-        <Route path="sections/:navigationType" component={Sections}>
-          <Route path=":sectionId/articles" component={ArticlesList}>
-            <Route path="new" component={NewArticle} />
-            <Route path=":articleId" component={EditArticleForm} />
-          </Route>
+        <Route path="sections" component={SectionsList}>
+          <Route path="new" component={NewSectionForm} />
+          <Route path=":sectionId/edit" component={EditSectionForm} />
 
-          <Route path=":sectionId/custom-page" component={CustomSectionForm} />
-
-          <Route path=":sectionId" component={SectionsList}>
-            <Route path="new" component={NewSectionForm} />
-            <Route path="edit" component={EditSectionForm} />
+          <Route path=":sectionId" component={Section}>
+            <Route path="articles/new" component={NewArticle} />
+            <Route path="articles/:articleId" component={EditArticleForm} />
           </Route>
         </Route>
 

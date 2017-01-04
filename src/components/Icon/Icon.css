@@ -37,5 +37,8 @@
     background-image: url('./user-admin.svg');
   }
   .Icon_userDisabled {
-    background-image: url('./user-disabled.svg');  
+    background-image: url('./user-disabled.svg');
+  }
+  .Icon_plus {
+    background-image: url('./plus.svg');
   }

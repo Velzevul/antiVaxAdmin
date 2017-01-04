@@ -5,10 +5,10 @@ import styles from './TableColumn.css'
 const TableColumn = ({
   children,
   width,
-  align = 'left'
+  last = false
 }) => {
   let style = {
-    textAlign: align
+    paddingRight: last ? 0 : '0.750rem'
   }
   if (width === 'stretch') {
     style.flex = 1

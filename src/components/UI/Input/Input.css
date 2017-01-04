@@ -9,7 +9,6 @@
   position: relative;
 
   &__label {
-    width: 8em;
     margin-right: calc(var(--baseline) * 1);
 
     font-size: 0.750rem;

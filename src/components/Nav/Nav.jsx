@@ -13,7 +13,7 @@ const Nav = () => {
     },
     {
       label: 'Sections',
-      url: '/sections/main-nav'
+      url: '/sections'
     },
     {
       label: 'Users',

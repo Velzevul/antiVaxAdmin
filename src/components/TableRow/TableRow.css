@@ -17,5 +17,5 @@
     }
   }
   .TableRow_indented {
-    padding-left: calc(var(--baseline) * 3);
+    padding-left: calc(var(--baseline) * 5);
   }

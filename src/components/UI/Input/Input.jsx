@@ -8,6 +8,7 @@ class Input extends React.Component {
       value,
       onChange,
       label = null,
+      labelWidth = 8,
       placeholder = '',
       type = 'text',
       disabled = false,
@@ -23,7 +24,10 @@ class Input extends React.Component {
 
     return (
       <label className={`${styles.Input} ${error ? styles.Input_error : ''}`}>
-        <div className={styles.Input__label}>{label}</div>
+        {label
+          ? <div style={{width: `${labelWidth}rem`}} className={styles.Input__label}>{label}</div>
+          : ''
+        }
 
         <input className={styles.Input__input}
           type={type}
