@@ -1,3 +1,5 @@
+// TODO: get rid of this file
+
 export const blogposts = {
   id: 'blogposts',
   label: 'Blogposts'

@@ -1,0 +1,40 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+
+.Question {
+  font-size: 0.875rem;
+
+  background: white;
+  border: 1px solid var(--color-bg-dirtyBlue);
+  border-radius: 0.125rem;
+
+  &__body {
+    padding: calc(var(--baseline) * 2) calc(var(--baseline) * 2);
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: calc(var(--baseline) * 1);
+
+    border-top: 1px solid var(--color-bg-dirtyBlue);
+  }
+
+}
+
+.Name {
+  font-weight: 600;
+}
+
+.Email {
+  font-size: 0.750rem;
+  color: var(--color-text-grey);
+}
+
+.Timestamp {
+  font-size: 0.750rem;
+  color: var(--color-text-grey);
+}

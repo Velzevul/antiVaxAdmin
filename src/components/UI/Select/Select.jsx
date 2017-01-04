@@ -1,6 +1,5 @@
 import React from 'react'
 
-const baseline = 0.750
 import styles from './Select.css'
 
 class Select extends React.Component {
@@ -10,34 +9,15 @@ class Select extends React.Component {
       onChange,
       value,
       label,
-      disabled,
-      labelParams = {
-        width: 8,
-        padding: 2
-      }
+      disabled
     } = this.props
 
-    let labelEl = ''
-    if (label) {
-      let labelStyle = {
-        paddingRight: `${labelParams.padding * baseline}rem`
-      }
-      if (labelParams.width) {
-        labelStyle.width = `${labelParams.width * baseline}rem`
-        labelStyle.textAlign = 'right'
-      }
-
-      labelEl = (
-        <div style={labelStyle} className={`${styles.Select__label}`}>{label}</div>
-      )
-    }
-
-    const selectedOption = options.filter(o => o.id === value)[0]
+    const selectedOption = options.find(o => o.id === value)
     const inputLabel = selectedOption ? selectedOption.label : 'None'
 
     return (
       <div className={styles.Select}>
-        {labelEl}
+        <div className={`${styles.Select__label}`}>{label}</div>
 
         <div className={styles.Select__wrap}>
           <div className={styles.Select__fake}>{inputLabel}</div>

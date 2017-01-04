@@ -4,25 +4,19 @@ import styles from './Badge.css'
 
 const Badge = ({
   label,
-  theme = 'default'
+  color = 'blue'
 }) => {
   let classNames = [styles.Badge]
-  switch (theme) {
-    case 'accent1':
-      classNames.push(styles.Badge_accent1)
+  switch (color) {
+    case 'red':
+      classNames.push(styles.Badge_red)
       break
-    case 'accent2':
-      classNames.push(styles.Badge_accent2)
+    case 'green':
+      classNames.push(styles.Badge_green)
       break
-    case 'error':
-      classNames.push(styles.Badge_error)
-      break
-    case 'success':
-      classNames.push(styles.Badge_success)
-      break
-    case 'default':
+    case 'blue':
     default:
-      classNames.push(styles.Badge_default)
+      classNames.push(styles.Badge_blue)
   }
 
   return (

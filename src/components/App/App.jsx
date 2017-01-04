@@ -1,18 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Time from 'react-time'
 
-import styles from './App.css'
 import FlashMessage from '../FlashMessage'
-import Nav from '../Nav'
 import Loading from '../Loading'
 import Login from '../Login'
-import {Button} from '../UI'
-import {Block} from '../Layouts'
-import {attachments, sections, blogposts, faqs} from '../../config'
-import {logOut, loginWithToken} from '../../store/authActions'
-import {flashMessage} from '../../store/flashActions'
-import {fetchSearchIndex, updateSearchIndex} from '../../store/searchIndexActions'
+import AppHeader from '../AppHeader'
+import {loginWithToken} from '../../store/authActions'
+
+import styles from './App.css'
 
 class App extends React.Component {
   componentWillMount () {
@@ -23,21 +18,10 @@ class App extends React.Component {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    const {fetchIndex, user} = nextProps
-
-    if (user && !this.props.user) {
-      fetchIndex()
-    }
-  }
-
   render () {
     const {
       user,
-      searchIndex,
       children,
-      logOut,
-      updateIndex,
       attemptingLogin
     } = this.props
 
@@ -47,76 +31,9 @@ class App extends React.Component {
       )
     } else {
       if (user) {
-        const navItems = [
-          {
-            id: 'questions',
-            label: 'Questions'
-          },
-          blogposts,
-          faqs,
-          {
-            id: 'users',
-            label: 'Users'
-          },
-          {
-            id: 'sections',
-            label: 'Website Sections',
-            heading: true
-          },
-          ...sections,
-          {
-            id: 'attachments',
-            label: 'Attachments',
-            heading: true
-          },
-          ...attachments
-        ]
-
-        let indexInfo = ''
-        if (searchIndex.isFetching) {
-          indexInfo = (
-            <div className={styles.App__info}>Fetching...</div>
-          )
-        } else if (searchIndex.isUpdating) {
-          indexInfo = (
-            <div className={styles.App__info}>Updating...</div>
-          )
-        } else {
-          indexInfo = (
-            <div className={styles.App__info}>last updated on <Time value={searchIndex.lastUpdatedOn} format="MMMM Do YYYY (h:mm a)" /> by {searchIndex.lastUpdatedBy}</div>
-          )
-        }
-
         return (
           <div className={styles.App}>
-            <div className={styles.App__sidebar}>
-              <div className={styles.App__header}>
-                <h1 className={styles.App__title}>Vaccine Answers Admin</h1>
-              </div>
-
-              <Nav items={navItems} />
-
-              <div className={styles.App__options}>
-                <Block n={0.5}>
-                  {indexInfo}
-                </Block>
-
-                <Block n={0.5}>
-                  <Button
-                    inverse
-                    fullWidth
-                    disabled={searchIndex.isUpdating || searchIndex.isFetching}
-                    theme="accent1"
-                    onClick={updateIndex}>Update search index</Button>
-                </Block>
-
-                <Block n={0.5}>
-                  <div className={styles.App__info}>Logged in as {user.name}</div>
-                </Block>
-
-                <Button fullWidth theme="accent1" onClick={logOut}>Log out</Button>
-              </div>
-            </div>
+            <AppHeader />
 
             {children}
 
@@ -125,7 +42,7 @@ class App extends React.Component {
         )
       } else {
         return (
-          <div className={styles.App}>
+          <div>
             <Login />
 
             <FlashMessage />
@@ -153,16 +70,6 @@ export default connect(
     return {
       attemptToken: (token) => {
         dispatch(loginWithToken(token))
-      },
-      logOut: () => {
-        dispatch(logOut())
-        dispatch(flashMessage('You have been successfully logged out', 'log'))
-      },
-      updateIndex: () => {
-        dispatch(updateSearchIndex())
-      },
-      fetchIndex: () => {
-        dispatch(fetchSearchIndex())
       }
     }
   }

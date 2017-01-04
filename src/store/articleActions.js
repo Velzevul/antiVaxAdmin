@@ -1,5 +1,7 @@
 import 'whatwg-fetch'
-import {browserHistory} from 'react-router'
+import {hashHistory} from 'react-router'
+
+import {CONFIRM_UPDATE_SECTION} from './sectionsActions'
 
 export const REQUEST_ARTICLES = 'REQUEST_ARTICLES'
 export const RECEIVE_ARTICLES = 'RECEIVE_ARTICLES'
@@ -100,7 +102,7 @@ const receiveErrors = (
 export const updateArticle = (
   id,
   data,
-  successMessage
+  backlink
 ) => {
   return (dispatch, getState) => {
     dispatch(requestUpdate(id))
@@ -129,8 +131,9 @@ export const updateArticle = (
       .then(json => {
         if (json.success) {
           dispatch(receiveUpdate(id, json.data.article))
-          if (successMessage) {
-            dispatch(flashMessage(successMessage, 'log'))
+          dispatch(flashMessage('Article has been saved', 'log'))
+          if (backlink) {
+            hashHistory.push(backlink)
           }
         } else if (json.data.name === 'ValidationError') {
           let payload = {}
@@ -174,7 +177,8 @@ const rejectCreate = (
 }
 
 export const createArticle = (
-  data
+  data,
+  backlink
 ) => {
   return (dispatch, getState) => {
     dispatch(requestCreate())
@@ -203,8 +207,15 @@ export const createArticle = (
       .then(json => {
         if (json.success) {
           dispatch(confirmCreate(json.data.article))
+          dispatch({
+            type: CONFIRM_UPDATE_SECTION,
+            id: json.data.parent._id,
+            item: json.data.parent
+          })
           dispatch(flashMessage('Article created successfully', 'log'))
-          browserHistory.push(`${PUBLIC_PATH}/${json.data.article.type.id}/${json.data.article._id}`)
+          if (backlink) {
+            hashHistory.push(backlink)
+          }
         } else if (json.data.name === 'ValidationError') {
           let payload = {}
 
@@ -250,7 +261,8 @@ const rejectDelete = (
 }
 
 export const deleteArticle = (
-  id
+  id,
+  backlink
 ) => {
   return (dispatch, getState) => {
     dispatch(requestDelete(id))
@@ -275,6 +287,14 @@ export const deleteArticle = (
       .then(response => response.json())
       .then(json => {
         if (json.success) {
+          dispatch({
+            type: CONFIRM_UPDATE_SECTION,
+            id: json.data.parent._id,
+            item: json.data.parent
+          })
+          if (backlink) {
+            hashHistory.push(backlink)
+          }
           dispatch(confirmDelete(id))
           dispatch(flashMessage('Article was deleted', 'log'))
         } else {

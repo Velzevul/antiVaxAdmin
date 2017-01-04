@@ -2,17 +2,36 @@
 @import '../../../styles/config.css';
 
 .Editor {
-  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+
+  &__label {
+    width: 8em;
+    margin-right: calc(var(--baseline) * 1);
+
+    font-size: 0.750rem;
+    line-height: calc(var(--baseline) * 2.25);
+    font-weight: 600;
+
+    color: var(--color-text-grey);
+    text-align: right;
+  }
+
+  &__body {
+    flex: 1;
+  }
 
   &__toolbar {
-    padding: 0 calc(var(--baseline) * 1.25);
-    border: 1px solid var(--colorBorder);
+    padding: 0 calc(var(--baseline) / 2);
+    border: 1px solid var(--color-bg-dirtyBlue);
     background: white;
   }
 
   &__command {
-    width: calc(var(--baseline) * 2.5);
-    height: calc(var(--baseline) * 2.5);
+    display: block;
+    width: calc(var(--baseline) * 2.25);
+    height: calc(var(--baseline) * 2.25);
 
     font-size: 0;
     line-height: 0;
@@ -26,11 +45,11 @@
 
     &:focus {
       outline: none;
-      border: 1px dotted var(--colorBorder);
+      border: 1px dotted var(--color-bg-dirtyBlue);
     }
 
     &:hover {
-      background-color: var(--colorBorder);
+      background-color: var(--color-bg-dirtyBlue);
     }
 
     &:disabled {
@@ -39,7 +58,7 @@
     }
 
     &:global(.active) {
-      background-color: var(--colorBorder);
+      background-color: var(--color-bg-dirtyBlue);
     }
   }
     &__command_h1 {
@@ -71,23 +90,25 @@
     }
 
   &__separator {
-    width: calc(var(--baseline) * 1.25);
-    height: calc(var(--baseline) * 2.5);
-    margin-right: var(--baseline);
+    width: calc(var(--baseline) * 0.5);
+    height: calc(var(--baseline) * 2);
+    margin-right: calc(var(--baseline) * 0.5);
 
-    border-right: 1px solid var(--colorBorder);
+    border-right: 1px solid var(--color-bg-dirtyBlue);
   }
 
-  &__body {
+  &__editor {
     width: 100%;
-    min-height: calc(var(--baseline) * 20);
-    max-height: calc(var(--baseline) * 50);
-    padding: calc(var(--baseline) * 1.5);
+    min-height: calc(var(--baseline) * 10);
+    max-height: calc(var(--baseline) * 30);
+    padding: calc(var(--baseline) * 1);
     overflow: scroll;
 
-    color: var(--colorTextMed);
+    color: var(--color-text-grey);
 
-    border: 1px solid var(--colorBorder);
+    font-size: 0.875rem;
+
+    border: 1px solid var(--color-bg-dirtyBlue);
     border-top: none;
 
     &:focus {
@@ -110,7 +131,7 @@
     }
 
     & :global(a) {
-      color: var(--colorAccent1);
+      color: var(--color-accent-blue);
       text-decoration: underline;
 
       &:hover {
@@ -132,10 +153,10 @@
 
       font-family: var(--fontFamily);
       font-size: calc(var(--baseline) * 3);
-      font-weight: 300;
+      font-weight: 700;
       line-height: calc(var(--baseline) * 4);
 
-      color: var(--colorTextDark);
+      color: var(--color-text-black);
     }
 
     & :global(h2) {
@@ -146,7 +167,7 @@
       font-size: calc(var(--baseline) * 1.5);
       line-height: calc(var(--baseline) * 2.5);
 
-      color: var(--colorTextDark);
+      color: var(--color-text-black);
     }
   }
 
@@ -154,23 +175,17 @@
     position: absolute;
     top: 100%;
     left: 0; right: 0;
-    padding: 0 calc(var(--baseline) * 1.5);
+    padding: 0 calc(var(--baseline) / 2);
 
-    font-size: var(--fontSizeSmall);
+    font-size: 0.750rem;
 
-    color: var(--colorError);
+    color: var(--color-accent-red);
     text-align: right;
-  }
-
-  &__label {
-    font-size: var(--fontSizeSmall);
-
-    color: var(--colorTextLight);
   }
 }
   .Editor_error {
     & .Editor__body,
     & .Editor__toolbar {
-      border-color: var(--colorError);
+      border-color: var(--color-accent-red);
     }
   }

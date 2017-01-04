@@ -1,50 +1,28 @@
 @import '../../../styles/colors.css';
+@import '../../../styles/config.css';
 
 .Alert {
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 0; right: 0;
+  padding: calc(var(--baseline)) 0;
 
   display: flex;
   justify-content: center;
 
   opacity: 0.9;
-  transition: opacity 0.2s;
-
-  cursor: pointer;
-
-  &:hover {
-    opacity: 1;
-  }
 
   &__message {
+    display: block;
+    padding: calc(var(--baseline) / 2) calc(var(--baseline) * 2);
+    font-size: 0.875rem;
     color: white;
-
-    border-radius: 3px;
+    border-radius: 0.125rem;
   }
-    &__message_default {
-      background: var(--colorTextDark);
+    &__message_log {
+      background: var(--color-bg-darkBlue);
     }
     &__message_error {
-      background: var(--colorError);
+      background: var(--color-accent-red);
     }
-}
-
-.alert-enter {
-  opacity: 0.01;
-}
-
-.alert-enter.alert-enter-active {
-  opacity: 0.75;
-  transition: opacity 0.2s;
-}
-
-.alert-leave {
-  opacity: 0.75;
-}
-
-.alert-leave.alert-leave-active {
-  opacity: 0.01;
-  transition: opacity 0.2s;
 }

@@ -1,0 +1,18 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.ArticlesListItem {
+  &__actions {
+    display: none;
+  }
+}
+  .ArticlesListItem_interactive {
+    &:hover {
+      & .ArticlesListItem__actions {
+        display: block;
+      }
+    }
+  }
+  .ArticlesListItem_heading {
+    font-weight: 700;
+  }

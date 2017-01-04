@@ -30,16 +30,16 @@ export default {
     data: {},
     errors: {}
   },
-  blogposts: {
+  sections: {
     isFetching: true,
     items: [],
-    newBlogpost: {
+    newSection: {
       isUpdating: false,
       data: {},
       errors: {}
     }
   },
-  blogpost: {
+  section: {
     isUpdating: false,
     data: {},
     errors: {}
@@ -57,11 +57,6 @@ export default {
     isUpdating: false,
     data: {},
     errors: {}
-  },
-  schedule: {
-    isFetching: true,
-    isUpdating: false,
-    items: []
   },
   searchIndex: {
     isFetching: true,

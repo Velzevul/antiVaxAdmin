@@ -1,28 +1,43 @@
 import React from 'react'
 import {Link} from 'react-router'
+
+import {ListInline, ListInlineItem} from '../Layouts'
+
 import styles from './Nav.css'
 
-const Nav = ({
-  items
-}) => {
-  const navItems = items.map(i => {
-    if (i.heading) {
-      return (
-        <div key={i.id} className={styles.Nav__heading}>{i.label}</div>
-      )
-    } else {
-      return (
-        <Link key={i.id}
-          className={styles.Nav__item}
-          activeClassName={styles.Nav__item_active}
-          to={`${PUBLIC_PATH}/${i.id}`}>{i.label}</Link>
-      )
+const Nav = () => {
+  const items = [
+    {
+      label: 'Questions',
+      url: '/questions'
+    },
+    {
+      label: 'Sections',
+      url: '/sections/main-nav'
+    },
+    {
+      label: 'Users',
+      url: '/users'
+    },
+    {
+      label: 'Search Index',
+      url: '/search-index'
     }
-  })
+  ]
 
   return (
     <div className={styles.Nav}>
-      {navItems}
+      <ListInline n={0.5}>
+        {items.map(i => {
+          return (
+            <ListInlineItem n={0.5} key={i.url}>
+              <Link className={styles.Nav__item}
+                activeClassName={styles.Nav__item_active}
+                to={i.url}>{i.label}</Link>
+            </ListInlineItem>
+          )
+        })}
+      </ListInline>
     </div>
   )
 }

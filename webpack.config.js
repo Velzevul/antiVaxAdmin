@@ -10,7 +10,7 @@ const cssImport = require('postcss-import')
 const cssNext = require('postcss-cssnext')
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
-const PUBLIC_PATH = process.env.NODE_ENV === 'production' ? '' : '/app'
+const PUBLIC_PATH = ''
 console.log(NODE_ENV)
 console.log(PUBLIC_PATH)
 console.log(__dirname)

@@ -1,0 +1,17 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.Wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+
+  background: white;
+
+  transition-property: background;
+  transition-duration: 0.2s;
+}
+  .Wrapper_dimmed {
+    background: color(white blackness(+10%));
+  }

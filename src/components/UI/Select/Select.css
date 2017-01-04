@@ -2,23 +2,25 @@
 @import '../../../styles/config.css';
 
 .Select {
+  width: 100%;
   display: flex;
   align-items: center;
-  width: 100%;
   position: relative;
 
-  font-family: var(--fontFamily);
-  font-weight: 400;
-
   &__label {
-    font-size: var(--fontSizeSmall);
+    width: 8em;
+    margin-right: calc(var(--baseline) * 1);
 
-    color: var(--colorTextLight);
+    font-size: 0.750rem;
+    font-weight: 600;
+
+    color: var(--color-text-grey);
+    text-align: right;
   }
 
   &__wrap {
     position: relative;
-    min-width: calc(var(--baseline) * 20);
+    min-width: 10em;
 
     &:after {
       content:'\25BC';
@@ -32,15 +34,17 @@
   }
 
   &__fake {
-    padding: calc(var(--baseline) / 2) calc(var(--baseline) * 3) calc(var(--baseline) / 2) var(--baseline);
+    padding: calc(var(--baseline) / 4) calc(var(--baseline) / 2);
 
-    font-size: var(--fontSize);
-    line-height: calc(var(--baseline) * 1.5);
+    font-family: var(--fontFamily);
+    font-size: 0.875rem;
+    line-height: 1.75em;
+    font-weight: 400;
 
-    color: var(--colorTextMed);
+    color: var(--color-text-black);
 
     border: none;
-    border-bottom: 1px solid var(--colorBorder);
+    border-bottom: 1px solid var(--color-bg-dirtyBlue);
   }
 
   &__input {

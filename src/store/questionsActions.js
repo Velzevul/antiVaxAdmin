@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+import {hashHistory} from 'react-router'
 
 export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS'
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
@@ -177,6 +178,7 @@ export const deleteQuestion = (
       .then(response => response.json())
       .then(json => {
         if (json.success) {
+          hashHistory.push('/questions/')
           dispatch(confirmDelete(id))
           dispatch(flashMessage('Question was deleted', 'log'))
         } else {

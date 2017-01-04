@@ -1,0 +1,15 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.SectionsListItem {
+  &__actions {
+    display: none;
+  }
+}
+  .SectionsListItem_interactive {
+    &:hover {
+      & .SectionsListItem__actions {
+        display: block;
+      }
+    }
+  }

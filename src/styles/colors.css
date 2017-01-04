@@ -1,4 +1,5 @@
 :root {
+  /* legacy */
   --colorTextDark:  #2C3643;
   --colorTextMed:   #5B636D;
   --colorTextLight: #91969c;
@@ -17,4 +18,16 @@
   --colorHighlightAlt: #414e5f;
   --colorBorderAlt:    #505d6d;
   --colorTextAlt:      #a8c5ea;
+
+  /* new */
+  --color-bg-darkBlue:  #405065;
+  --color-bg-lightBlue: #F5FBFF;
+  --color-bg-dirtyBlue: #c6cfd6;
+
+  --color-accent-blue:  #2E84E8;
+  --color-accent-red:   #FF6363;
+  --color-accent-green: #6EB96F;
+
+  --color-text-black:   #2C3643;
+  --color-text-grey:    #404f63;
 }

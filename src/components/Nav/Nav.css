@@ -2,50 +2,32 @@
 @import '../../styles/config.css';
 
 .Nav {
-  flex: 1;
-  overflow: scroll;
-  width: 100%;
-  padding: calc(var(--baseline) * 2) 0;
+  /* ... */
 
   &__item {
     display: block;
-    padding: calc(var(--baseline) * 0.75) calc(var(--baseline) * 4);
+    padding: calc(var(--baseline) * 1.5 - 0.313) calc(var(--baseline));
 
-    font-size: var(--fontSize);
+    font-size: 0.875rem;
+    line-height: calc(var(--baseline) * 2);
+    font-weight: 600;
 
+    color: color(white alpha(-30%));
     text-decoration: none;
-    color: color(var(--colorTextAlt) alpha(-30%));
 
-    border: none;
-    border-left: 4px solid transparent;
-    background-color: var(--colorBgAlt);
-
-    transition: color 0.2s,
-                background-color 0.2s;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
 
     &:hover {
-      text-decoration: underline;
+      color: white;
     }
   }
     &__item_active {
-      color: var(--colorTextAlt);
-      border-color: var(--colorBorderAlt);
-      background-color: var(--colorHighlightAlt);
+      color: white;
+      border-bottom-color: var(--color-accent-green);
 
       &:hover {
-        text-decoration: none;
+        /* ... */
       }
     }
-
-  &__heading {
-    padding: calc(var(--baseline) / 2) calc(var(--baseline) * 4);
-    margin-top: calc(var(--baseline) * 1.5);
-
-    font-family: var(--fontFamily);
-    font-size: var(--fontSize);
-    font-weight: 400;
-    line-height: calc(var(--baseline) * 2);
-
-    color: color(white alpha(-20%));
-  }
 }

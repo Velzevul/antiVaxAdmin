@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import {browserHistory} from 'react-router'
+import {hashHistory} from 'react-router'
 
 export const REQUEST_USERS = 'REQUEST_USERS'
 export const RECEIVE_USERS = 'RECEIVE_USERS'
@@ -99,8 +99,7 @@ const rejectUpdate = (
 
 export const updateUser = (
   id,
-  data,
-  successMessage
+  data
 ) => {
   return (dispatch, getState) => {
     dispatch(requestUpdate(id))
@@ -128,10 +127,9 @@ export const updateUser = (
       .then(response => response.json())
       .then(json => {
         if (json.success) {
+          hashHistory.push('/users/')
           dispatch(confirmUpdate(id, json.data.user))
-          if (successMessage) {
-            dispatch(flashMessage(successMessage, 'log'))
-          }
+          dispatch(flashMessage('User updated successfully', 'log'))
         } else if (json.data.name === 'ValidationError') {
           let payload = {}
 
@@ -204,7 +202,7 @@ export const createUser = (
         if (json.success) {
           dispatch(confirmCreate(json.data.user))
           dispatch(flashMessage('User created successfully', 'log'))
-          browserHistory.push(`${PUBLIC_PATH}/users/${json.data.user._id}`)
+          hashHistory.push('/users/')
         } else if (json.data.name === 'ValidationError') {
           let payload = {}
 
@@ -275,6 +273,7 @@ export const deleteUser = (
       .then(response => response.json())
       .then(json => {
         if (json.success) {
+          hashHistory.push('/users/')
           dispatch(confirmDelete(id))
           dispatch(flashMessage('User was deleted', 'log'))
         } else {

@@ -7,61 +7,37 @@ import styles from './Button.css'
 const Button = ({
   children,
   onClick,
-  fullWidth = false,
-  small = false,
   disabled = false,
   to = null,
   href = null,
-  inverse = false,
-  theme = 'accent1',
-  extraClassNames
+  color = 'blue'
 }) => {
-  let style = {
-    padding: `${baseline * 0.6}rem ${baseline * 1.5}rem`,
-    lineHeight: `${1.5 * baseline}rem`,
-    fontSize: `${1.083 * baseline}rem`
-  }
+  let className = [styles.Button]
 
-  if (small) {
-    style = {
-      padding: `${baseline * 0.3}rem ${baseline * 1}rem`,
-      lineHeight: `${1.5 * baseline}rem`,
-      fontSize: `${0.917 * baseline}rem`
-    }
-  }
-
-  if (fullWidth) {
-    style.width = '100%'
-  }
-
-  let className = []
-
-  className.push(inverse ? styles.InverseButton : styles.Button)
-
-  switch (theme) {
-    case 'accent2':
-      className.push(inverse ? styles.InverseButton_accent2 : styles.Button_accent2)
+  switch (color) {
+    case 'red':
+      className.push(styles.Button_red)
       break
-    case 'error':
-      className.push(inverse ? styles.InverseButton_error : styles.Button_error)
+    case 'green':
+      className.push(styles.Button_green)
       break
-    case 'accent1':
+    case 'blue':
     default:
-      className.push(inverse ? styles.InverseButton_accent1 : styles.Button_accent1)
+      className.push(styles.Button_blue)
       break
   }
 
   if (to) {
     return (
-      <Link style={style} disabled={disabled} className={`${className.join(' ')} ${extraClassNames}`} to={to}>{children}</Link>
+      <Link disabled={disabled} className={className.join(' ')} to={to}>{children}</Link>
     )
   } else if (href) {
     return (
-      <a style={style} disabled={disabled} className={`${className.join(' ')} ${extraClassNames}`} href={href}>{children}</a>
+      <a disabled={disabled} className={className.join(' ')} href={href}>{children}</a>
     )
   } else {
     return (
-      <button style={style} disabled={disabled} className={`${className.join(' ')} ${extraClassNames}`} onClick={onClick}>{children}</button>
+      <button disabled={disabled} className={className.join(' ')} onClick={onClick}>{children}</button>
     )
   }
 }

@@ -1,0 +1,53 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+
+.QuestionsListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(var(--baseline) * 1) calc(var(--baseline) * 1);
+
+  color: var(--color-text-black);
+
+  border-top: 1px solid var(--color-bg-dirtyBlue);
+
+  &__sender {
+    width: 10em;
+  }
+
+  &__message {
+    flex: 1;
+  }
+
+  &__badges {
+    width: 7em;
+    text-align: right;
+  }
+
+  &__timestamp {
+    width: 10em;
+    text-align: right;
+  }
+}
+  .QuestionsListItem_active {
+    cursor: pointer;
+  }
+
+.Sender {
+  display: inline-block;
+  font-size: 0.875rem;
+}
+
+.Message {
+  display: inline-block;
+  font-size: 0.750rem;
+
+  color: var(--color-text-grey);
+}
+
+.Timestamp {
+  font-size: 0.750rem;
+  color: var(--color-text-grey);
+  font-weight: 400;
+}

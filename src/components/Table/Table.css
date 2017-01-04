@@ -1,0 +1,11 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.Table {
+  padding:  calc(var(--baseline) * 3) calc(var(--baseline) * 2);
+  max-width: calc(var(--baseline) * 90);
+  width: 100%;
+}
+  .Table_breadcrumbs {
+    padding-top: 0;
+  }

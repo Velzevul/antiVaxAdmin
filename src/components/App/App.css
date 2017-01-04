@@ -2,48 +2,9 @@
 @import '../../styles/config.css';
 
 .App {
+  min-height: 100vh;
+  padding-top: calc(var(--baseline) * 5);
   display: flex;
-  height: 100%;
+  justify-content: center;
   align-items: stretch;
-
-  &__header {
-    padding:  calc(var(--baseline) * 1)
-              calc(var(--baseline) * 4);
-
-    border-bottom: 1px solid var(--colorBorderAlt);
-  }
-
-  &__title {
-    font-family: 1rem;
-    font-weight: 400;
-    font-size: var(--fontSize);
-    line-height: calc(var(--baseline) * 3);
-
-    color: white;
-  }
-
-  &__info {
-    font-size: var(--fontSizeSmall);
-    font-weight: 300;
-    line-height: calc(var(--baseline) * 2);
-    color: color(var(--colorTextAlt) alpha(-40%));
-  }
-
-  &__options {
-    padding: calc(var(--baseline) * 2)
-             calc(var(--baseline) * 4);
-
-    border-top: 1px solid var(--colorBorderAlt);
-  }
-
-
-  &__sidebar {
-    width: calc(var(--baseline) * 25);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-
-    background: var(--colorTextDark);
-  }
 }

@@ -2,26 +2,20 @@
 @import '../../styles/config.css';
 
 .Badge {
-  font-size: 0.688rem;
+  display: inline-block;
+  font-size: 0.625rem;
   font-weight: 700;
-  line-height: 1.250rem;
 
   text-transform: uppercase;
   text-align: center;
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 }
-  .Badge_default {
-    color: var(--colorTextLight);
+  .Badge_blue {
+    color: var(--color-accent-blue);
   }
-  .Badge_accent1 {
-    color: var(--colorAccent1);
+  .Badge_red {
+    color: var(--color-accent-red);
   }
-  .Badge_accent2 {
-    color: var(--colorAccent2);
-  }
-  .Badge_error {
-    color: var(--colorError);
-  }
-  .Badge_success {
-    color: var(--colorSuccess);
+  .Badge_green {
+    color: var(--color-accent-green);
   }

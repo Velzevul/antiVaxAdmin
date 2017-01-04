@@ -8,7 +8,7 @@ const FlashMessage = ({
   type
 }) => {
   return (
-    <Alert message={message} theme={type} />
+    <Alert message={message} type={type} />
   )
 }
 

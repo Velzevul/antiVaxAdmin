@@ -1,0 +1,43 @@
+@import '../../../styles/colors.css';
+@import '../../../styles/config.css';
+
+
+.IconButton {
+  display: inline-block;
+  height: calc(var(--baseline) * 2.5);
+  width: calc(var(--baseline) * 2.5);
+
+  text-decoration: none;
+
+  opacity: 0.5;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border: 1px solid transparent;
+  border-radius: 0.125rem;
+
+  transition-property: opacity, border-color;
+  transition-duration: 0.2s, 0.2s, 0.2s;
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+    border-color: color(var(--color-bg-dirtyBlue) alpha(-50%));
+  }
+
+  &:disabled {
+    opacity: 0.1;
+
+    &:hover {
+      opacity: 0.1;
+      border-color: transparent;
+    }
+  }
+}
+  .IconButton_delete {
+    background-image: url('./delete.svg');
+  }
+  .IconButton_close {
+    background-image: url('./close.svg');
+  }

@@ -2,25 +2,28 @@
 @import '../../../styles/config.css';
 
 .Checkbox {
+  width: 100%;
   display: flex;
   align-items: center;
-  width: 100%;
   position: relative;
 
-  font-family: var(--fontFamily);
-  font-weight: 400;
+  &__label {
+    width: 8em;
+    margin-right: calc(var(--baseline) * 1);
 
-  &__input {
-    width: calc(var(--baseline) * 2.5);
-    height: calc(var(--baseline) * 2.5);
-    margin: 0 calc(var(--baseline) / 2);
+    font-size: 0.750rem;
+    font-weight: 600;
 
-    text-align: center;
+    color: var(--color-text-grey);
+    text-align: right;
   }
 
-  &__label {
-    font-size: var(--fontSizeSmall);
+  &__input {
+    width: 1.875rem;
+    height: 1.875rem;
 
-    color: var(--colorTextLight);
+    &:focus {
+      outline: none;
+    }
   }
 }

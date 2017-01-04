@@ -1,0 +1,41 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.Icon {
+  display: block;
+  width: calc(var(--baseline) * 2);
+  height: calc(var(--baseline) * 2);
+
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+  .Icon_envelope {
+    background-image: url('./envelope.svg');
+  }
+  .Icon_folder {
+    background-image: url('./folder.svg');
+  }
+  .Icon_fileCode {
+    background-image: url('./file-code.svg');
+  }
+  .Icon_fileText {
+    background-image: url('./file-text.svg');
+  }
+  .Icon_fileTextDraft {
+    background-image: url('./file-text-draft.svg');
+  }
+  .Icon_fileBlogpost {
+    background-image: url('./file-blogpost.svg');
+  }
+  .Icon_fileBlogpostDraft {
+    background-image: url('./file-blogpost-draft.svg');
+  }
+  .Icon_user {
+    background-image: url('./user.svg');
+  }
+  .Icon_userAdmin {
+    background-image: url('./user-admin.svg');
+  }
+  .Icon_userDisabled {
+    background-image: url('./user-disabled.svg');  
+  }

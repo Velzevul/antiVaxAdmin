@@ -1,5 +1,5 @@
 @import './config.css';
-@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700';
 
 :global(*),
 :global(*:before),
@@ -11,8 +11,6 @@
 
 :global(html),
 :global(body) {
-  width: 100%;
-  height: 100%;
-
   font-family: var(--fontFamily);
+  color: var(--color-text-black);
 }

@@ -2,53 +2,80 @@
 @import '../../../styles/config.css';
 
 
-.Link {
-  appearance: none;
-
+.LinkButton {
   display: inline-block;
+  padding: 0 calc(var(--baseline));
+  height: calc(var(--baseline) * 1.5);
 
-  font-size: var(--fontSize);
-  line-height: inherit;
+  font-size: 0.750rem;
+  line-height: 1.5em;
+  font-weight: 600;
 
   text-decoration: underline;
 
-  transition-property: color;
-  transition-duration: 0.2s;
+  border: none;
+  border-radius: 0.125rem;
+  background: none;
+
+  transition-property: color, background;
+  transition-duration: 0.2s, 0.2s;
 
   cursor: pointer;
-
-  background: none;
-  border: none;
 
   &:hover {
     text-decoration: none;
   }
 
-  &:disabled:hover {
-    text-decoration: underline;
+  &:disabled {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
-  .Link_small {
-    font-size: var(--fontSizeSmall);
-  }
-  .Link_accent1 {
-    color: var(--colorAccent1);
+  .LinkButton_blue {
+    color: var(--color-accent-blue);
+
+    &:hover {
+      color: color(var(--color-accent-blue) lightness(+10%));
+    }
+
+    &:active {
+      color: color(var(--color-accent-blue) lightness(-10%));
+    }
 
     &:disabled {
-      color: color(var(--colorAccent1) lightness(+25%));
+      color: color(var(--color-accent-blue) lightness(+25%));
     }
   }
-  .Link_accent2 {
-    color: var(--colorAccent2);
+  .LinkButton_red {
+    color: var(--color-accent-red);
+
+    &:hover {
+      color: color(var(--color-accent-red) lightness(+10%));
+    }
+
+    &:active {
+      color: color(var(--color-accent-red) lightness(-10%));
+    }
 
     &:disabled {
-      color: color(var(--colorAccent2) lightness(+25%));
+      color: color(var(--color-accent-red) lightness(+25%));
     }
   }
-  .Link_error {
-    color: var(--colorError);
+  .LinkButton_green {
+    color: var(--color-accent-green);
+
+    &:hover {
+      color: color(var(--color-accent-green) lightness(+10%));
+    }
+
+    &:active {
+      color: color(var(--color-accent-green) lightness(-10%));
+    }
 
     &:disabled {
-      color: color(var(--colorError) lightness(+25%));
+      color: color(var(--color-accent-green) lightness(+25%));
     }
   }

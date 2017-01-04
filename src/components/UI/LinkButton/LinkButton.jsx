@@ -6,28 +6,23 @@ import styles from './LinkButton.css'
 const LinkButton = ({
   children,
   onClick,
-  small = false,
   disabled = false,
   to = null,
   href = null,
-  theme = 'accent1'
+  color = 'blue'
 }) => {
-  let classNames = [styles.Link]
+  let classNames = [styles.LinkButton]
 
-  if (small) {
-    classNames.push(styles.Link_small)
-  }
-
-  switch (theme) {
-    case 'accent2':
-      classNames.push(styles.Link_accent2)
+  switch (color) {
+    case 'red':
+      classNames.push(styles.LinkButton_red)
       break
-    case 'error':
-      classNames.push(styles.Link_error)
+    case 'green':
+      classNames.push(styles.LinkButton_green)
       break
-    case 'accent1':
+    case 'blue':
     default:
-      classNames.push(styles.Link_accent1)
+      classNames.push(styles.LinkButton_blue)
       break
   }
 

@@ -51,87 +51,65 @@ class Editor extends React.Component {
   }
 
   render () {
-    const {
-      error,
-      labelParams = {
-        width: 8,
-        padding: 2
-      },
-      label = null
-    } = this.props
-
-    let labelEl = ''
-    if (label) {
-      let labelStyle = {
-        paddingRight: `${labelParams.padding * baseline}rem`
-      }
-      if (labelParams.width) {
-        labelStyle.width = `${labelParams.width * baseline}rem`
-        labelStyle.textAlign = 'right'
-      }
-
-      labelEl = (
-        <Block>
-          <div style={labelStyle} className={`${styles.Editor__label}`}>{label}</div>
-        </Block>
-      )
-    }
+    const {error, label} = this.props
 
     return (
       <div className={`${styles.Editor} ${error ? styles.Editor_error : ''}`}>
-        {labelEl}
+        <div className={`${styles.Editor__label}`}>{label}</div>
 
-        <div className={styles.Editor__toolbar} ref="toolbar">
-          <Flex>
-            <button className={`${styles.Editor__command} ${styles.Editor__command_h1}`}
-              data-command-name="h1">
-              Heading 1
-            </button>
+        <div className={styles.Editor__body}>
+          <div className={styles.Editor__toolbar} ref="toolbar">
+            <Flex>
+              <button className={`${styles.Editor__command} ${styles.Editor__command_h1}`}
+                data-command-name="h1">
+                Heading 1
+              </button>
 
-            <button className={`${styles.Editor__command} ${styles.Editor__command_h2}`}
-              data-command-name="h2">
-              Heading 1
-            </button>
+              <button className={`${styles.Editor__command} ${styles.Editor__command_h2}`}
+                data-command-name="h2">
+                Heading 1
+              </button>
 
-            <div className={styles.Editor__separator} />
+              <div className={styles.Editor__separator} />
 
-            <button className={`${styles.Editor__command} ${styles.Editor__command_bold}`}
-              data-command-name="bold">
-              bold
-            </button>
+              <button className={`${styles.Editor__command} ${styles.Editor__command_bold}`}
+                data-command-name="bold">
+                bold
+              </button>
 
-            <button className={`${styles.Editor__command} ${styles.Editor__command_italic}`}
-              data-command-name="italic">
-              italic
-            </button>
+              <button className={`${styles.Editor__command} ${styles.Editor__command_italic}`}
+                data-command-name="italic">
+                italic
+              </button>
 
-            <button className={`${styles.Editor__command} ${styles.Editor__command_ol}`}
-              data-command-name="insertOrderedList">
-              Ol
-            </button>
+              <button className={`${styles.Editor__command} ${styles.Editor__command_ol}`}
+                data-command-name="insertOrderedList">
+                Ol
+              </button>
 
-            <button className={`${styles.Editor__command} ${styles.Editor__command_ul}`}
-              data-command-name="insertUnOrderedList">
-              Ul
-            </button>
+              <button className={`${styles.Editor__command} ${styles.Editor__command_ul}`}
+                data-command-name="insertUnOrderedList">
+                Ul
+              </button>
 
-            <div className={styles.Editor__separator} />
+              <div className={styles.Editor__separator} />
 
-            <button className={`${styles.Editor__command} ${styles.Editor__command_link}`}
-              data-command-name="linkPrompt">
-              Link
-            </button>
+              <button className={`${styles.Editor__command} ${styles.Editor__command_link}`}
+                data-command-name="linkPrompt">
+                Link
+              </button>
 
-            <button className={`${styles.Editor__command} ${styles.Editor__command_unlink}`}
-              data-command-name="unlink">
-              Unlink
-            </button>
-          </Flex>
+              <button className={`${styles.Editor__command} ${styles.Editor__command_unlink}`}
+                data-command-name="unlink">
+                Unlink
+              </button>
+            </Flex>
+          </div>
+
+          <div className={styles.Editor__editor} ref="editor" />
+
+          <div className={styles.Editor__error}>{error}</div>
         </div>
-
-        <div className={styles.Editor__body} ref="editor" />
-
-        <div className={styles.Editor__error}>{error}</div>
       </div>
     )
   }

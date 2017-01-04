@@ -1,0 +1,12 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.UserInfo {
+  color: color(white alpha(-30%));
+  font-size: 0.875rem;
+
+  &__username {
+    font-weight: 600;
+    color: white;
+  }
+}

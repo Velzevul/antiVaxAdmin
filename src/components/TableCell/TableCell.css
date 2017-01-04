@@ -1,0 +1,28 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.TableCell {
+  font-size: 0.750rem;
+  color: var(--color-text-grey);
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+  .TableCell_title {
+    font-size: 0.875rem;
+  }
+
+.TableHeadingCell {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-grey);
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+  .TableHeadingCell_title {
+    font-size: 1rem;
+    font-weight: 700;
+  }

@@ -1,0 +1,28 @@
+@import '../../styles/colors.css';
+@import '../../styles/config.css';
+
+.Form {
+  background: white;
+  border: 1px solid var(--color-bg-dirtyBlue);
+
+  &__header {
+    padding:  calc(var(--baseline) * 1);
+
+    font-size: 0.875rem;
+    font-weight: 600;
+
+    color: var(--color-text-grey);
+
+    border-bottom: 1px solid var(--color-bg-dirtyBlue);
+  }
+
+  &__body {
+    padding: calc(var(--baseline) * 1.5) calc(var(--baseline) * 1);
+  }
+
+  &__footer {
+    padding: calc(var(--baseline) * 1);
+
+    border-top: 1px solid var(--color-bg-dirtyBlue);
+  }
+}
