@@ -5,9 +5,12 @@ import {fetchUsers} from '../../store/usersActions'
 import Loading from '../Loading'
 import UsersListItem from '../UsersListItem'
 import {LinkButton} from '../UI'
-import {ListInline, ListInlineItem} from '../Layouts'
-
-import styles from './UsersList.css'
+import Wrapper from '../Wrapper'
+import Table from '../Table'
+import TableRow from '../TableRow'
+import TableColumn from '../TableColumn'
+import TableCell from '../TableCell'
+import {Flex} from '../Layouts'
 
 class UsersList extends React.Component {
   componentWillMount () {
@@ -19,53 +22,57 @@ class UsersList extends React.Component {
   render () {
     const {children, items, isFetching, params, location} = this.props
     const isNewUserForm = location.pathname === '/users/new'
+    const disableInteraction = isNewUserForm || params.userId
 
     if (isFetching) {
       return <Loading />
     } else {
       return (
-        <div className={`${styles.Wrapper} ${params.userId || isNewUserForm ? styles.Wrapper_dimmed : ''}`}>
-          <div className={styles.UsersList}>
-            <div className={styles.Heading}>
-              <div className={styles.Heading__name}>
-                <ListInline>
-                  <ListInlineItem>
-                    <div className={styles.Name}>Users</div>
-                  </ListInlineItem>
+        <Wrapper dimmed={disableInteraction}>
+          <Table>
+            <TableRow heading>
+              <TableColumn width="stretch">
+                <TableCell heading title>Users</TableCell>
+              </TableColumn>
 
-                  {params.userId || isNewUserForm
-                    ? ''
-                    : (
-                      <ListInlineItem>
-                        <LinkButton to="/users/new">add new user</LinkButton>
-                      </ListInlineItem>
-                    )
-                  }
-                </ListInline>
-              </div>
+              <TableColumn width="25">
+                <TableCell heading>last seen</TableCell>
+              </TableColumn>
 
-              <div className={styles.Heading__email}>
-                <div className={styles.Email}>email</div>
-              </div>
+              <TableColumn last width="10">
+                {disableInteraction
+                  ? ''
+                  : (
+                    <Flex justifyContent="flex-end">
+                      <LinkButton to="/users/new">add new user</LinkButton>
+                    </Flex>
+                  )
+                }
+              </TableColumn>
+            </TableRow>
 
-              <div className={styles.Heading__timestamp}>
-                <div className={styles.Timestamp}>last log in</div>
-              </div>
-            </div>
+            {isNewUserForm
+              ? children
+              : ''
+            }
 
-            {isNewUserForm ? children : ''}
-
-            {items.map((i, index) => {
-              return (
-                <UsersListItem key={index}
-                  user={i}
-                  children={children}
-                  currentId={params.userId}
-                  isNewUserForm={isNewUserForm} />
-              )
+            {items.map((u, index) => {
+              if (u.data._id === params.userId) {
+                return (
+                  <div key={index}>
+                    {children}
+                  </div>
+                )
+              } else {
+                return (
+                  <UsersListItem key={index}
+                    user={u}
+                    disableInteraction={disableInteraction} />
+                )
+              }
             })}
-          </div>
-        </div>
+          </Table>
+        </Wrapper>
       )
     }
   }

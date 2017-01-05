@@ -1,78 +1,99 @@
 import React from 'react'
 import Time from 'react-time'
 
+import TableRow from '../TableRow'
+import TableColumn from '../TableColumn'
+import TableCell from '../TableCell'
 import {LinkButton} from '../UI'
-import {ListInline, ListInlineItem} from '../Layouts'
+import {Flex} from '../Layouts'
 import Badge from '../Badge'
+import Icon from '../Icon'
 
 import styles from './UsersListItem.css'
 
-class UsersListItem extends React.Component {
-  render () {
-    const {user, currentId, isNewUserForm, children} = this.props
-
-    let timestamp = (
-      <div className={styles.Timestamp}>
-        never logged in
-      </div>
-    )
-    if (user.data.lastLoggedInAt) {
-      timestamp = (
-        <div className={styles.Timestamp}>
-          <Time value={user.data.lastLoggedInAt} format="MMM Do h:mm A" />
-        </div>
-      )
-    }
-
-    if (currentId === user.data._id) {
-      return children
+const UsersListItem = ({
+  user,
+  disableInteraction
+}) => {
+  let icon = null
+  if (user.data.isEnabled) {
+    if (user.data.admin) {
+      icon = 'user-admin'
     } else {
-      return (
-        <div className={`${styles.UsersListItem}`}>
-          <div className={styles.UsersListItem__name}>
-            <ListInline>
-              <ListInlineItem>
-                <div className={styles.Name}>{user.data.name}</div>
-              </ListInlineItem>
+      icon = 'user'
+    }
+  } else {
+    icon = 'user-disabled'
+  }
 
-              <ListInlineItem>
-                <div className={styles.Actions}>
-                  {currentId || isNewUserForm ? '' : <LinkButton to={`/users/${user.data._id}`}>Edit</LinkButton>}
-                </div>
-              </ListInlineItem>
-            </ListInline>
-          </div>
+  let timestamp = ''
+  if (user.data.lastLoggedInAt) {
+    timestamp = <Time value={user.data.lastLoggedInAt} format="MMM Do h:mm A" />
+  } else {
+    timestamp = 'never logged in'
+  }
 
-          <div className={styles.UsersListItem__email}>
-            <div className={styles.Email}>({user.data.email})</div>
-          </div>
+  return (
+    <div className={`${styles.UsersListItem}
+      ${disableInteraction ? '' : styles.UsersListItem_interactive}`}>
+      <TableRow interactive={!disableInteraction}>
+        <TableColumn>
+          <Icon type={icon} />
+        </TableColumn>
 
-          <div className={styles.UsersListItem__badges}>
+        <TableColumn width="stretch">
+          <TableCell title>
+            {user.data.name}
+          </TableCell>
+
+          <TableCell>
+            ({user.data.email})
+          </TableCell>
+        </TableColumn>
+
+        <TableColumn width="15">
+          <TableCell>
+            {timestamp}
+          </TableCell>
+        </TableColumn>
+
+        <TableColumn width="15">
+          <Flex>
             {user.data.admin
               ? (
-                  <div className={styles.Badge}>
-                    <Badge label="Admin" color="green" />
-                  </div>
+                <div className={styles.Badge}>
+                  <Badge label="Admin" color="green" />
+                </div>
               )
               : ''
             }
             {!user.data.isEnabled
               ? (
-                  <div className={styles.Badge}>
-                    <Badge label="Disabled" color="red" />
-                  </div>
+                <div className={styles.Badge}>
+                  <Badge label="Disabled" color="red" />
+                </div>
               )
               : ''
             }
-          </div>
+          </Flex>
+        </TableColumn>
 
-          <div className={styles.UsersListItem__timestamp}>
-            {timestamp}
-          </div>
-        </div>
-      )
-    }
-  }
+        <TableColumn last
+          width="5">
+          <Flex justifyContent="flex-end">
+            {disableInteraction
+              ? ''
+              : (
+                <div className={styles.UsersListItem__actions}>
+                  <LinkButton to={`/users/${user.data._id}`}>edit</LinkButton>
+                </div>
+              )
+            }
+          </Flex>
+        </TableColumn>
+      </TableRow>
+    </div>
+  )
 }
 
 export default UsersListItem

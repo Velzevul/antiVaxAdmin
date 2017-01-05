@@ -4,9 +4,13 @@ import Time from 'react-time'
 
 import {fetchSearchIndex, updateSearchIndex} from '../../store/searchIndexActions.js'
 import Loading from '../Loading'
-import {Button} from '../UI'
-
-import styles from './SearchIndex.css'
+import {LinkButton} from '../UI'
+import {Flex} from '../Layouts'
+import Wrapper from '../Wrapper'
+import Table from '../Table'
+import TableRow from '../TableRow'
+import TableColumn from '../TableColumn'
+import TableCell from '../TableCell'
 
 class SearchIndex extends React.Component {
   constructor (props) {
@@ -34,20 +38,30 @@ class SearchIndex extends React.Component {
       return <Loading />
     } else {
       return (
-        <div className={styles.SearchIndex}>
-          <div className={styles.Heading}>
-            <div className={styles.Name}>Search Index</div>
-          </div>
+        <Wrapper>
+          <Table>
+            <TableRow heading>
+              <TableColumn width="stretch">
+                <TableCell heading title>Search Index</TableCell>
+              </TableColumn>
 
-          <div className={styles.SearchIndex__body}>
-            <div>
-              Last updated on <Time value={lastUpdatedOn} format="h:mm A on MMM Do" /> by {lastUpdatedBy}
-            </div>
+              <TableColumn heading
+                last
+                width="15">
+                <Flex justifyContent="flex-end">
+                  <LinkButton disabled={isUpdating}
+                    onClick={this.update}>Update index</LinkButton>
+                </Flex>
+              </TableColumn>
+            </TableRow>
 
-            <Button disabled={isUpdating}
-              onClick={this.update}>Update</Button>
-          </div>
-        </div>
+            <TableRow>
+              <TableColumn width="stretch">
+                <TableCell title>Last updated on <Time value={lastUpdatedOn} format="h:mm A on MMM Do" /> by {lastUpdatedBy}</TableCell>
+              </TableColumn>
+            </TableRow>
+          </Table>
+        </Wrapper>
       )
     }
   }

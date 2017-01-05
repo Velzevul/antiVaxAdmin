@@ -8,7 +8,7 @@ const TableColumn = ({
   last = false
 }) => {
   let style = {
-    paddingRight: last ? 0 : '0.750rem'
+    paddingRight: last ? 0 : '1.5rem'
   }
   if (width === 'stretch') {
     style.flex = 1

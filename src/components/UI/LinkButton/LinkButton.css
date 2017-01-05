@@ -3,7 +3,7 @@
 
 
 .LinkButton {
-  display: inline-block;
+  display: block;
   padding: 0 calc(var(--baseline));
   height: calc(var(--baseline) * 1.5);
 

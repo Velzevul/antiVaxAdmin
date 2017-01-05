@@ -1,62 +1,15 @@
 @import '../../styles/colors.css';
 @import '../../styles/config.css';
 
-
 .UsersListItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: calc(var(--baseline) * 1) calc(var(--baseline) * 1);
-
-  color: var(--color-text-black);
-
-  &:hover {
-    background: var(--color-bg-lightBlue);
-  }
-
-  &__name {
-    flex: 1;
-  }
-
-  &__email {
-    width: 20em;
-  }
-
-  &__badges {
-    width: 10em;
-    text-align: right;
-  }
-
-  &__timestamp {
-    width: 10em;
-    text-align: right;
+  &__actions {
+    display: none;
   }
 }
-
-.Name {
-  font-size: 0.875rem;
-  line-height: calc(var(--baseline) * 1.5);
-}
-
-.Email {
-  font-size: 0.750rem;
-  color: var(--color-text-grey);
-}
-
-.Badge {
-  display: inline-block;
-  margin-left: calc(var(--baseline) * 2);
-}
-
-.Timestamp {
-  font-size: 0.750rem;
-  color: var(--color-text-grey);
-  font-weight: 400;
-}
-
-.Actions {
-  display: none;
-}
-  .UsersListItem:hover .Actions {
-    display: block;
+  .UsersListItem_interactive {
+    &:hover {
+      & .UsersListItem__actions {
+        display: block;
+      }
+    }
   }

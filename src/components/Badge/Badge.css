@@ -2,13 +2,13 @@
 @import '../../styles/config.css';
 
 .Badge {
-  display: inline-block;
+  display: block;
+  padding: 0 calc(var(--baseline));
   font-size: 0.625rem;
   font-weight: 700;
 
   text-transform: uppercase;
   text-align: center;
-  /*letter-spacing: 1px;*/
 }
   .Badge_blue {
     color: var(--color-accent-blue);

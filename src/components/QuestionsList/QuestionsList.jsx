@@ -5,8 +5,13 @@ import {connect} from 'react-redux'
 import {fetchQuestions} from '../../store/questionsActions'
 import Loading from '../Loading'
 import QuestionsListItem from '../QuestionsListItem'
-
-import styles from './QuestionsList.css'
+import {LinkButton} from '../UI'
+import Wrapper from '../Wrapper'
+import Table from '../Table'
+import TableRow from '../TableRow'
+import TableColumn from '../TableColumn'
+import TableCell from '../TableCell'
+import {Flex} from '../Layouts'
 
 class QuestionsList extends React.Component {
   componentWillMount () {
@@ -22,28 +27,35 @@ class QuestionsList extends React.Component {
       return <Loading />
     } else {
       return (
-        <div className={`${styles.Wrapper} ${params.questionId ? styles.Wrapper_dimmed : ''}`}>
-          <div className={styles.QuestionsList}>
-            <div className={styles.Heading}>
-              <div className={styles.Heading__name}>
-                <div className={styles.Name}>Question</div>
-              </div>
+        <Wrapper dimmed={params.questionId}>
+          <Table>
+            <TableRow heading>
+              <TableColumn width="stretch">
+                <TableCell heading title>Questions</TableCell>
+              </TableColumn>
 
-              <div className={styles.Heading__timestamp}>
-                <div className={styles.Timestamp}>Posted on</div>
-              </div>
-            </div>
+              <TableColumn last
+                width="10">
+                <TableCell heading>posted on</TableCell>
+              </TableColumn>
+            </TableRow>
 
             {items.map((i, index) => {
+              if (i.data._id === params.questionId) {
+                return (
+                  <div key={index}>
+                    {children}
+                  </div>
+                )
+              }
               return (
                 <QuestionsListItem key={index}
                   question={i}
-                  children={children}
-                  currentId={params.questionId} />
+                  disableInteraction={params.questionId} />
               )
             })}
-          </div>
-        </div>
+          </Table>
+        </Wrapper>
       )
     }
   }

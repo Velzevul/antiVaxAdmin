@@ -2,64 +2,60 @@ import React from 'react'
 import {hashHistory} from 'react-router'
 import Time from 'react-time'
 
+import TableRow from '../TableRow'
+import TableColumn from '../TableColumn'
+import TableCell from '../TableCell'
+import {LinkButton} from '../UI'
+import {Flex} from '../Layouts'
 import Badge from '../Badge'
+import Icon from '../Icon'
 
 import styles from './QuestionsListItem.css'
 
-class QuestionsListItem extends React.Component {
-  constructor (props) {
-    super(props)
+const QuestionsListItem = ({
+  question,
+  disableInteraction
+}) => {
+  const truncatedText = `${question.data.question.slice(3, Math.min(question.data.question.length - 3, 70))}..`
 
-    this.navigate = this.navigate.bind(this)
-  }
+  return (
+    <TableRow interactive={!disableInteraction}>
+      <TableColumn>
+        <Icon type="envelope" />
+      </TableColumn>
 
-  navigate () {
-    const {question, currentId} = this.props
+      <TableColumn width="10">
+        <TableCell title
+          to={disableInteraction ? null : `/questions/${question.data._id}`}>
+          {question.data.posterName}
+        </TableCell>
+      </TableColumn>
 
-    if (!currentId) {
-      hashHistory.push(`/questions/${question.data._id}`)
-    }
-  }
+      <TableColumn width="stretch">
+        <TableCell to={disableInteraction ? null : `/questions/${question.data._id}`}>
+          {truncatedText}
+        </TableCell>
+      </TableColumn>
 
-  render () {
-    const {question, currentId, children} = this.props
-
-    if (currentId && currentId === question.data._id) {
-      return children
-    } else {
-      const truncatedText = `${question.data.question.slice(3, Math.min(question.data.question.length - 4, 70))}..`
-
-      return (
-        <div onClick={this.navigate}
-          className={`${styles.QuestionsListItem} ${currentId ? '' : styles.QuestionsListItem_active}`}>
-          <div className={styles.QuestionsListItem__sender}>
-            <div className={styles.Sender}>{question.data.posterName}</div>
-          </div>
-
-          <div className={styles.QuestionsListItem__message}>
-            <div className={styles.Message}>{truncatedText}</div>
-          </div>
-
-          <div className={styles.QuestionsListItem__badges}>
-            {question.data.isSeen
-              ? ''
-              : (
-                <div className={styles.Badge}>
-                  <Badge label="Not Answered" color="red" />
-                </div>
-              )
-            }
-          </div>
-
-          <div className={styles.QuestionsListItem__timestamp}>
-            <div className={styles.Timestamp}>
-              <Time value={question.data.createdAt} format="h:mm A on MMM Do" />
+      <TableColumn width="10">
+        {question.data.isSeen
+          ? ''
+          : (
+            <div className={styles.Badge}>
+              <Badge label="Not Answered" color="red" />
             </div>
-          </div>
-        </div>
-      )
-    }
-  }
+          )
+        }
+      </TableColumn>
+
+      <TableColumn last
+        width="10">
+        <TableCell>
+          <Time value={question.data.createdAt} format="h:mm A on MMM Do" />
+        </TableCell>
+      </TableColumn>
+    </TableRow>
+  )
 }
 
 export default QuestionsListItem
