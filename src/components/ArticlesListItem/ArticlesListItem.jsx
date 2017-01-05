@@ -1,36 +1,49 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import Time from 'react-time'
 
 import Badge from '../Badge'
 import TableRow from '../TableRow'
 import TableColumn from '../TableColumn'
 import TableCell from '../TableCell'
-import {ListInline, ListInlineItem} from '../Layouts'
 import {LinkButton} from '../UI'
+import {Flex} from '../Layouts'
+import Icon from '../Icon'
 
 import styles from './ArticlesListItem.css'
 
 const ArticlesListItem = ({
   article,
-  parent,
-  navigationType,
+  section,
   disableInteraction
 }) => {
-  let articleUrl = `/${article.data.url}`
-  if (article.data.articleType === 'heading') {
-    articleUrl = ''
+  let icon = null
+  switch (article.data.articleType) {
+    case 'article':
+      icon = article.data.isPublished
+        ? 'file-text'
+        : 'file-text-draft'
+      break
+    case 'blogpost':
+      icon = article.data.isPublished
+        ? 'file-blogpost'
+        : 'file-blogpost-draft'
+      break
+    case 'heading':
+    default:
+      icon = null
   }
 
-  let actions = (
-    <ListInlineItem>
+  let url = `/${article.data.url}`
+  if (article.data.articleType === 'heading') {
+    url = ''
+  }
+
+  let actions = ''
+  if (!disableInteraction) {
+    actions = (
       <div className={styles.ArticlesListItem__actions}>
-        <LinkButton to={`/sections/${navigationType}/${parent.data._id}/articles/${article.data._id}`}>edit</LinkButton>
+        <LinkButton to={`/sections/${section.data._id}/articles/${article.data._id}`}>edit</LinkButton>
       </div>
-    </ListInlineItem>
-  )
-  if (disableInteraction) {
-    actions = ''
+    )
   }
 
   return (
@@ -38,20 +51,23 @@ const ArticlesListItem = ({
       ${disableInteraction ? '' : styles.ArticlesListItem_interactive}
       ${article.data.articleType === 'heading' ? styles.ArticlesListItem_heading : ''}`}>
       <TableRow interactive={!disableInteraction}>
-        <TableColumn width="stretch">
-          <ListInline>
-            <ListInlineItem>
-              <TableCell title>
-                {article.data.title}
-              </TableCell>
-            </ListInlineItem>
+        {icon
+          ? (
+            <TableColumn>
+              <Icon type={icon} />
+            </TableColumn>
+          )
+          : ''
+        }
 
-            {actions}
-          </ListInline>
+        <TableColumn width="stretch">
+          <TableCell title>
+            {article.data.title}
+          </TableCell>
         </TableColumn>
 
-        <TableColumn width="27">
-          <TableCell>{articleUrl}</TableCell>
+        <TableColumn width="25">
+          <TableCell>{url}</TableCell>
         </TableColumn>
 
         <TableColumn width="3">
@@ -61,30 +77,15 @@ const ArticlesListItem = ({
           }
         </TableColumn>
 
-        <TableColumn width="10"
-          align="right">
-          <TableCell>
-            {article.data.articleType === 'heading'
-              ? ''
-              : (
-                <Time value={article.data.lastModifiedAt} format="h:mm A on MMM Do" />
-              )
-            }
-          </TableCell>
+        <TableColumn width="7"
+          last>
+          <Flex justifyContent="flex-end">
+            {actions}
+          </Flex>
         </TableColumn>
       </TableRow>
     </div>
   )
 }
 
-export default connect(
-  (state, ownProps) => {
-    const article = state.articles.items.find(a => a.data._id === ownProps.articleId)
-    const parent = state.sections.items.find(s => s.data._id === article.data.parent)
-
-    return {
-      article,
-      parent
-    }
-  }
-)(ArticlesListItem)
+export default ArticlesListItem

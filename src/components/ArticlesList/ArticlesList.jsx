@@ -2,11 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {sortable} from 'react-sortable'
 
-import Breadcrumbs from '../Breadcrumbs'
 import {updateSection} from '../../store/sectionsActions'
 import ArticlesListItem from '../ArticlesListItem'
 import {LinkButton} from '../UI'
-import {ListInline, ListInlineItem} from '../Layouts'
+import {Flex, ListInline, ListInlineItem} from '../Layouts'
 import Wrapper from '../Wrapper'
 import Table from '../Table'
 import TableRow from '../TableRow'
@@ -54,70 +53,52 @@ class ArticlesList extends React.Component {
   }
 
   render () {
-    const {children, section, parentSections, location, params} = this.props
-    const isNewArticleRoute = location.pathname === `/sections/${params.navigationType}/${params.sectionId}/articles/new`
-    const isEditArticleRoute = location.pathname === `/sections/${params.navigationType}/${params.sectionId}/articles/${params.articleId}`
+    const {articles, section, children, params, location} = this.props
+    const isNewArticleRoute = location.pathname === `/sections/${params.sectionId}/articles/new`
+    const isEditArticleRoute = location.pathname === `/sections/${params.sectionId}/articles/${params.articleId}`
     const disableInteraction = isNewArticleRoute || isEditArticleRoute
-
-    let parentItems = parentSections.map(s => {
-      return {
-        label: s.data.title,
-        path: `/sections/${params.navigationType}/${s.data._id}`
-      }
-    })
 
     let actions = ''
     if (section.data.sectionType === 'articles') {
       actions = (
-        <ListInlineItem>
-          <ListInline>
-            <ListInlineItem>
-              <LinkButton to={`/sections/${params.navigationType}/${params.sectionId}/articles/new`}>add new article</LinkButton>
-            </ListInlineItem>
-
-            <ListInlineItem>
-              <LinkButton to={`/sections/${params.navigationType}/${params.sectionId}/articles/new?type=heading`}>add new heading</LinkButton>
-            </ListInlineItem>
-          </ListInline>
-        </ListInlineItem>
+        <Flex justifyContent="flex-end">
+          <LinkButton to={`/sections/${params.sectionId}/articles/new`}>add new article</LinkButton>
+          <LinkButton to={`/sections/${params.sectionId}/articles/new?type=heading`}>add new heading</LinkButton>
+        </Flex>
       )
     } else if (section.data.sectionType === 'blogposts') {
       actions = (
-        <ListInlineItem>
-          <LinkButton to={`/sections/${params.navigationType}/${params.sectionId}/articles/new`}>add new blog post</LinkButton>
-        </ListInlineItem>
-      )
-    }
-
-    let tableHeading = ''
-    if (isNewArticleRoute) {
-      tableHeading = children
-    } else {
-      tableHeading = (
-        <TableRow heading>
-          <TableColumn width="stretch">
-            <ListInline>
-              <ListInlineItem>
-                <TableCell title heading>{section.data.title}</TableCell>
-              </ListInlineItem>
-
-              {disableInteraction
-                ? ''
-                : actions
-              }
-            </ListInline>
-          </TableColumn>
-        </TableRow>
+        <Flex justifyContent="flex-end">
+          <LinkButton to={`/sections/${params.sectionId}/articles/new`}>add new blog post</LinkButton>
+        </Flex>
       )
     }
 
     return (
       <Wrapper dimmed={disableInteraction}>
-        <Table breadcrumbs>
-          <Breadcrumbs items={parentItems}
-            disableInteraction={disableInteraction} />
+        <Table>
+          <TableRow heading>
+            <TableColumn width="stretch">
+              <TableCell title heading>{section.data.title}</TableCell>
+            </TableColumn>
 
-          {tableHeading}
+            <TableColumn width="20">
+              <TableCell heading>url</TableCell>
+            </TableColumn>
+
+            <TableColumn last
+              width="15">
+              {disableInteraction
+                ? ''
+                : actions
+              }
+            </TableColumn>
+          </TableRow>
+
+          {isNewArticleRoute
+            ? children
+            : ''
+          }
 
           {this.state.data.items.map((articleId, i) => {
             if (isEditArticleRoute && params.articleId === articleId) {
@@ -126,27 +107,31 @@ class ArticlesList extends React.Component {
                   {children}
                 </div>
               )
-            } else if (disableInteraction) {
-              return (
-                <ArticlesListItem key={i}
-                  articleId={articleId}
-                  navigationType={params.navigationType}
-                  disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
-              )
             } else {
-              return (
-                <SortableListItem key={i}
-                  updateState={this.updateState}
-                  items={this.state.data.items}
-                  draggingIndex={this.state.draggingIndex}
-                  sortId={i}
-                  outline="list">
+              const article = articles.find(a => a.data._id === articleId)
+
+              if (disableInteraction) {
+                return (
                   <ArticlesListItem key={i}
-                    articleId={articleId}
-                    navigationType={params.navigationType}
+                    article={article}
+                    section={section}
                     disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
-                </SortableListItem>
-              )
+                )
+              } else {
+                return (
+                  <SortableListItem key={i}
+                    updateState={this.updateState}
+                    items={this.state.data.items}
+                    draggingIndex={this.state.draggingIndex}
+                    sortId={i}
+                    outline="list">
+                    <ArticlesListItem key={i}
+                      article={article}
+                      section={section}
+                      disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
+                  </SortableListItem>
+                )
+              }
             }
           })}
         </Table>
@@ -159,18 +144,11 @@ export default connect(
   (state, ownProps) => {
     const {params} = ownProps
     const section = state.sections.items.find(s => s.data._id === params.sectionId)
-
-    let parentSections = []
-    let currentChild = section
-    while (currentChild.data.parent) {
-      let parent = state.sections.items.find(s => s.data._id === currentChild.data.parent)
-      parentSections = [parent, ...parentSections]
-      currentChild = parent
-    }
+    const articles = state.articles.items.filter(a => section.data.articles.indexOf(a.data._id) !== -1)
 
     return {
       section,
-      parentSections
+      articles
     }
   },
   (dispatch, ownProps) => {

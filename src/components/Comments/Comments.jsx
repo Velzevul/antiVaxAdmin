@@ -2,7 +2,6 @@ import React from 'react'
 
 import Comment from '../Comment'
 import {Block} from '../Layouts'
-import Title from '../Title'
 
 const Comments = ({
   items,
@@ -25,10 +24,6 @@ const Comments = ({
 
   return (
     <div>
-      <Block>
-        <Title label="Comments" />
-      </Block>
-
       {comments}
     </div>
   )

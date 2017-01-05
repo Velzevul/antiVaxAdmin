@@ -1,9 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {hashHistory} from 'react-router'
 
-import {fetchArticles} from '../../store/articleActions'
 import {fetchSections} from '../../store/sectionsActions'
+import {fetchArticles} from '../../store/articleActions'
 import Loading from '../Loading'
 
 class Sections extends React.Component {
@@ -12,14 +11,6 @@ class Sections extends React.Component {
 
     fetchSections()
     fetchArticles()
-  }
-
-  componentWillReceiveProps (newProps) {
-    const {metaSection, params} = newProps
-
-    if (!params.sectionId && metaSection) {
-      hashHistory.push(`/sections/${params.navigationType}/${metaSection.data._id}`)
-    }
   }
 
   render () {
@@ -34,12 +25,9 @@ class Sections extends React.Component {
 }
 
 export default connect(
-  (state, ownProps) => {
-    const metaSection = state.sections.items.find(s => s.data.url === 'main-nav' && s.data.sectionType === 'meta')
-
+  state => {
     return {
-      isFetching: state.sections.isFetching || state.articles.isFetching,
-      metaSection
+      isFetching: state.sections.isFetching || state.articles.isFetching
     }
   },
   dispatch => {

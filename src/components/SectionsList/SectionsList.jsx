@@ -2,10 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {sortable} from 'react-sortable'
 
-import {updateSection, fetchSections} from '../../store/sectionsActions'
-import {fetchArticles} from '../../store/articleActions'
+import {updateSection} from '../../store/sectionsActions'
 import SectionsListItem from '../SectionsListItem'
-import Loading from '../Loading'
 import {LinkButton} from '../UI'
 import SubSectionsList from '../SubSectionsList'
 import Wrapper from '../Wrapper'
@@ -30,26 +28,17 @@ class SectionsList extends React.Component {
     this.state = {
       draggingIndex: null,
       data: {
-        items: props.metaSection ? props.metaSection.data.children : []
+        items: props.metaSection.data.children
       }
     }
   }
 
-  componentWillMount () {
-    const {fetchSections, fetchArticles} = this.props
-
-    fetchSections()
-    fetchArticles()
-  }
-
   componentWillReceiveProps (newProps) {
-    if (newProps.metaSection) {
-      this.setState({
-        data: {
-          items: newProps.metaSection.data.children
-        }
-      })
-    }
+    this.setState({
+      data: {
+        items: newProps.metaSection.data.children
+      }
+    })
   }
 
   updateState (obj) {
@@ -65,97 +54,93 @@ class SectionsList extends React.Component {
   }
 
   render () {
-    const {children, isFetching, metaSection, sections, location, params} = this.props
+    const {children, metaSection, sections, location, params} = this.props
 
-    if (isFetching) {
-      return <Loading />
-    } else {
-      const isNewSectionRoute = location.pathname === '/sections/new'
-      const isEditSectionRoute = location.pathname === `/sections/${params.sectionId}/edit`
-      const disableInteraction = isNewSectionRoute || isEditSectionRoute
+    const isNewSectionRoute = location.pathname === '/sections/new'
+    const isEditSectionRoute = location.pathname === `/sections/${params.sectionId}/edit`
+    const disableInteraction = isNewSectionRoute || isEditSectionRoute
 
-      return (
-        <Wrapper dimmed={disableInteraction}>
-          <Table>
-            <TableRow heading>
-              <TableColumn width="stretch">
-                <TableCell heading title>{metaSection.data.title}</TableCell>
-              </TableColumn>
+    return (
+      <Wrapper dimmed={disableInteraction}>
+        <Table>
+          <TableRow heading>
+            <TableColumn width="stretch">
+              <TableCell heading title>{metaSection.data.title}</TableCell>
+            </TableColumn>
 
-              <TableColumn width="stretch">
-                <TableCell>url</TableCell>
-              </TableColumn>
+            <TableColumn width="20">
+              <TableCell heading>url</TableCell>
+            </TableColumn>
 
-              <TableColumn last
-                width="20">
-                {disableInteraction
-                  ? ''
-                  : (
-                    <Flex justifyContent="flex-end">
-                      <LinkButton to={`/sections/new?parentId=${metaSection.data._id}`}>add new section</LinkButton>
-                    </Flex>
-                  )
-                }
-              </TableColumn>
-            </TableRow>
+            <TableColumn last
+              width="15">
+              {disableInteraction
+                ? ''
+                : (
+                  <Flex justifyContent="flex-end">
+                    <LinkButton to={`/sections/new?parentId=${metaSection.data._id}`}>add new section</LinkButton>
+                  </Flex>
+                )
+              }
+            </TableColumn>
+          </TableRow>
 
-            {isNewSectionRoute && location.query.parentId === metaSection.data._id
-              ? children
-              : ''
-            }
+          {isNewSectionRoute && location.query.parentId === metaSection.data._id
+            ? children
+            : ''
+          }
 
-            {this.state.data.items.map((sectionId, i) => {
-              if (isEditSectionRoute && sectionId === params.sectionId) {
+          {this.state.data.items.map((sectionId, i) => {
+            if (isEditSectionRoute && sectionId === params.sectionId) {
+              return (
+                <div key={i}>
+                  {children}
+                </div>
+              )
+            } else {
+              const section = sections.find(s => s.data._id === sectionId)
+              const subsections = sections.filter(s => section.data.children.indexOf(s.data._id) !== -1)
+
+              let subsectionsList = (
+                <SubSectionsList section={section}
+                  subsections={subsections}
+                  children={children}
+                  params={params}
+                  location={location} />
+              )
+
+              if (disableInteraction) {
                 return (
                   <div key={i}>
-                    {children}
+                    <SectionsListItem
+                      section={section}
+                      parent={metaSection}
+                      disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
+
+                    {subsectionsList}
                   </div>
                 )
               } else {
-                const section = sections.find(s => s.data._id === sectionId)
-                const subsections = sections.filter(s => section.data.children.indexOf(s.data._id) !== -1)
+                return (
+                  <SortableListItem key={i}
+                    updateState={this.updateState}
+                    items={this.state.data.items}
+                    draggingIndex={this.state.draggingIndex}
+                    sortId={i}
+                    outline="list">
+                    <SectionsListItem section={section}
+                      parent={metaSection}
+                      disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
 
-                let subsectionsList = (
-                  <SubSectionsList section={section}
-                    subsections={subsections}
-                    children={children}
-                    params={params}
-                    location={location} />
+                    {subsectionsList}
+                  </SortableListItem>
                 )
-
-                if (disableInteraction) {
-                  return (
-                    <div key={i}>
-                      <SectionsListItem
-                        section={section}
-                        parent={metaSection}
-                        disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
-
-                      {subsectionsList}
-                    </div>
-                  )
-                } else {
-                  return (
-                    <SortableListItem key={i}
-                      updateState={this.updateState}
-                      items={this.state.data.items}
-                      draggingIndex={this.state.draggingIndex}
-                      sortId={i}
-                      outline="list">
-                      <SectionsListItem section={section}
-                        parent={metaSection}
-                        disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
-
-                      {subsectionsList}
-                    </SortableListItem>
-                  )
-                }
               }
-            })}
-          </Table>
-        </Wrapper>
-      )
-    }
+            }
+          })}
+        </Table>
+      </Wrapper>
+    )
   }
 }
 
@@ -164,19 +149,12 @@ export default connect(
     const metaSection = state.sections.items.find(s => s.data.url === 'main-nav' && s.data.sectionType === 'meta')
 
     return {
-      isFetching: state.sections.isFetching || state.articles.isFetching,
       sections: state.sections.items,
       metaSection
     }
   },
   dispatch => {
     return {
-      fetchSections: () => {
-        dispatch(fetchSections())
-      },
-      fetchArticles: () => {
-        dispatch(fetchArticles())
-      },
       updateSection: (id, data) => {
         dispatch(updateSection(id, data))
       }

@@ -47,13 +47,13 @@ class SubSectionsList extends React.Component {
 
   render () {
     const {section, subsections, children, location, params} = this.props
-    const isNewSectionRoute = location.pathname === '/sections/new' && location.query.parentId === section.data._id
+    const isNewSectionRoute = location.pathname === '/sections/new'
     const isEditSectionRoute = location.pathname === `/sections/${params.sectionId}/edit`
     const disableInteraction = isNewSectionRoute || isEditSectionRoute
 
     return (
       <div>
-        {isNewSectionRoute
+        {isNewSectionRoute && location.query.parentId === section.data._id
           ? children
           : ''
         }

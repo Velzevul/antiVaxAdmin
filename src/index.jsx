@@ -2,8 +2,9 @@ import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import {Router, Route, IndexRedirect, hashHistory} from 'react-router'
+import {Router, Route, IndexRedirect, IndexRoute, hashHistory} from 'react-router'
 
+import App from './components/App'
 import QuestionsList from './components/QuestionsList'
 import Question from './components/Question'
 
@@ -11,43 +12,21 @@ import UsersList from './components/UsersList'
 import EditUserForm from './components/EditUserForm'
 import NewUserForm from './components/NewUserForm'
 
-// import Sections from './components/Sections'
-import Section from './components/Section'
-
+import Sections from './components/Sections'
 import SectionsList from './components/SectionsList'
 import NewSectionForm from './components/NewSectionForm'
 import EditSectionForm from './components/EditSectionForm'
 
-// import BlogpostsList from './components/BlogpostsList'
-// import NewBlogpostForm from './components/NewBlogpostForm'
-// import EditBlogpostForm from './components/EditBlogpostForm'
-
-// import ArticlesList from './components/ArticlesList'
-import NewArticle from './components/NewArticle'
+import Section from './components/Section'
+import NewArticleForm from './components/NewArticleForm'
 import EditArticleForm from './components/EditArticleForm'
-
-// import CustomSectionForm from './components/CustomSectionForm'
 
 import SearchIndex from './components/SearchIndex'
 
 import './styles/global.css'
-
-import App from './components/App'
-
-// import ArticleDirectory from './components/ArticleDirectory'
-// import ArticleCreate from './components/ArticleCreate'
-// import ArticleEdit from './components/ArticleEdit'
-//
-// import UsersList from './components/UsersList'
-// import UsersCreate from './components/UsersCreate'
-// import UsersEdit from './components/UsersEdit'
-//
-// import QuestionsList from './components/QuestionsList'
-
 import configureStore from './store'
 
 const store = configureStore()
-
 const Dummy = () => <div />
 
 ReactDOM.render((
@@ -65,12 +44,16 @@ ReactDOM.render((
           <Route path=":userId" component={EditUserForm} />
         </Route>
 
-        <Route path="sections" component={SectionsList}>
-          <Route path="new" component={NewSectionForm} />
-          <Route path=":sectionId/edit" component={EditSectionForm} />
+        <Route path="sections" component={Sections}>
+          <Route component={SectionsList}>
+            <IndexRoute component={Dummy} />
+
+            <Route path="new" component={NewSectionForm} />
+            <Route path=":sectionId/edit" component={EditSectionForm} />
+          </Route>
 
           <Route path=":sectionId" component={Section}>
-            <Route path="articles/new" component={NewArticle} />
+            <Route path="articles/new" component={NewArticleForm} />
             <Route path="articles/:articleId" component={EditArticleForm} />
           </Route>
         </Route>

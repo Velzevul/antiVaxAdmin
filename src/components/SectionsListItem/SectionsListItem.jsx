@@ -76,11 +76,11 @@ const SectionsListItem = ({
           </TableCell>
         </TableColumn>
 
-        <TableColumn width="stretch">
+        <TableColumn width="20">
           <TableCell>{url}</TableCell>
         </TableColumn>
 
-        <TableColumn width="20"
+        <TableColumn width="15"
           last>
           {actions}
         </TableColumn>

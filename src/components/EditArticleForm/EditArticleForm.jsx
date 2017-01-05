@@ -3,8 +3,9 @@ import {connect} from 'react-redux'
 
 import {updateArticle, deleteArticle} from '../../store/articleActions'
 import {Flex, ListInline, ListInlineItem, Block} from '../Layouts'
-import {Button, IconButton, LinkButton, Input, Select, Checkbox, Editor} from '../UI'
+import {Button, IconButton, LinkButton, Input, Checkbox, Editor} from '../UI'
 import {Form, FormBody, FormHeader, FormFooter} from '../Form'
+import Comments from '../Comments'
 
 class EditArticleForm extends React.Component {
   constructor (props) {
@@ -13,6 +14,8 @@ class EditArticleForm extends React.Component {
     this.delete = this.delete.bind(this)
     this.save = this.save.bind(this)
     this.change = this.change.bind(this)
+    this.deleteComment = this.deleteComment.bind(this)
+    this.deleteReply = this.deleteReply.bind(this)
 
     this.state = {
       isDirty: false,
@@ -71,92 +74,57 @@ class EditArticleForm extends React.Component {
     deleteArticle(article.data._id)
   }
 
+  deleteComment (id) {
+    const newComments = this.state.data.comments.map(c => {
+      if (c._id === id) {
+        return Object.assign({}, c, {
+          isDeleted: !c.isDeleted
+        })
+      } else {
+        return c
+      }
+    })
+
+    this.setState({
+      isDirty: true,
+      data: Object.assign({}, this.state.data, {
+        comments: newComments
+      })
+    })
+  }
+
+  deleteReply (id, commentId) {
+    const comment = this.state.data.comments.find(c => c._id === commentId)
+    const newReplies = comment.replies.map(r => {
+      if (r._id === id) {
+        return Object.assign({}, r, {
+          isDeleted: !r.isDeleted
+        })
+      } else {
+        return r
+      }
+    })
+
+    this.setState({
+      isDirty: true,
+      data: Object.assign({}, this.state.data, {
+        comments: this.state.data.comments.map(c => {
+          if (c._id === commentId) {
+            return Object.assign({}, c, {
+              replies: newReplies
+            })
+          } else {
+            return c
+          }
+        })
+      })
+    })
+  }
+
   render () {
     const {params: {isUpdating}, params} = this.props
-    const articleTypes = [
-      {
-        id: 'article',
-        label: 'Article'
-      },
-      {
-        id: 'heading',
-        label: 'Heading'
-      }
-    ]
 
-    let body = ''
-    if (this.state.data.articleType === 'article') {
-      body = (
-        <div>
-          <Block>
-            <Input label="Title"
-              value={this.state.data.title}
-              error={this.state.errors.title}
-              disabled={isUpdating}
-              onChange={value => this.change('title', value)} />
-          </Block>
-
-          <Block>
-            <Input label="url"
-              value={this.state.data.url}
-              error={this.state.errors.url}
-              disabled={isUpdating}
-              onChange={value => this.change('url', value)} />
-          </Block>
-
-          <Block>
-            <Checkbox label="Published:"
-              checked={this.state.data.isPublished}
-              disabled={isUpdating}
-              onChange={value => this.change('isPublished', value)} />
-          </Block>
-
-          <Block>
-            <Checkbox label="Featured:"
-              checked={this.state.data.isFrequent}
-              disabled={isUpdating}
-              onChange={value => this.change('isFrequent', value)} />
-          </Block>
-
-          <Editor
-            label="Content:"
-            value={this.state.data.content}
-            error={this.state.errors.content}
-            disabled={isUpdating}
-            onChange={value => this.change('content', value)} />
-        </div>
-      )
-    } else {
-      body = (
-        <div>
-          <Block>
-            <Input label="Title"
-              value={this.state.data.title}
-              error={this.state.errors.title}
-              disabled={isUpdating}
-              onChange={value => this.change('title', value)} />
-          </Block>
-
-          <Checkbox label="Published:"
-            checked={this.state.data.isPublished}
-            disabled={isUpdating}
-            onChange={value => this.change('isPublished', value)} />
-        </div>
-      )
-    }
-
-    let actions = (
-      <ListInline>
-        <ListInlineItem>
-          <Button disabled>All Saved</Button>
-        </ListInlineItem>
-
-        <ListInlineItem>
-          <LinkButton disabled={isUpdating}
-            to={`/sections/${params.navigationType}/${params.sectionId}/articles/`}>Close</LinkButton>
-        </ListInlineItem>
-      </ListInline>
-    )
+    let actions = ''
     if (this.state.isDirty) {
       actions = (
         <ListInline>
@@ -170,31 +138,116 @@ class EditArticleForm extends React.Component {
           <ListInlineItem>
             <LinkButton disabled={isUpdating}
               color="red"
-              to={`/sections/${params.navigationType}/${params.sectionId}/articles/`}>Discard Changes</LinkButton>
+              to={`/sections/${params.sectionId}`}>Discard Changes</LinkButton>
+          </ListInlineItem>
+        </ListInline>
+      )
+    } else {
+      actions = (
+        <ListInline>
+          <ListInlineItem>
+            <Button disabled>All Saved</Button>
+          </ListInlineItem>
+
+          <ListInlineItem>
+            <LinkButton disabled={isUpdating}
+              to={`/sections/${params.sectionId}`}>Close</LinkButton>
           </ListInlineItem>
         </ListInline>
       )
     }
 
+    let formTitle = ''
+    switch (this.state.data.articleType) {
+      case 'article':
+        formTitle = 'Edit Article'
+        break
+      case 'blogpost':
+        formTitle = 'Edit Blogpost'
+        break
+      case 'heading':
+        formTitle = 'Edit Heading'
+        break
+      default:
+        console.error(`unexpected article type ${this.state.data.articleType}`)
+    }
+
     return (
       <Form>
         <FormHeader>
-          {this.state.data.articleType === 'article'
-            ? 'Edit article'
-            : 'Edit heading'
-          }
+          {formTitle}
         </FormHeader>
 
         <FormBody>
           <Block>
-            <Select label="Type"
-              value={this.state.data.articleType}
-              options={articleTypes}
+            <Input label="Title"
+              value={this.state.data.title}
+              error={this.state.errors.title}
               disabled={isUpdating}
-              onChange={value => this.change('articleType', value)} />
+              onChange={value => this.change('title', value)} />
           </Block>
 
-          {body}
+          {this.state.data.articleType !== 'heading'
+            ? (
+              <Block>
+                <Input label="url"
+                  value={this.state.data.url}
+                  error={this.state.errors.url}
+                  disabled={isUpdating}
+                  onChange={value => this.change('url', value)} />
+              </Block>
+            )
+            : ''
+          }
+
+          <Block>
+            <Checkbox label="Published:"
+              checked={this.state.data.isPublished}
+              disabled={isUpdating}
+              onChange={value => this.change('isPublished', value)} />
+          </Block>
+
+          {this.state.data.articleType === 'article'
+            ? (
+              <Block>
+                <Checkbox label="Featured:"
+                  checked={this.state.data.isFrequent}
+                  disabled={isUpdating}
+                  onChange={value => this.change('isFrequent', value)} />
+              </Block>
+            )
+            : ''
+          }
+
+          {this.state.data.articleType === 'blogpost'
+            ? (
+              <Block>
+                <Editor
+                  label="Preview:"
+                  value={this.state.data.snippet}
+                  error={this.state.errors.snippet}
+                  disabled={isUpdating}
+                  onChange={value => this.change('snippet', value)} />
+              </Block>
+            )
+            : ''
+          }
+
+          {this.state.data.articleType !== 'heading'
+            ? (
+              <Block>
+                <Editor
+                  label="Content:"
+                  value={this.state.data.content}
+                  error={this.state.errors.content}
+                  disabled={isUpdating}
+                  onChange={value => this.change('content', value)} />
+              </Block>
+            )
+            : ''
+          }
+
+          <Comments items={this.state.data.comments} onDeleteComment={this.deleteComment} onDeleteReply={this.deleteReply} />
         </FormBody>
 
         <FormFooter>
@@ -223,7 +276,7 @@ export default connect(
   },
   (dispatch, ownProps) => {
     const {params} = ownProps
-    const backlink = `/sections/${params.navigationType}/${params.sectionId}/articles`
+    const backlink = `/sections/${params.sectionId}`
 
     return {
       deleteArticle: (id) => {
