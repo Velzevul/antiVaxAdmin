@@ -38,7 +38,7 @@ export const fetchUsers = () => {
   return (dispatch, getState) => {
     dispatch(requestFetch())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/users/`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/users/`, {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ export const updateUser = (
   return (dispatch, getState) => {
     dispatch(requestUpdate(id))
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/users/${id}`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/users/${id}`, {
       method: 'PUT',
       mode: 'cors',
       headers: {
@@ -177,7 +177,7 @@ export const createUser = (
   return (dispatch, getState) => {
     dispatch(requestCreate())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/users`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/users`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -253,7 +253,7 @@ export const deleteUser = (
   return (dispatch, getState) => {
     dispatch(requestDelete(id))
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/users/${id}`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/users/${id}`, {
       method: 'DELETE',
       mode: 'cors',
       headers: {

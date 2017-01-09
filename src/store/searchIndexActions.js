@@ -30,7 +30,7 @@ export const fetchSearchIndex = () => {
   return (dispatch, getState) => {
     dispatch(requestSearchIndex())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/searchIndex`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/searchIndex`, {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export const updateSearchIndex = () => {
   return (dispatch, getState) => {
     dispatch(requestUpdate())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/searchIndex`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/searchIndex`, {
       method: 'PUT',
       mode: 'cors',
       headers: {

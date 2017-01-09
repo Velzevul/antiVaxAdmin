@@ -40,7 +40,7 @@ export const fetchArticles = () => {
   return (dispatch, getState) => {
     dispatch(requestArticles())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/articles/`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/articles/`, {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ export const updateArticle = (
         })
     })
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/articles/${id}`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/articles/${id}`, {
       method: 'PUT',
       mode: 'cors',
       headers: {
@@ -193,7 +193,7 @@ export const createArticle = (
   return (dispatch, getState) => {
     dispatch(requestCreate())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/articles/`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/articles/`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -277,7 +277,7 @@ export const deleteArticle = (
   return (dispatch, getState) => {
     dispatch(requestDelete(id))
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/articles/${id}`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/articles/${id}`, {
       method: 'DELETE',
       mode: 'cors',
       headers: {

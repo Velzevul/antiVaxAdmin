@@ -38,7 +38,7 @@ export const fetchSections = () => {
   return (dispatch, getState) => {
     dispatch(requestSections())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/sections/`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/sections/`, {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ export const updateSection = (
   return (dispatch, getState) => {
     dispatch(requestUpdate(id))
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/sections/${id}`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/sections/${id}`, {
       method: 'PUT',
       mode: 'cors',
       headers: {
@@ -181,7 +181,7 @@ export const createSection = (
   return (dispatch, getState) => {
     dispatch(requestCreate())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/sections/`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/sections/`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -263,7 +263,7 @@ export const deleteSection = (
   return (dispatch, getState) => {
     dispatch(requestDelete(id))
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/sections/${id}`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/sections/${id}`, {
       method: 'DELETE',
       mode: 'cors',
       headers: {

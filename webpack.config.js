@@ -38,7 +38,7 @@ const getPlugins = () => {
     'process.env': {
       NODE_ENV: JSON.stringify(NODE_ENV)
     },
-    ANTIVAX_ADMIN_SERVER_URL: JSON.stringify(process.env.ANTIVAX_ADMIN_SERVER_URL),
+    VACCINEANSWERS_ADMIN_SERVER_URL: JSON.stringify(process.env.VACCINEANSWERS_ADMIN_SERVER_URL),
     PUBLIC_PATH: JSON.stringify(PUBLIC_PATH)
   }))
 

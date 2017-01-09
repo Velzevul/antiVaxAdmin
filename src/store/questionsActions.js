@@ -33,7 +33,7 @@ export const fetchQuestions = () => {
   return (dispatch, getState) => {
     dispatch(requestQuestions())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/questions/`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/questions/`, {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export const updateQuestion = (
   return (dispatch, getState) => {
     dispatch(requestUpdate(id))
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/questions/${id}`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/questions/${id}`, {
       method: 'PUT',
       mode: 'cors',
       headers: {
@@ -158,7 +158,7 @@ export const deleteQuestion = (
   return (dispatch, getState) => {
     dispatch(requestDelete(id))
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/questions/${id}`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/questions/${id}`, {
       method: 'DELETE',
       mode: 'cors',
       headers: {

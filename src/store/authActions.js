@@ -35,7 +35,7 @@ export const loginWithCredentials = (
   return dispatch => {
     dispatch(requestAuth())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/auth/admin/authenticate-credentials`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/auth/admin/authenticate-credentials`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -65,7 +65,7 @@ export const loginWithToken = (
   return dispatch => {
     dispatch(requestAuth())
 
-    fetch(`${ANTIVAX_ADMIN_SERVER_URL}/auth/admin/authenticate-token`, {
+    fetch(`${VACCINEANSWERS_ADMIN_SERVER_URL}/auth/admin/authenticate-token`, {
       method: 'POST',
       mode: 'cors',
       headers: {
