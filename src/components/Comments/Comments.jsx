@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Comment from '../Comment'
-import {Block} from '../Layouts'
 
 const Comments = ({
   items,

@@ -5,26 +5,26 @@
   /*...*/
 
   &__deleteInfo {
-    font-size: var(--fontSizeSmall);
-    color: var(--colorError);
+    font-size: 0.750rem;
+    color: var(--color-accent-red);
   }
 
   &__info {
-    font-size: var(--fontSizeSmall);
+    font-size: 0.750rem;
     font-weight: 300;
 
-    color: var(--colorTextLight);
+    color: var(--color-bg-dirtyBlue);
   }
 
   &__comment {
-    padding: calc(var(--baseline) * 1) 0;
-    border-top: 1px solid var(--colorBorder);
+    padding: calc(var(--baseline) * 1) calc(var(--baseline) * 2);
+    border-top: 1px solid var(--color-bg-dirtyBlue);
   }
 
   &__body {
-    font-size: var(--fontSize);
+    font-size: 0.875rem;
 
-    color: var(--colorTextMed);
+    color: var(--color-text-black);
     text-align: justify;
 
     & :global(p) {
@@ -33,7 +33,7 @@
   }
 
   &__replies {
-    padding-left: calc(var(--baseline) * 3);
+    padding-left: calc(var(--baseline) * 6);
   }
 }
   .Comment_deleted {
@@ -47,21 +47,21 @@
   padding: calc(var(--baseline) / 2) 0;
 
   &__deleteInfo {
-    font-size: var(--fontSizeSmall);
-    color: var(--colorError);
+    font-size: 0.750rem;
+    color: var(--color-accent-red);
   }
 
   &__info {
-    font-size: var(--fontSizeSmall);
+    font-size: 0.750rem;
     font-weight: 300;
 
-    color: var(--colorTextLight);
+    color: var(--color-bg-dirtyBlue);
   }
 
   &__body {
-    font-size: var(--fontSize);
+    font-size: 0.875rem;
 
-    color: var(--colorTextMed);
+    color: var(--color-text-black);
     text-align: justify;
 
     & :global(p) {

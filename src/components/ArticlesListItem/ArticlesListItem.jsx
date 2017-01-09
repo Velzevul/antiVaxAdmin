@@ -13,7 +13,8 @@ import styles from './ArticlesListItem.css'
 const ArticlesListItem = ({
   article,
   section,
-  disableInteraction
+  disableInteraction,
+  params
 }) => {
   let icon = null
   switch (article.data.articleType) {
@@ -41,7 +42,7 @@ const ArticlesListItem = ({
   if (!disableInteraction) {
     actions = (
       <div className={styles.ArticlesListItem__actions}>
-        <LinkButton to={`/sections/${section.data._id}/articles/${article.data._id}`}>edit</LinkButton>
+        <LinkButton to={`/${params.metaSectionUrl}/${section.data._id}/articles/${article.data._id}`}>edit</LinkButton>
       </div>
     )
   }

@@ -138,7 +138,7 @@ class EditArticleForm extends React.Component {
           <ListInlineItem>
             <LinkButton disabled={isUpdating}
               color="red"
-              to={`/sections/${params.sectionId}`}>Discard Changes</LinkButton>
+              to={`/${params.metaSectionUrl}/${params.sectionId}`}>Discard Changes</LinkButton>
           </ListInlineItem>
         </ListInline>
       )
@@ -151,7 +151,7 @@ class EditArticleForm extends React.Component {
 
           <ListInlineItem>
             <LinkButton disabled={isUpdating}
-              to={`/sections/${params.sectionId}`}>Close</LinkButton>
+              to={`/${params.metaSectionUrl}/${params.sectionId}`}>Close</LinkButton>
           </ListInlineItem>
         </ListInline>
       )
@@ -206,18 +206,6 @@ class EditArticleForm extends React.Component {
               disabled={isUpdating}
               onChange={value => this.change('isPublished', value)} />
           </Block>
-
-          {this.state.data.articleType === 'article'
-            ? (
-              <Block>
-                <Checkbox label="Featured:"
-                  checked={this.state.data.isFrequent}
-                  disabled={isUpdating}
-                  onChange={value => this.change('isFrequent', value)} />
-              </Block>
-            )
-            : ''
-          }
 
           {this.state.data.articleType === 'blogpost'
             ? (
@@ -276,7 +264,7 @@ export default connect(
   },
   (dispatch, ownProps) => {
     const {params} = ownProps
-    const backlink = `/sections/${params.sectionId}`
+    const backlink = `/${params.metaSectionUrl}/${params.sectionId}`
 
     return {
       deleteArticle: (id) => {

@@ -115,18 +115,6 @@ class NewArticleForm extends React.Component {
               onChange={value => this.change('isPublished', value)} />
           </Block>
 
-          {this.state.data.articleType === 'article'
-            ? (
-              <Block>
-                <Checkbox label="Featured:"
-                  checked={this.state.data.isFrequent}
-                  disabled={isUpdating}
-                  onChange={value => this.change('isFrequent', value)} />
-              </Block>
-            )
-            : ''
-          }
-
           {this.state.data.articleType === 'blogpost'
             ? (
               <Block>
@@ -166,7 +154,7 @@ class NewArticleForm extends React.Component {
             <ListInlineItem>
               <LinkButton disabled={isUpdating}
                 color="red"
-                to={`/sections/${params.sectionId}`}>Cancel</LinkButton>
+                to={`/${params.metaSectionUrl}/${params.sectionId}`}>Cancel</LinkButton>
             </ListInlineItem>
           </ListInline>
         </FormFooter>
@@ -190,7 +178,7 @@ export default connect(
 
     return {
       createArticle: (data) => {
-        dispatch(createArticle(data, `/sections/${params.sectionId}`))
+        dispatch(createArticle(data, `/${params.metaSectionUrl}/${params.sectionId}`))
       }
     }
   }

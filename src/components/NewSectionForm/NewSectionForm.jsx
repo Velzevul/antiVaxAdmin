@@ -53,10 +53,10 @@ class NewSectionForm extends React.Component {
   }
 
   render () {
-    const {item: {isUpdating}, parentSection} = this.props
+    const {item: {isUpdating}, parentSection, params} = this.props
 
     let sectionTypes = []
-    if (parentSection.data.sectionType === 'meta') {
+    if (parentSection.data.meta) {
       sectionTypes = [
         {
           id: 'articles',
@@ -101,19 +101,11 @@ class NewSectionForm extends React.Component {
               onChange={value => this.change('title', value)} />
           </Block>
 
-          <Block n={1}>
-            <Input label="url"
-              value={this.state.data.url}
-              error={this.state.errors.url}
-              disabled={isUpdating}
-              onChange={value => this.change('url', value)} />
-          </Block>
-
-          <Select label="Type"
-            value={this.state.data.sectionType}
-            options={sectionTypes}
+          <Input label="url"
+            value={this.state.data.url}
+            error={this.state.errors.url}
             disabled={isUpdating}
-            onChange={value => this.change('sectionType', value)} />
+            onChange={value => this.change('url', value)} />
         </FormBody>
 
         <FormFooter>
@@ -128,7 +120,7 @@ class NewSectionForm extends React.Component {
             <ListInlineItem>
               <LinkButton disabled={isUpdating}
                 color="red"
-                to={`/sections/`}>Cancel</LinkButton>
+                to={`/${params.metaSectionUrl}/`}>Cancel</LinkButton>
             </ListInlineItem>
           </ListInline>
         </FormFooter>
@@ -147,10 +139,12 @@ export default connect(
       parentSection
     }
   },
-  dispatch => {
+  (dispatch, ownProps) => {
+    const {params} = ownProps
+
     return {
       createSection: (data) => {
-        dispatch(createSection(data, `/sections/`))
+        dispatch(createSection(data, `/${params.metaSectionUrl}`))
       }
     }
   }

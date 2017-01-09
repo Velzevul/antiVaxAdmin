@@ -12,8 +12,12 @@ const Nav = () => {
       url: '/questions'
     },
     {
-      label: 'Sections',
-      url: '/sections'
+      label: 'Main Navigation',
+      url: '/main-nav'
+    },
+    {
+      label: 'Other Navigation',
+      url: '/other-nav'
     },
     {
       label: 'Users',

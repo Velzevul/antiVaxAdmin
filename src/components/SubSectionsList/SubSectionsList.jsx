@@ -47,8 +47,8 @@ class SubSectionsList extends React.Component {
 
   render () {
     const {section, subsections, children, location, params} = this.props
-    const isNewSectionRoute = location.pathname === '/sections/new'
-    const isEditSectionRoute = location.pathname === `/sections/${params.sectionId}/edit`
+    const isNewSectionRoute = location.pathname === `/${params.metaSectionUrl}/new`
+    const isEditSectionRoute = location.pathname === `/${params.metaSectionUrl}/${params.sectionId}/edit`
     const disableInteraction = isNewSectionRoute || isEditSectionRoute
 
     return (
@@ -70,7 +70,9 @@ class SubSectionsList extends React.Component {
           } else {
             if (disableInteraction) {
               return (
-                <SectionsListItem key={i}
+                <SectionsListItem
+                  key={i}
+                  params={params}
                   section={subsection}
                   parent={section}
                   disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
@@ -83,7 +85,9 @@ class SubSectionsList extends React.Component {
                   draggingIndex={this.state.draggingIndex}
                   sortId={i}
                   outline="list">
-                  <SectionsListItem section={subsection}
+                  <SectionsListItem
+                    params={params}
+                    section={subsection}
                     parent={section}
                     disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
                 </SortableListItem>

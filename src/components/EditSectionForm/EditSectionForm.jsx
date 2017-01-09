@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import {updateSection, deleteSection} from '../../store/sectionsActions'
 import {Flex, ListInline, ListInlineItem, Block} from '../Layouts'
-import {Button, IconButton, LinkButton, Input, Select} from '../UI'
+import {Button, IconButton, LinkButton, Input} from '../UI'
 import {Form, FormBody, FormHeader, FormFooter} from '../Form'
 
 class EditSectionForm extends React.Component {
@@ -72,7 +72,7 @@ class EditSectionForm extends React.Component {
   }
 
   render () {
-    const {section, parentSection} = this.props
+    const {section, parentSection, params} = this.props
 
     let actions = (
       <ListInline>
@@ -82,7 +82,7 @@ class EditSectionForm extends React.Component {
 
         <ListInlineItem>
           <LinkButton disabled={section.isUpdating}
-            to="/sections">Close</LinkButton>
+            to={`/${params.metaSectionUrl}`}>Close</LinkButton>
         </ListInlineItem>
       </ListInline>
     )
@@ -99,7 +99,7 @@ class EditSectionForm extends React.Component {
           <ListInlineItem>
             <LinkButton disabled={section.isUpdating}
               color="red"
-              to="/sections">Discard Changes</LinkButton>
+              to={`/${params.metaSectionUrl}`}>Discard Changes</LinkButton>
           </ListInlineItem>
         </ListInline>
       )
@@ -130,9 +130,14 @@ class EditSectionForm extends React.Component {
             {actions}
 
             <div>
-              <IconButton type="delete"
-                disabled={section.isUpdating}
-                onClick={this.delete} />
+              {parentSection.data.meta
+                ? ''
+                : (
+                  <IconButton type="delete"
+                    disabled={section.isUpdating}
+                    onClick={this.delete} />
+                )
+              }
             </div>
           </Flex>
         </FormFooter>
@@ -152,8 +157,9 @@ export default connect(
       parentSection
     }
   },
-  dispatch => {
-    const backlink = '/sections'
+  (dispatch, ownProps) => {
+    const {params} = ownProps
+    const backlink = `/${params.metaSectionUrl}`
 
     return {
       deleteSection: (id, children) => {

@@ -107,6 +107,16 @@ export const updateArticle = (
   return (dispatch, getState) => {
     dispatch(requestUpdate(id))
 
+    data = Object.assign({}, data, {
+      comments: data.comments
+        .filter(c => !c.isDeleted)
+        .map(c => {
+          return Object.assign({}, c, {
+            replies: c.replies.filter(r => !r.isDeleted)
+          })
+        })
+    })
+
     fetch(`${ANTIVAX_ADMIN_SERVER_URL}/articles/${id}`, {
       method: 'PUT',
       mode: 'cors',

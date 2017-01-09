@@ -56,8 +56,8 @@ class SectionsList extends React.Component {
   render () {
     const {children, metaSection, sections, location, params} = this.props
 
-    const isNewSectionRoute = location.pathname === '/sections/new'
-    const isEditSectionRoute = location.pathname === `/sections/${params.sectionId}/edit`
+    const isNewSectionRoute = location.pathname === `/${params.metaSectionUrl}/new`
+    const isEditSectionRoute = location.pathname === `/${params.metaSectionUrl}/${params.sectionId}/edit`
     const disableInteraction = isNewSectionRoute || isEditSectionRoute
 
     return (
@@ -73,16 +73,7 @@ class SectionsList extends React.Component {
             </TableColumn>
 
             <TableColumn last
-              width="15">
-              {disableInteraction
-                ? ''
-                : (
-                  <Flex justifyContent="flex-end">
-                    <LinkButton to={`/sections/new?parentId=${metaSection.data._id}`}>add new section</LinkButton>
-                  </Flex>
-                )
-              }
-            </TableColumn>
+              width="15" />
           </TableRow>
 
           {isNewSectionRoute && location.query.parentId === metaSection.data._id
@@ -113,6 +104,7 @@ class SectionsList extends React.Component {
                 return (
                   <div key={i}>
                     <SectionsListItem
+                      params={params}
                       section={section}
                       parent={metaSection}
                       disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
@@ -128,7 +120,9 @@ class SectionsList extends React.Component {
                     draggingIndex={this.state.draggingIndex}
                     sortId={i}
                     outline="list">
-                    <SectionsListItem section={section}
+                    <SectionsListItem
+                      params={params}
+                      section={section}
                       parent={metaSection}
                       disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
 
@@ -146,7 +140,8 @@ class SectionsList extends React.Component {
 
 export default connect(
   (state, ownProps) => {
-    const metaSection = state.sections.items.find(s => s.data.url === 'main-nav' && s.data.sectionType === 'meta')
+    const {params} = ownProps
+    const metaSection = state.sections.items.find(s => s.data.url === params.metaSectionUrl && s.data.meta)
 
     return {
       sections: state.sections.items,

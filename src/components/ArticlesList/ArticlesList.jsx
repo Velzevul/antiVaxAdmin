@@ -5,7 +5,7 @@ import {sortable} from 'react-sortable'
 import {updateSection} from '../../store/sectionsActions'
 import ArticlesListItem from '../ArticlesListItem'
 import {LinkButton} from '../UI'
-import {Flex, ListInline, ListInlineItem} from '../Layouts'
+import {Flex} from '../Layouts'
 import Wrapper from '../Wrapper'
 import Table from '../Table'
 import TableRow from '../TableRow'
@@ -54,22 +54,22 @@ class ArticlesList extends React.Component {
 
   render () {
     const {articles, section, children, params, location} = this.props
-    const isNewArticleRoute = location.pathname === `/sections/${params.sectionId}/articles/new`
-    const isEditArticleRoute = location.pathname === `/sections/${params.sectionId}/articles/${params.articleId}`
+    const isNewArticleRoute = location.pathname === `/${params.metaSectionUrl}/${params.sectionId}/articles/new`
+    const isEditArticleRoute = location.pathname === `/${params.metaSectionUrl}/${params.sectionId}/articles/${params.articleId}`
     const disableInteraction = isNewArticleRoute || isEditArticleRoute
 
     let actions = ''
     if (section.data.sectionType === 'articles') {
       actions = (
         <Flex justifyContent="flex-end">
-          <LinkButton to={`/sections/${params.sectionId}/articles/new`}>add new article</LinkButton>
-          <LinkButton to={`/sections/${params.sectionId}/articles/new?type=heading`}>add new heading</LinkButton>
+          <LinkButton to={`/${params.metaSectionUrl}/${params.sectionId}/articles/new`}>add new article</LinkButton>
+          <LinkButton to={`/${params.metaSectionUrl}/${params.sectionId}/articles/new?type=heading`}>add new heading</LinkButton>
         </Flex>
       )
     } else if (section.data.sectionType === 'blogposts') {
       actions = (
         <Flex justifyContent="flex-end">
-          <LinkButton to={`/sections/${params.sectionId}/articles/new`}>add new blog post</LinkButton>
+          <LinkButton to={`/${params.metaSectionUrl}/${params.sectionId}/articles/new`}>add new blog post</LinkButton>
         </Flex>
       )
     }
@@ -113,6 +113,7 @@ class ArticlesList extends React.Component {
               if (disableInteraction) {
                 return (
                   <ArticlesListItem key={i}
+                    params={params}
                     article={article}
                     section={section}
                     disableInteraction={disableInteraction || this.state.draggingIndex !== null} />
@@ -126,6 +127,7 @@ class ArticlesList extends React.Component {
                     sortId={i}
                     outline="list">
                     <ArticlesListItem key={i}
+                      params={params}
                       article={article}
                       section={section}
                       disableInteraction={disableInteraction || this.state.draggingIndex !== null} />

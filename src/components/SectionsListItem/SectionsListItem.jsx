@@ -10,6 +10,7 @@ import Icon from '../Icon'
 import styles from './SectionsListItem.css'
 
 const SectionsListItem = ({
+  params,
   section,
   parent,
   disableInteraction
@@ -26,7 +27,7 @@ const SectionsListItem = ({
   }
 
   let url = ''
-  if (parent.data.sectionType === 'meta') {
+  if (parent.data.meta) {
     url = `/${section.data.url}`
   } else {
     url = `/${parent.data.url}/${section.data.url}`
@@ -38,9 +39,9 @@ const SectionsListItem = ({
       actions = (
         <div className={styles.SectionsListItem__actions}>
           <Flex justifyContent="flex-end">
-            <LinkButton to={`/sections/new?parentId=${section.data._id}`}>add new sub-section</LinkButton>
+            <LinkButton to={`/${params.metaSectionUrl}/new?parentId=${section.data._id}`}>add new sub-section</LinkButton>
 
-            <LinkButton to={`/sections/${section.data._id}/edit`}>edit</LinkButton>
+            <LinkButton to={`/${params.metaSectionUrl}/${section.data._id}/edit`}>edit</LinkButton>
           </Flex>
         </div>
       )
@@ -48,7 +49,7 @@ const SectionsListItem = ({
       actions = (
         <div className={styles.SectionsListItem__actions}>
           <Flex justifyContent="flex-end">
-            <LinkButton to={`/sections/${section.data._id}/edit`}>edit</LinkButton>
+            <LinkButton to={`/${params.metaSectionUrl}/${section.data._id}/edit`}>edit</LinkButton>
           </Flex>
         </div>
       )
@@ -56,15 +57,15 @@ const SectionsListItem = ({
   }
 
   let sectionLink = ''
-  if (!disableInteraction && section.data.sectionType !== 'parent') {
-    sectionLink = `/sections/${section.data._id}`
+  if (!disableInteraction && section.data.sectionType !== 'parent' && section.data.sectionType !== 'custom') {
+    sectionLink = `/${params.metaSectionUrl}/${section.data._id}`
   }
 
   return (
     <div className={`${styles.SectionsListItem}
       ${disableInteraction ? '' : styles.SectionsListItem_interactive}`}>
       <TableRow interactive={!disableInteraction}
-        indented={parent.data.sectionType !== 'meta'}>
+        indented={!parent.data.meta}>
         <TableColumn>
           <Icon type={icon} />
         </TableColumn>

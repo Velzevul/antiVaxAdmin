@@ -44,7 +44,9 @@ ReactDOM.render((
           <Route path=":userId" component={EditUserForm} />
         </Route>
 
-        <Route path="sections" component={Sections}>
+        <Route path="search-index" component={SearchIndex} />
+
+        <Route path=":metaSectionUrl" component={Sections}>
           <Route component={SectionsList}>
             <IndexRoute component={Dummy} />
 
@@ -57,8 +59,6 @@ ReactDOM.render((
             <Route path="articles/:articleId" component={EditArticleForm} />
           </Route>
         </Route>
-
-        <Route path="search-index" component={SearchIndex} />
       </Route>
     </Router>
   </Provider>

@@ -3,7 +3,7 @@ import Time from 'react-time'
 
 import styles from './Comment.css'
 import {Block, Flex, ListInline, ListInlineItem} from '../Layouts'
-import {Button} from '../UI'
+import LinkButton from '../UI/LinkButton'
 
 const Reply = ({
   item,
@@ -22,21 +22,18 @@ const Reply = ({
         </ListInlineItem>
 
         <ListInlineItem>
-          <Button small
-            inverse
-            theme="accent1"
+          <LinkButton small
             disabled={commentIsDeleted}
-            onClick={() => onDeleteReply(item._id, commentId)}>Put back</Button>
+            onClick={() => onDeleteReply(item._id, commentId)}>Put back</LinkButton>
         </ListInlineItem>
       </ListInline>
     )
   } else {
     actions = (
-      <Button small
-        inverse
-        theme="error"
+      <LinkButton small
+        color="red"
         disabled={commentIsDeleted}
-        onClick={() => onDeleteReply(item._id, commentId)}>Delete</Button>
+        onClick={() => onDeleteReply(item._id, commentId)}>Delete</LinkButton>
     )
   }
 
@@ -87,19 +84,15 @@ const Comment = ({
         </ListInlineItem>
 
         <ListInlineItem>
-          <Button small
-            inverse
-            theme="accent1"
-            onClick={() => onDeleteComment(item._id)}>Put back</Button>
+          <LinkButton onClick={() => onDeleteComment(item._id)}>Put back</LinkButton>
         </ListInlineItem>
       </ListInline>
     )
   } else {
     actions = (
-      <Button small
-        inverse
-        theme="error"
-        onClick={() => onDeleteComment(item._id)}>Delete</Button>
+      <LinkButton
+        color="red"
+        onClick={() => onDeleteComment(item._id)}>Delete</LinkButton>
     )
   }
 
