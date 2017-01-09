@@ -1,1 +1,1 @@
-export ANTIVAX_ADMIN_SERVER_URL="https://vdziubak.com/vaccineAnswersServer"
+export VACCINEANSWERS_ADMIN_SERVER_URL="https://vdziubak.com/vaccineAnswersServer"
