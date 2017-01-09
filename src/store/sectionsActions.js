@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import {hashHistory} from 'react-router'
+import {browserHistory} from 'react-router'
 
 export const REQUEST_SECTIONS = 'REQUEST_SECTIONS'
 export const RECEIVE_SECTIONS = 'RECEIVE_SECTIONS'
@@ -131,7 +131,7 @@ export const updateSection = (
           dispatch(receiveUpdate(id, json.data.section))
           dispatch(flashMessage('Section was successfully updated', 'log'))
           if (backlink) {
-            hashHistory.push(backlink)
+            browserHistory.push(backlink)
           }
         } else if (json.data.name === 'ValidationError') {
           let payload = {}
@@ -208,7 +208,7 @@ export const createSection = (
           dispatch(receiveUpdate(json.data.parent._id, json.data.parent))
           dispatch(flashMessage('Section created successfully', 'log'))
           if (backlink) {
-            hashHistory.push(backlink)
+            browserHistory.push(backlink)
           }
         } else if (json.data.name === 'ValidationError') {
           // TODO: test validation errors
@@ -285,7 +285,7 @@ export const deleteSection = (
         if (json.success) {
           dispatch(receiveUpdate(json.data.parent._id, json.data.parent))
           if (backlink) {
-            hashHistory.push(backlink)
+            browserHistory.push(backlink)
           }
           dispatch(confirmDelete(id))
           children.map(c => confirmDelete(c))

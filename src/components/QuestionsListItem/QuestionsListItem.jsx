@@ -1,5 +1,5 @@
 import React from 'react'
-import {hashHistory} from 'react-router'
+import {browserHistory} from 'react-router'
 import Time from 'react-time'
 
 import TableRow from '../TableRow'

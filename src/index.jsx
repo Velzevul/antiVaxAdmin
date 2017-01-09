@@ -2,7 +2,7 @@ import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import {Router, Route, IndexRedirect, IndexRoute, hashHistory} from 'react-router'
+import {Router, Route, IndexRedirect, IndexRoute, browserHistory} from 'react-router'
 
 import App from './components/App'
 import QuestionsList from './components/QuestionsList'
@@ -31,7 +31,7 @@ const Dummy = () => <div />
 
 ReactDOM.render((
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRedirect to="questions" />
 

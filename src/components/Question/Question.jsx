@@ -1,7 +1,7 @@
 import React from 'react'
 import Time from 'react-time'
 import {connect} from 'react-redux'
-import {hashHistory} from 'react-router'
+import {browserHistory} from 'react-router'
 
 import {updateQuestion, deleteQuestion} from '../../store/questionsActions'
 import {Flex, Block, ListInline, ListInlineItem} from '../Layouts'

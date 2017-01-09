@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import {hashHistory} from 'react-router'
+import {browserHistory} from 'react-router'
 
 import {CONFIRM_UPDATE_SECTION} from './sectionsActions'
 
@@ -143,7 +143,7 @@ export const updateArticle = (
           dispatch(receiveUpdate(id, json.data.article))
           dispatch(flashMessage('Article has been saved', 'log'))
           if (backlink) {
-            hashHistory.push(backlink)
+            browserHistory.push(backlink)
           }
         } else if (json.data.name === 'ValidationError') {
           let payload = {}
@@ -224,7 +224,7 @@ export const createArticle = (
           })
           dispatch(flashMessage('Article created successfully', 'log'))
           if (backlink) {
-            hashHistory.push(backlink)
+            browserHistory.push(backlink)
           }
         } else if (json.data.name === 'ValidationError') {
           let payload = {}
@@ -303,7 +303,7 @@ export const deleteArticle = (
             item: json.data.parent
           })
           if (backlink) {
-            hashHistory.push(backlink)
+            browserHistory.push(backlink)
           }
           dispatch(confirmDelete(id))
           dispatch(flashMessage('Article was deleted', 'log'))
